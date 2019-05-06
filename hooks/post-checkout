@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+rootDir=$(git rev-parse --show-toplevel)
+
+(cd ${rootDir} && exec sql-migrate down && exec sql-migrate up)

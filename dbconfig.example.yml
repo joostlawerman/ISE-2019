@@ -1,0 +1,4 @@
+development:
+   dialect: mssql
+   datasource: odbc:server=localhost;database=ISE;user id=sql-migrateUser;password=M1grate;encrypt=true;TrustServerCertificate=true;Connection Timeout=30
+   dir: migrations
