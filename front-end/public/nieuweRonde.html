@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nieuwe Ronde maken</title>
+</head>
+<body>
+<aside>
+    <ul>
+        <li>
+            <a href="/index.html">
+                <button>Cree&euml;r toernooi</button>
+            </a>
+        </li>
+        <li>
+            <select name="asideToernooi" id="asideToernooi">
+                <option value="1">1ste schaaktoernooi</option>
+                <option value="2">2de schaaktoernooi</option>
+            </select>
+        </li>
+        <li>
+            <a href="/toernooiInfo.html">
+                <button>Toernooi Info</button>
+            </a>
+        </li>
+        <li>
+            <a href="/toernooiSpelerToevoegen.html">
+                <button>Voeg spelers toe</button>
+            </a>
+        </li>
+        <li>
+            <a href="/manageRondes.html">
+                <button>Manage rondes</button>
+            </a>
+        </li>
+    </ul>
+</aside>
+<main>
+    <table>
+        <tr>
+            <td>
+                Ronde Type Selecteren <select>
+                <option value="roundRobin">Round Robin</option>
+                <option value="bracket">Bracket</option>
+            </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Poule grootte</td>
+        </tr>
+        <tr>
+            <td><input type="number"></td>
+        </tr>
+        <tr>
+            <td>Ronde gebaseerd op:</td>
+        </tr>
+        <tr>
+            <td><label><input type="radio"> Op vereniging</label><br />
+                <label><input type="radio"> Op punten van <select>
+                    <option>-- Kies een ronde --</option>
+                    <option value="ronde1">Ronde 1</option>
+                    <option value="ronde2">Ronde 2</option>
+                </select>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>Maak ronde</td>
+        </tr>
+    </table>
+</main>
+</body>
+</html>
