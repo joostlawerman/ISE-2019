@@ -1,6 +1,7 @@
 -- +migrate Up
 EXEC tSQLt.NewTestClass 'testIR9';
 GO
+;
 
 --+migrate Up
 CREATE or ALTER PROCEDURE [testIR9].[test_registrationfee_greater_than_zero]
@@ -20,6 +21,7 @@ BEGIN
 	values(null,null,null,null,null,null,1.00,null,null,null,null);
 END
 GO
+;
 
 --+migrate Up
 CREATE or ALTER PROCEDURE [testIR9].[test_registrationfee_equal_to_zero]
@@ -39,6 +41,7 @@ BEGIN
 	values(null,null,null,null,null,null,0.00,null,null,null,null);
 END
 GO
+;
 
 --+migrate Up
 CREATE or ALTER PROCEDURE [testIR9].[test_registrationfee_lower_than_zero]
@@ -58,5 +61,4 @@ BEGIN
 	values(null,null,null,null,null,null,-1.00,null,null,null,null);
 END
 GO
-
-EXEC [tSQLt].[RunAll]
+;
