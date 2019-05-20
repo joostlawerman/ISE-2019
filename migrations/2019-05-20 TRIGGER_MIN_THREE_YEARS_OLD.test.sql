@@ -4,10 +4,6 @@ EXEC tSQLt.NewTestClass 'IR5';
 -- +migrate Down
 EXEC tSQLt.DropClass 'IR5';
 
---
---test 1
---
-
 -- +migrate Up
 CREATE OR ALTER PROCEDURE [IR5].[test participant is 1 year old]
 AS
@@ -27,10 +23,6 @@ BEGIN
 	INSERT INTO TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid) VALUES ('CC1', 'tourny1', 1)
 END;
 
---
---test 2
---
-
 -- +migrate Up
 CREATE OR ALTER PROCEDURE [IR5].[test participant is 5 years old]
 AS
@@ -49,10 +41,6 @@ BEGIN
 	--Act
 	INSERT INTO TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid) VALUES ('CC1', 'tourny1', 1)
 END;
-
---
---test 3
---
 
 -- +migrate Up
 CREATE OR ALTER PROCEDURE [IR5].[test participant is 3 years old]
