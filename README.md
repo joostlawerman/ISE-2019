@@ -21,6 +21,19 @@ Hierna moet er een nieuwe [pull request][pr] worden aangemaakt.
 
 Switch na dat gedaan te hebben weer naar de develop branch door middel van `git checkout develop`
 
+## SQL migrate
+### Nieuwe up migratie toevoegen
+Plak `-- +migrate Up` voor elke SQL statement die uitgevoerd moet worden.
+
+### Nieuwe down migratie toevoegen
+Plak `-- +migrate Up` voor elke SQL statement die uitgevoerd moet worden.
+Aan te raden om voor elke `CREATE` ook een down migratie te maken. Deze moet er voor zorgen dat de uigevoerde `CREATE` 
+ongedaan wordt gemaakt.
+
+### Migratie uitvoeren
+In principe zorgt de post-checkout en post-merge hook ervoor dat de migraties worden uitgevoerd. 
+Mocht dit op enig moment fout gaan, voer dan `sql-migrate down && sql-migrate up` uit. Als hier een error uit komt 
+rollen is de migratie niet goed, en is dit dus een bug
 
 
 [repo]: (https://github.com/joostlawerman/ISE-2019)
