@@ -3,6 +3,11 @@ EXEC tSQLt.NewTestClass 'testIR9';
 GO
 ;
 
+-- +migrate Down
+EXEC tSQLt.DropClass 'testIR9';
+GO
+;
+
 --+migrate Up
 CREATE or ALTER PROCEDURE [testIR9].[test_registrationfee_greater_than_zero]
 AS
