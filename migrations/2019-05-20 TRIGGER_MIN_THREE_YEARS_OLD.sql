@@ -1,8 +1,14 @@
--- +migrate up
+-- +migrate Up
 CREATE OR ALTER TRIGGER TRIGGER_MIN_THREE_YEARS_OLD
 ON TOURNAMENT_PLAYER
 AFTER INSERT, UPDATE
 AS
+
+IF @@ROWCOUNT = 0
+	RETURN
+        
+SET NOCOUNT ON
+
 BEGIN TRY
 	IF NOT EXISTS(SELECT 1 FROM inserted i WHERE (
 			 (SELECT p.birthdate FROM PLAYER p WHERE p.playerid = i.playerid) 
@@ -14,5 +20,5 @@ BEGIN CATCH
 	THROW
 END CATCH;
 
--- +migrate down
+-- +migrate Down
 DROP TRIGGER TRIGGER_MIN_THREE_YEARS_OLD;
