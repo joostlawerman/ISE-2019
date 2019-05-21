@@ -73,5 +73,3 @@ BEGIN
 	EXEC tSQLt.AssertNotEquals @expected2, @actual2
 	EXEC tSQLt.AssertNotEquals @expected3, @actual3
 END;
-
-exec tSQLt.run IR12
