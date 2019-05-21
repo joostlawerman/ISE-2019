@@ -12,7 +12,7 @@ BEGIN
    	EXEC tSQLt.FakeTable 'dbo', 'ROLE'
    	EXEC tSQLt.ApplyTrigger @TableName = 'ROLE', @TriggerName = 'TRIGGER_PLAYER_WITH_ROLE_IS_MEMBER_OF_CHESSCLUB'
  
-   	EXEC tSQLt.FakeTable 'dbo', 'PLAYER';  	
+   	EXEC tSQLt.FakeTable 'dbo', 'PLAYER'  	
    	INSERT INTO PLAYER 
    	VALUES(1, 'Schaakvereniging Horst', null, null, null, null, null, null, null, null),
           (2, 'Schaakvereniging Deventer', null, null, null, null, null, null, null, null)

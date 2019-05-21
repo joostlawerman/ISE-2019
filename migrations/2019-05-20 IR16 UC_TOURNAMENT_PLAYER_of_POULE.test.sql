@@ -7,7 +7,7 @@ EXEC tSQLt.DropClass 'ir13'
 ;
 
 -- +migrate Up 
-CREATE OR ALTER PROCEDURE ir13.test_tournament_of_player_poule_does_not_collide AS
+CREATE PROCEDURE ir13.test_tournament_of_player_poule_does_not_collide AS
     BEGIN
         EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_PLAYER_OF_POULE'
         EXEC tSQLt.ApplyConstraint @SchemaName = 'dbo', @Tablename = 'TOURNAMENT_PLAYER_OF_POULE',
@@ -36,7 +36,7 @@ CREATE OR ALTER PROCEDURE ir13.test_tournament_of_player_poule_does_not_collide 
 ;
 
 -- +migrate Up 
-CREATE OR ALTER PROCEDURE ir13.test_tournament_of_player_poule_does_not_collides AS
+CREATE PROCEDURE ir13.test_tournament_of_player_poule_does_not_collides AS
     BEGIN
         EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_PLAYER_OF_POULE'
         EXEC tSQLt.ApplyConstraint @SchemaName = 'dbo', @Tablename = 'TOURNAMENT_PLAYER_OF_POULE',
