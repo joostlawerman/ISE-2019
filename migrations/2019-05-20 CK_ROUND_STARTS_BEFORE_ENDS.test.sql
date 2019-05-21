@@ -5,7 +5,7 @@ EXEC tSQLt.NewTestClass 'IR13';
 EXEC tSQLt.DropClass 'IR13';
 
 -- +migrate Up
-CREATE OR ALTER PROCEDURE [IR13].[test start is before end]
+CREATE PROCEDURE [IR13].[test start is before end]
 AS
 BEGIN
 	--Assemble
@@ -19,7 +19,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE OR ALTER PROCEDURE [IR13].[test start is after end]
+CREATE PROCEDURE [IR13].[test start is after end]
 AS
 BEGIN
 	--Assemble
@@ -33,7 +33,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE OR ALTER PROCEDURE [IR13].[test start is same time end]
+CREATE PROCEDURE [IR13].[test start is same time end]
 AS
 BEGIN
 	--Assemble
