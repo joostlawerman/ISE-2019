@@ -66,5 +66,3 @@ BEGIN
 END
 ;
 
-exec tsqlt.run 'IR11'
-
