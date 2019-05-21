@@ -65,5 +65,3 @@ BEGIN
 	values('test','testen',null,null,null, '2019-05-21 10:20:00')
 END
 ;
-
-exec tsqlt.run 'IR11'
