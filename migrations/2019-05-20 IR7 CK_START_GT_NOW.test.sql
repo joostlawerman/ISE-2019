@@ -1,10 +1,8 @@
 -- +migrate Up 
-EXEC tSQLt.NewTestClass 'ir7'
-;
+EXEC tSQLt.NewTestClass 'ir7';
 
 -- +migrate Down
-EXEC tSQLt.DropClass 'ir7'
-;
+EXEC tSQLt.DropClass 'ir7';
 
 -- +migrate Up 
 CREATE PROCEDURE ir7.test_date_is_greater_than_now AS
