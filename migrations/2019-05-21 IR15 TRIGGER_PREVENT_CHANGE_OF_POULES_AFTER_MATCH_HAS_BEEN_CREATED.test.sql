@@ -21,11 +21,27 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in that poule has started]
+CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in that poule is finished]
 AS
 BEGIN
    	INSERT INTO CHESSMATCH 
    	VALUES(null, null, null, null, 2, null, null, 'remise')
+
+   	--Assert
+   	EXEC tSQLt.ExpectException @ExpectedMessage= 'A poule can not be changed when a match in that poule has started'
+  
+   	--Act
+   	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
+   	VALUES (null, null, null, null, 1),
+           (null, null, null, null, 2) 
+END;
+
+-- +migrate Up
+CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in that poule is started]
+AS
+BEGIN
+   	INSERT INTO CHESSMATCH 
+   	VALUES(null, null, null, null, 2, null, null, null)
 
    	--Assert
    	EXEC tSQLt.ExpectException @ExpectedMessage= 'A poule can not be changed when a match in that poule has started'
