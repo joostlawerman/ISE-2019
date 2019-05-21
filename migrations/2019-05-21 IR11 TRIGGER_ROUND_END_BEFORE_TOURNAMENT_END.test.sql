@@ -65,3 +65,44 @@ BEGIN
 	values('test','testen',null,null,null, '2019-05-21 10:20:00')
 END
 ;
+
+-- +migrate Up
+CREATE PROCEDURE [IR11].[test_tournament_end_is_null]
+AS
+BEGIN
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'
+	EXEC [tSQLt].[ApplyTrigger] @tablename = 'dbo.TOURNAMENT_ROUND', @triggername = 'TRIGGER_ROUND_END_BEFORE_TOURNAMENT_END'
+
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
+	insert into 
+	TOURNAMENT(chessclubname,tournamentname,winner,contactname,starts,ends,registrationfee,addressline1,postalcode,city,registrationdeadline)
+	values('test','testen',null,null,null,null,NULL,null,null,null,null)
+
+	EXEC tSQLt.ExpectNoException 
+
+	insert into 
+	TOURNAMENT_ROUND(chessclubname,tournamentname,roundnumber,system,starts,ends)
+	values('test','testen',null,null,null, '2012-05-21 10:20:00')
+END
+;
+
+-- +migrate Up
+CREATE PROCEDURE [IR11].[test_tournament_round_end_is_null]
+AS
+BEGIN
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'
+	EXEC [tSQLt].[ApplyTrigger] @tablename = 'dbo.TOURNAMENT_ROUND', @triggername = 'TRIGGER_ROUND_END_BEFORE_TOURNAMENT_END'
+
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
+	insert into 
+	TOURNAMENT(chessclubname,tournamentname,winner,contactname,starts,ends,registrationfee,addressline1,postalcode,city,registrationdeadline)
+	values('test','testen',null,null,null,'2019-05-21 10:00:00',NULL,null,null,null,null)
+
+	EXEC tSQLt.ExpectNoException 
+
+	insert into 
+	TOURNAMENT_ROUND(chessclubname,tournamentname,roundnumber,system,starts,ends)
+	values('test','testen',null,null,null, null)
+END
+;
+
