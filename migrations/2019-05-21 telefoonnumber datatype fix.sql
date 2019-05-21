@@ -1,0 +1,3 @@
+-- +migrate Up
+ALTER TABLE CONTACTPERSON
+    ALTER COLUMN phonenumber VARCHAR(10);
