@@ -18,7 +18,7 @@ CREATE TRIGGER TRIGGER_ROUND_END_BEFORE_TOURNAMENT_END
 														    and t.chessclubname = i.chessclubname)
 
 					IF(@tournamentEnd is null)
-					RETURN
+						RETURN
 
 					IF((select ends from inserted) > (@tournamentEnd))
 						THROW 50001, 'A tournament round must end before the end of the tournament.',1
