@@ -16,7 +16,6 @@ CREATE TRIGGER TRIGGER_ROUND_END_BEFORE_TOURNAMENT_END
 														   on t.tournamentname = i.tournamentname 
 														   and t.chessclubname = i.chessclubname))
 						THROW 50001, 'A tournament round must end before the end of the tournament.',1
-
 				END			
 			END TRY
             BEGIN CATCH
