@@ -5,7 +5,7 @@ EXEC tSQLt.NewTestClass 'IR5';
 EXEC tSQLt.DropClass 'IR5';
 
 -- +migrate Up
-CREATE OR ALTER PROCEDURE [IR5].[test participant is 1 year old]
+CREATE PROCEDURE [IR5].[test participant is 1 year old]
 AS
 BEGIN
 	--Assemble
@@ -24,7 +24,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE OR ALTER PROCEDURE [IR5].[test participant is 5 years old]
+CREATE PROCEDURE [IR5].[test participant is 5 years old]
 AS
 BEGIN
 	--Assemble
@@ -43,7 +43,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE OR ALTER PROCEDURE [IR5].[test participant is 3 years old]
+CREATE PROCEDURE [IR5].[test participant is 3 years old]
 AS
 BEGIN
 	--Assemble
