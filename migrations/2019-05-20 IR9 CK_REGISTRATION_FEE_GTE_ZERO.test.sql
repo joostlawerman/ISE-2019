@@ -6,7 +6,7 @@ EXEC tSQLt.NewTestClass 'IR9'
 EXEC tSQLt.DropClass 'IR9'
 ;
 
---+migrate Up
+-- +migrate Up
 CREATE PROCEDURE [IR9].[test_registrationfee_greater_than_zero]
 AS
 BEGIN
@@ -22,7 +22,7 @@ BEGIN
 END
 ;
 
---+migrate Up
+-- +migrate Up
 CREATE PROCEDURE [IR9].[test_registrationfee_equal_to_zero]
 AS
 BEGIN
@@ -39,7 +39,7 @@ BEGIN
 END
 ;
 
---+migrate Up
+-- +migrate Up
 CREATE PROCEDURE [IR9].[test_registrationfee_lower_than_zero]
 AS
 BEGIN
@@ -55,3 +55,5 @@ BEGIN
 	values(null,null,null,null,null,null,-1.00,null,null,null,null)
 END
 ;
+
+
