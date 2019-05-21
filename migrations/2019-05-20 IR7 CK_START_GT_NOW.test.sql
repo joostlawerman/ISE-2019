@@ -7,7 +7,7 @@ EXEC tSQLt.DropClass 'ir7'
 ;
 
 -- +migrate Up 
-CREATE OR ALTER PROCEDURE ir7.test_date_is_greater_than_now AS
+CREATE PROCEDURE ir7.test_date_is_greater_than_now AS
     BEGIN
         EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
         EXEC tSQLt.ApplyConstraint @SchemaName = 'dbo', @Tablename = 'TOURNAMENT',
@@ -44,7 +44,7 @@ CREATE OR ALTER PROCEDURE ir7.test_date_is_greater_than_now AS
 ;
 
 -- +migrate Up 
-CREATE OR ALTER PROCEDURE [ir7].test_date_is_before_now AS
+CREATE PROCEDURE [ir7].test_date_is_before_now AS
     BEGIN
         EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
         EXEC tSQLt.ApplyConstraint @SchemaName = 'dbo', @Tablename = 'TOURNAMENT',
