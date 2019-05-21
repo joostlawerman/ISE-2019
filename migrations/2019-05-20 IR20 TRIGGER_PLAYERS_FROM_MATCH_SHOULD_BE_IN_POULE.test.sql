@@ -5,7 +5,7 @@ EXEC tSQLt.NewTestClass 'ir20';
 EXEC tSQLt.DropClass 'ir20';
 
 -- +migrate Up
-CREATE OR ALTER PROCEDURE [ir20].[test_player_of_chess_match_is_in_poule]
+CREATE PROCEDURE [ir20].[test_player_of_chess_match_is_in_poule]
 AS
 BEGIN
 	--Assemble
@@ -50,7 +50,7 @@ END
 ;
 
 -- +migrate Up
-CREATE OR ALTER PROCEDURE [ir20].[test_player_of_chess_match_is_not_in_poule]
+CREATE PROCEDURE [ir20].[test_player_of_chess_match_is_not_in_poule]
 AS
 BEGIN
 	--Assemble
@@ -95,7 +95,7 @@ END
 ;
 
 -- +migrate Up
-CREATE OR ALTER PROCEDURE [ir20].[test_player_is_within_chessmatch]
+CREATE PROCEDURE [ir20].[test_player_is_within_chessmatch]
 AS
 BEGIN
 	--Assemble
@@ -135,7 +135,9 @@ BEGIN
         'Arnhemse Schaak Club', 'In het Gemaal', 1, 10, 200
     )
 
-    EXEC tSQLt.ExpectException @ExpectedMessage = 'Player is already in a match within its current poule.', @ExpectedSeverity = 16, @ExpectedErrorNumber = 50005
+
+    
+    EXEC tSQLt.ExpectException @ExpectedMessage = 'You cannnot change the poule of a player when the player is already in a match within it''s current poule.', @ExpectedSeverity = 16, @ExpectedErrorNumber = 50005
 
     UPDATE TOURNAMENT_PLAYER_OF_POULE
         SET pouleno = 8
@@ -149,7 +151,7 @@ END
 
 
 -- +migrate Up
-CREATE OR ALTER PROCEDURE [ir20].[test_player_has_no_chessmatch]
+CREATE PROCEDURE [ir20].[test_player_has_no_chessmatch]
 AS
 BEGIN
 	--Assemble

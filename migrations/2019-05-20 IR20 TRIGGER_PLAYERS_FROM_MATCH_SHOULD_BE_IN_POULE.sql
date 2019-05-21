@@ -1,5 +1,5 @@
 -- +migrate Up 
-CREATE OR ALTER TRIGGER TRIGGER_CHESSMATCH_PLAYERS_FROM_MATCH_SHOULD_BE_IN_POULE
+CREATE TRIGGER TRIGGER_CHESSMATCH_PLAYERS_FROM_MATCH_SHOULD_BE_IN_POULE
     ON CHESSMATCH
     AFTER INSERT, UPDATE
 AS
@@ -46,7 +46,7 @@ DROP TRIGGER TRIGGER_CHESSMATCH_PLAYERS_FROM_MATCH_SHOULD_BE_IN_POULE
 ;
 
 -- +migrate Up 
-CREATE OR ALTER TRIGGER TRIGGER_PLAYER_TOURNAMENT_OF_POULE_PLAYERS_FROM_MATCH_SHOULD_BE_IN_POULE
+CREATE TRIGGER TRIGGER_PLAYER_TOURNAMENT_OF_POULE_PLAYERS_FROM_MATCH_SHOULD_BE_IN_POULE
     ON TOURNAMENT_PLAYER_OF_POULE
     AFTER INSERT, UPDATE
 AS
@@ -59,14 +59,14 @@ AS
         BEGIN TRY
             IF EXISTS(
                 SELECT 1
-                FROM CHESSMATCH cm
+                FROM Inserted i
                 WHERE EXISTS (
                     SELECT 1
-                    FROM Inserted i
+                    FROM CHESSMATCH cm
                     WHERE cm.chessclubname = i.chessclubname
                         AND cm.tournamentname = i.tournamentname
                         AND cm.roundnumber = i.roundnumber
-                        AND cm.pouleno = i.pouleno
+                        AND cm.pouleno <> i.pouleno
                         AND (
                             cm.playeridwhite = i.playerid
                             OR cm.playeridblack = i.playerid
@@ -74,7 +74,7 @@ AS
                 )
             )
                 BEGIN
-                    THROW 50005, 'Player is already in a match within its current poule.', 1
+                    THROW 50005, 'You cannnot change the poule of a player when the player is already in a match within it''s current poule.', 1
                 END
         END TRY
         BEGIN CATCH
