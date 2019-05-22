@@ -9,7 +9,7 @@ CREATE PROCEDURE [SP5].[test insert iets]
 AS
 BEGIN
 	--Assemble
-	EXEC tSQLt.FakeTable 'dbo', 'PLAYER';
+	EXEC tSQLt.FakeTable 'dbo', 'PLAYER'
 
 	--Act
 	EXEC SP_CREATE_PLAYER 1, 'CC1', 'bla', 'blah', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22', 'bla@bla.com', 'M'
@@ -30,5 +30,5 @@ BEGIN
 
 	INSERT INTO expected VALUES (1, 'CC1', 'bla', 'blah', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22', 'bla@bla.com', 'M')
 
-	EXEC tSQLt.AssertEqualsTable 'expected', 'PLAYER';
+	EXEC tSQLt.AssertEqualsTable 'expected', 'PLAYER'
 END;
