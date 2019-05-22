@@ -9,7 +9,7 @@ CREATE PROCEDURE [SP1].[test insert iets]
 AS
 BEGIN
 	--Assemble
-	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT';
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
 
 	--Act
 	EXEC SP_CREATE_TOURNAMENT 'CC1', 'tourny1', 1, 'gekkenaam', '2019-05-22', '2019-05-23', '10', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22'
@@ -31,5 +31,5 @@ BEGIN
 
 	INSERT INTO expected VALUES ('CC1', 'tourny1', 1, 'gekkenaam', '2019-05-22', '2019-05-23', 10, 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22')
 
-	EXEC tSQLt.AssertEqualsTable 'expected', 'TOURNAMENT';
+	EXEC tSQLt.AssertEqualsTable 'expected', 'TOURNAMENT'
 END;
