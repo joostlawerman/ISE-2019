@@ -9,7 +9,7 @@ CREATE PROCEDURE [SP3].[test select iets]
 AS
 BEGIN
 	--Assemble
-	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT';
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
 
 	INSERT INTO TOURNAMENT VALUES ('CC1', 'tourny1', 1, 'gekkenaam', '2019-05-22', '2019-05-23', 10, 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22')
 
@@ -31,5 +31,5 @@ BEGIN
 	INSERT INTO actual EXEC GET_TOURNAMENT_INFO 'tourny1', 'CC1'
 
 	--Assert
-	EXEC tSQLt.AssertEqualsTable 'TOURNAMENT', 'actual';
+	EXEC tSQLt.AssertEqualsTable 'TOURNAMENT', 'actual'
 END;
