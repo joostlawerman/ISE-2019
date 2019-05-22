@@ -5,16 +5,10 @@ EXEC tSQLt.NewTestClass 'ir3';
 EXEC tSQLt.DropClass 'ir3';
 
 -- +migrate Up
-CREATE PROCEDURE ir3.test_postal_is_correct AS
+CREATE PROCEDURE ir3.test_tournament_postal_is_correct AS
     BEGIN
         EXEC tSQLt.FakeTable 'dbo.TOURNAMENT'
         EXEC tSQLt.ApplyConstraint @Tablename = 'dbo.TOURNAMENT', @ConstraintName = 'CK_TOURNAMENT_POSTCODE_VALID'
-
-        EXEC tSQLt.FakeTable 'dbo.CHESSCLUB'
-        EXEC tSQLt.ApplyConstraint @Tablename = 'dbo.CHESSCLUB', @ConstraintName = 'CK_CHESSCLUB_POSTCODE_VALID'
-
-        EXEC tSQLt.FakeTable 'dbo.PLAYER'
-        EXEC tSQLt.ApplyConstraint @Tablename = 'dbo.PLAYER', @ConstraintName = 'CK_PLAYER_POSTCODE_VALID'
 
         EXEC tSQLt.ExpectNoException
 
@@ -24,6 +18,16 @@ CREATE PROCEDURE ir3.test_postal_is_correct AS
             ('3420SN'),
             ('8320CF'),
             ('1000AS')
+    END;
+
+
+-- +migrate Up
+CREATE PROCEDURE ir3.test_chessclub_postal_is_correct AS
+    BEGIN
+        EXEC tSQLt.FakeTable 'dbo.CHESSCLUB'
+        EXEC tSQLt.ApplyConstraint @Tablename = 'dbo.CHESSCLUB', @ConstraintName = 'CK_CHESSCLUB_POSTCODE_VALID'
+
+        EXEC tSQLt.ExpectNoException
 
         INSERT INTO CHESSCLUB (postalcode) VALUES 
             ('7420CN'),
@@ -31,6 +35,15 @@ CREATE PROCEDURE ir3.test_postal_is_correct AS
             ('3420SN'),
             ('8320CF'),
             ('1000AS')
+    END;
+
+-- +migrate Up
+CREATE PROCEDURE ir3.test_player_postal_is_correct AS
+    BEGIN
+        EXEC tSQLt.FakeTable 'dbo.PLAYER'
+        EXEC tSQLt.ApplyConstraint @Tablename = 'dbo.PLAYER', @ConstraintName = 'CK_PLAYER_POSTCODE_VALID'
+
+        EXEC tSQLt.ExpectNoException
 
         INSERT INTO PLAYER (postalcode) VALUES 
             ('7420CN'),
