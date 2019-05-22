@@ -1,11 +1,11 @@
 -- +migrate Up
-EXEC tSQLt.NewTestClass 'IR22';
+EXEC tSQLt.NewTestClass 'IR21';
 
 -- +migrate Down
-EXEC tSQLt.DropClass 'IR22';
+EXEC tSQLt.DropClass 'IR21';
 
 -- +migrate Up 
-CREATE PROCEDURE IR22.SetUp
+CREATE PROCEDURE IR21.SetUp
 AS
 BEGIN
    	--Arrange
@@ -14,7 +14,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR22].[Test if gender is A]
+CREATE PROCEDURE [IR21].[Test if gender is A]
 AS
 BEGIN
 	--Assemble
@@ -26,7 +26,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR22].[Test if gender is M]
+CREATE PROCEDURE [IR21].[Test if gender is M]
 AS
 BEGIN
 	--Assemble
@@ -38,7 +38,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR22].[Test if gender is V]
+CREATE PROCEDURE [IR21].[Test if gender is V]
 AS
 BEGIN
 	--Assemble
@@ -50,7 +50,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR22].[Test if gender is O]
+CREATE PROCEDURE [IR21].[Test if gender is O]
 AS
 BEGIN
 	--Assemble
