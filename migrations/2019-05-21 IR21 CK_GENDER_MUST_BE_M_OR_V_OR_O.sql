@@ -1,0 +1,7 @@
+-- +migrate Up
+ALTER TABLE PLAYER
+ADD CONSTRAINT CK_GENDER_MUST_BE_M_OR_V_OR_O CHECK (gender = 'M' OR gender = 'V' OR gender = 'O');
+
+-- +migrate Down
+ALTER TABLE PLAYER
+DROP CONSTRAINT CK_GENDER_MUST_BE_M_OR_V_OR_O;
