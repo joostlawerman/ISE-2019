@@ -20,7 +20,6 @@ CREATE PROCEDURE ir3.test_tournament_postal_is_correct AS
             ('1000AS')
     END;
 
-
 -- +migrate Up
 CREATE PROCEDURE ir3.test_chessclub_postal_is_correct AS
     BEGIN
