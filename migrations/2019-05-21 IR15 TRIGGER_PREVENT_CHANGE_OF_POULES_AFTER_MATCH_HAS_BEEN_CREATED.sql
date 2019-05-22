@@ -12,7 +12,7 @@ BEGIN TRY
 						FROM Inserted i INNER JOIN TOURNAMENT_PLAYER_OF_POULE t ON i.pouleno = t.pouleno
 						WHERE EXISTS(
 									SELECT 1
-									FROM POULE p INNER JOIN CHESSMATCH c ON p.pouleno = c.pouleno
+									FROM POULE p INNER JOIN CHESSMATCH_OF_POULE c ON p.pouleno = c.pouleno
 									WHERE p.pouleno = t.pouleno OR c.result IS NULL))
 
       		BEGIN

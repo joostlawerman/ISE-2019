@@ -1,5 +1,5 @@
 -- +migrate Up
-EXEC tSQLt.NewTestClass 'IR20'
+EXEC tSQLt.NewTestClass 'IR20';
 
 -- +migrate Down
 EXEC tSQLt.DropClass 'IR20';

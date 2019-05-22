@@ -2,37 +2,36 @@
 CREATE TRIGGER TRIGGER_ROUND_END_BEFORE_TOURNAMENT_END
     ON TOURNAMENT_ROUND
     AFTER INSERT, UPDATE
-    AS
+AS
     BEGIN
         BEGIN
-          IF @@ROWCOUNT = 0
-        RETURN
+            IF @@ROWCOUNT = 0
+                RETURN
             BEGIN TRY
-				IF ((SELECT ends from inserted) is not null)
-				BEGIN
+            IF ((
+                    SELECT ends
+                    FROM inserted) IS NOT NULL)
+                BEGIN
+                    DECLARE @tournamentEnd DATETIME = (
+                        SELECT t.ends
+                        FROM TOURNAMENT t INNER JOIN inserted i
+                                ON t.tournamentname = i.tournamentname
+                                   AND t.chessclubname = i.chessclubname)
+                    IF (@tournamentEnd IS NULL)
+                        RETURN
+                    IF ((
+                            SELECT ends
+                            FROM inserted) > (@tournamentEnd))
+                        THROW 50001, 'A tournament round must end before the end of the tournament.', 1
 
-
-					DECLARE @tournamentEnd datetime = (select t.ends
-													   from TOURNAMENT t inner join inserted i 
-														    on t.tournamentname = i.tournamentname 
-														    and t.chessclubname = i.chessclubname)
-
-					IF(@tournamentEnd is null)
-						RETURN
-
-					IF((select ends from inserted) > (@tournamentEnd))
-						THROW 50001, 'A tournament round must end before the end of the tournament.',1
-
-				END			
-			END TRY
+                END
+            END TRY
             BEGIN CATCH
-				THROW
+            THROW
             END CATCH
         END
-    END
-;
+    END;
 
 -- +migrate Down
-DROP TRIGGER TRIGGER_ROUND_END_BEFORE_TOURNAMENT_END
-;
+DROP TRIGGER TRIGGER_ROUND_END_BEFORE_TOURNAMENT_END;
 
