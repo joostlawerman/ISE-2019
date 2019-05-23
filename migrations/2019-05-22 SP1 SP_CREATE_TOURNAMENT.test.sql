@@ -5,11 +5,16 @@ EXEC tSQLt.NewTestClass 'SP1';
 EXEC tSQLt.DropClass 'SP1';
 
 -- +migrate Up
-CREATE PROCEDURE [SP1].[test insert iets]
+CREATE PROCEDURE [SP1].[test insert iets goeds]
 AS
 BEGIN
 	--Assemble
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
+	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
+	EXEC tSQLt.FakeTable 'dbo', 'CONTACTPERSON'
+
+	INSERT INTO CHESSCLUB (chessclubname) VALUES ('CC1')
+	INSERT INTO CONTACTPERSON (contactname) VALUES ('gekkenaam')
 
 	--Act
 	EXEC SP_CREATE_TOURNAMENT 'CC1', 'tourny1', 'gekkenaam', '2019-05-22', '2019-05-23', '10', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22'
@@ -33,6 +38,40 @@ BEGIN
 	VALUES ('CC1', 'tourny1', 'gekkenaam', '2019-05-22', '2019-05-23', 10, 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22')
 
 	EXEC tSQLt.AssertEqualsTable 'expected', 'TOURNAMENT'
+END;
+
+-- +migrate Up
+CREATE PROCEDURE [SP1].[test insert met slechte chessclub]
+AS
+BEGIN
+	--Assemble
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
+	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
+	EXEC tSQLt.FakeTable 'dbo', 'CONTACTPERSON'
+
+	INSERT INTO CONTACTPERSON (contactname) VALUES ('gekkenaam')
+
+	--Act
+	EXEC tSQLt.ExpectException @ExpectedMessage= 'Chessclub is not known. Please register the chessclub first.'
+
+	EXEC SP_CREATE_TOURNAMENT 'CC1', 'tourny1', 'gekkenaam', '2019-05-22', '2019-05-23', '10', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22'
+END;
+
+-- +migrate Up
+CREATE PROCEDURE [SP1].[test insert met slechte contactperson]
+AS
+BEGIN
+	--Assemble
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
+	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
+	EXEC tSQLt.FakeTable 'dbo', 'CONTACTPERSON'
+
+	INSERT INTO CHESSCLUB (chessclubname) VALUES ('CC1')
+
+	--Act
+	EXEC tSQLt.ExpectException @ExpectedMessage= 'Contactperson is not known. Please register the contactperson first.'
+
+	EXEC SP_CREATE_TOURNAMENT 'CC1', 'tourny1', 'gekkenaam', '2019-05-22', '2019-05-23', '10', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22'
 END;
 
 exec tSQLt.Run SP1

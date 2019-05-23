@@ -18,9 +18,20 @@ BEGIN
         SAVE TRANSACTION ProcedureSave  
     ELSE  
         BEGIN TRANSACTION
-	BEGIN TRY		
-		INSERT INTO TOURNAMENT (chessclubname, tournamentname, contactname, starts, ends, registrationfee, addressline1, postalcode, city, registrationdeadline) 
-		VALUES (@chessclubname, @tournamentname, @contactname, @starts, @ends, @registrationfee, @addressline1, @postalcode, @city, @registrationdeadline)
+	BEGIN TRY
+		IF NOT EXISTS (SELECT 1 FROM CHESSCLUB WHERE @chessclubname = chessclubname)
+			BEGIN
+			RAISERROR('Chessclub is not known. Please register the chessclub first.', 16, 1)
+			END
+		ELSE IF NOT EXISTS (SELECT 1 FROM CONTACTPERSON WHERE @contactname = contactname)
+			BEGIN
+			RAISERROR('Contactperson is not known. Please register the contactperson first.', 16, 1)
+			END
+		ELSE
+			BEGIN
+			INSERT INTO TOURNAMENT (chessclubname, tournamentname, contactname, starts, ends, registrationfee, addressline1, postalcode, city, registrationdeadline) 
+			VALUES (@chessclubname, @tournamentname, @contactname, @starts, @ends, @registrationfee, @addressline1, @postalcode, @city, @registrationdeadline)
+			END
 	END TRY
 	BEGIN CATCH
 		IF @orginTranCount = 0  
