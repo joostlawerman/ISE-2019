@@ -5,11 +5,14 @@ EXEC tSQLt.NewTestClass 'SP5';
 EXEC tSQLt.DropClass 'SP5';
 
 -- +migrate Up
-CREATE PROCEDURE [SP5].[test insert iets]
+CREATE PROCEDURE [SP5].[test insert een goede speler iets]
 AS
 BEGIN
 	--Assemble
 	EXEC tSQLt.FakeTable 'dbo', 'PLAYER'
+	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
+
+	INSERT INTO CHESSCLUB (chessclubname) VALUES ('CC1')
 
 	--Act
 	EXEC SP_CREATE_PLAYER 'CC1', 'bla', 'blah', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22', 'bla@bla.com', 'M'
@@ -34,11 +37,14 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [SP5].[test insert playerid 4]
+CREATE PROCEDURE [SP5].[test insert 4 players en kijk of ze allemaal goeie playerids hebben]
 AS
 BEGIN
 	--Assemble
 	EXEC tSQLt.FakeTable 'dbo', 'PLAYER'
+	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
+
+	INSERT INTO CHESSCLUB (chessclubname) VALUES ('CC1')
 
 	--Act
 	EXEC SP_CREATE_PLAYER 'CC1', 'bla', 'blah', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22', 'bla@bla.com', 'M'
@@ -67,3 +73,19 @@ BEGIN
 
 	EXEC tSQLt.AssertEqualsTable 'expected', 'PLAYER'
 END;
+
+-- +migrate Up
+CREATE PROCEDURE [SP5].[test insert een speler met een niet bestaande chessclub]
+AS
+BEGIN
+	--Assemble
+	EXEC tSQLt.FakeTable 'dbo', 'PLAYER'
+	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
+
+	--Act
+	EXEC tSQLt.ExpectException @ExpectedMessage= 'Chessclub is not known. Please register the chessclub first.'
+
+	EXEC SP_CREATE_PLAYER 'CC1', 'bla', 'blah', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22', 'bla@bla.com', 'M'
+END;
+
+EXEC tSQLt.Run SP5

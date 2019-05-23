@@ -18,6 +18,11 @@ BEGIN
     ELSE  
         BEGIN TRANSACTION
 	BEGIN TRY
+		IF NOT EXISTS (SELECT 1 FROM CHESSCLUB WHERE @chessclubname = chessclubname)
+			BEGIN
+			RAISERROR('Chessclub is not known. Please register the chessclub first.', 16, 1)
+			END
+
 		DECLARE @playerid int
 		SELECT @playerid = (SELECT TOP 1 playerid FROM PLAYER ORDER BY playerid DESC) + 1
 		IF (@playerid IS NULL)
