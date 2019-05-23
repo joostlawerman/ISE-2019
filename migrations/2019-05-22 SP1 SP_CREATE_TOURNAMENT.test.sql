@@ -12,7 +12,7 @@ BEGIN
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
 
 	--Act
-	EXEC SP_CREATE_TOURNAMENT 'CC1', 'tourny1', 1, 'gekkenaam', '2019-05-22', '2019-05-23', '10', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22'
+	EXEC SP_CREATE_TOURNAMENT 'CC1', 'tourny1', 'gekkenaam', '2019-05-22', '2019-05-23', '10', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22'
 
 	--Assert
 	CREATE TABLE expected (
@@ -29,7 +29,10 @@ BEGIN
     registrationdeadline DATETIME     NOT NULL,
 	)
 
-	INSERT INTO expected VALUES ('CC1', 'tourny1', 1, 'gekkenaam', '2019-05-22', '2019-05-23', 10, 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22')
+	INSERT INTO expected (chessclubname, tournamentname, contactname, starts, ends, registrationfee, addressline1, postalcode, city, registrationdeadline) 
+	VALUES ('CC1', 'tourny1', 'gekkenaam', '2019-05-22', '2019-05-23', 10, 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22')
 
 	EXEC tSQLt.AssertEqualsTable 'expected', 'TOURNAMENT'
 END;
+
+exec tSQLt.Run SP1

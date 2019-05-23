@@ -2,7 +2,6 @@
 CREATE PROCEDURE SP_CREATE_TOURNAMENT
 @chessclubname varchar(100),
 @tournamentname varchar(100),
-@winner int,
 @contactname varchar(101),
 @starts datetime,
 @ends datetime,
@@ -20,7 +19,8 @@ BEGIN
     ELSE  
         BEGIN TRANSACTION
 	BEGIN TRY		
-		INSERT INTO TOURNAMENT VALUES (@chessclubname, @tournamentname, @winner, @contactname, @starts, @ends, @registrationfee, @addressline1, @postalcode, @city, @registrationdeadline)
+		INSERT INTO TOURNAMENT (chessclubname, tournamentname, contactname, starts, ends, registrationfee, addressline1, postalcode, city, registrationdeadline) 
+		VALUES (@chessclubname, @tournamentname, @contactname, @starts, @ends, @registrationfee, @addressline1, @postalcode, @city, @registrationdeadline)
 	END TRY
 	BEGIN CATCH
 		IF @orginTranCount = 0  
