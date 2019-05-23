@@ -17,10 +17,13 @@ BEGIN
         SAVE TRANSACTION ProcedureSave  
     ELSE  
         BEGIN TRANSACTION
-	BEGIN TRY		
-		--todo genererate playerid :)
+	BEGIN TRY
+		DECLARE @playerid int
+		SELECT @playerid = (SELECT TOP 1 playerid FROM PLAYER ORDER BY playerid DESC) + 1
+		IF (@playerid IS NULL)
+			SELECT @playerid = 1
 
-		INSERT INTO PLAYER VALUES (@chessclubname, @firstname, @lastname, @addressline1, @postalcode, @city, @birthdate, @email, @gender)
+		INSERT INTO PLAYER VALUES (@playerid, @chessclubname, @firstname, @lastname, @addressline1, @postalcode, @city, @birthdate, @email, @gender)
 	END TRY
 	BEGIN CATCH
 		IF @orginTranCount = 0  
