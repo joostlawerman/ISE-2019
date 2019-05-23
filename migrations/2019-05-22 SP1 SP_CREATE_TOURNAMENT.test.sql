@@ -73,5 +73,3 @@ BEGIN
 
 	EXEC SP_CREATE_TOURNAMENT 'CC1', 'tourny1', 'gekkenaam', '2019-05-22', '2019-05-23', '10', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22'
 END;
-
-exec tSQLt.Run SP1
