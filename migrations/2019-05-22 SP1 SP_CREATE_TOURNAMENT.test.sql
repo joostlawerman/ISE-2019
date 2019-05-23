@@ -5,7 +5,7 @@ EXEC tSQLt.NewTestClass 'SP1';
 EXEC tSQLt.DropClass 'SP1';
 
 -- +migrate Up
-CREATE PROCEDURE [SP1].[test insert iets goeds]
+CREATE PROCEDURE [SP1].[test insert een goed toernooi]
 AS
 BEGIN
 	--Assemble
@@ -41,7 +41,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [SP1].[test insert met slechte chessclub]
+CREATE PROCEDURE [SP1].[test insert een toernooi met slechte chessclub]
 AS
 BEGIN
 	--Assemble
@@ -58,7 +58,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [SP1].[test insert met slechte contactperson]
+CREATE PROCEDURE [SP1].[test insert een toernooi met slechte contactperson]
 AS
 BEGIN
 	--Assemble
