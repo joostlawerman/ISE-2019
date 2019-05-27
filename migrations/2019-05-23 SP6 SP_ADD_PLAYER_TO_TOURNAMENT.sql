@@ -5,7 +5,8 @@ DROP PROCEDURE SP_ADD_PLAYER_TO_TOURNAMENT;
 CREATE PROCEDURE SP_ADD_PLAYER_TO_TOURNAMENT
         @chessclub  VARCHAR(100),
         @tournament VARCHAR(100),
-        @player     INT
+        @player     INT,
+        @paid       BIT
 AS
     BEGIN
         DECLARE @orginTranCount INT
@@ -28,10 +29,11 @@ AS
                                               FROM PLAYER
                                               WHERE playerid = @player))
                 RAISERROR ('The given playerid is unknown', 16, 1)
+            IF (@paid IS NULL)
+                SET @paid = 0
 
-
-            INSERT INTO TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid) VALUES
-                (@chessclub, @tournament, @player)
+            INSERT INTO TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid, paid) VALUES
+                (@chessclub, @tournament, @player, @paid)
 
         END TRY
         BEGIN CATCH
