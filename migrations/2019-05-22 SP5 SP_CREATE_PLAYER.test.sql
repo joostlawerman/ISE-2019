@@ -87,5 +87,3 @@ BEGIN
 
 	EXEC SP_CREATE_PLAYER 'CC1', 'bla', 'blah', 'blastraat', '1234AB', 'Apeldoorn', '2019-05-22', 'bla@bla.com', 'M'
 END;
-
-EXEC tSQLt.Run SP5
