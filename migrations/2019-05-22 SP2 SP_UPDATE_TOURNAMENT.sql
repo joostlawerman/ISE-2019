@@ -50,7 +50,7 @@ BEGIN
 					UPDATE TOURNAMENT
 					SET contactname = @contactname
 					WHERE chessclubname = @chessclubname and
-						  tournamentname = @tournamentname;	
+						  tournamentname = @tournamentname	
 				END	
 			ELSE
 				BEGIN
@@ -77,7 +77,7 @@ BEGIN
 					UPDATE TOURNAMENT
 					SET winner = @winner
 					WHERE chessclubname = @chessclubname and
-						  tournamentname = @tournamentname;	
+						  tournamentname = @tournamentname	
 				END	
 			ELSE
 				BEGIN
@@ -90,7 +90,7 @@ BEGIN
 			UPDATE TOURNAMENT
 			SET starts = @starts
 			WHERE chessclubname = @chessclubname and
-				  tournamentname = @tournamentname;	
+				  tournamentname = @tournamentname	
 		END
 
 		IF(@ends is not null)
@@ -98,7 +98,7 @@ BEGIN
 			UPDATE TOURNAMENT
 			SET ends = @ends
 			WHERE chessclubname = @chessclubname and
-				  tournamentname = @tournamentname;	
+				  tournamentname = @tournamentname	
 		END
 	
 		IF(@registrationfee is not null)
@@ -106,7 +106,7 @@ BEGIN
 			UPDATE TOURNAMENT
 			SET registrationfee = @registrationfee
 			WHERE chessclubname = @chessclubname and
-				  tournamentname = @tournamentname;	
+				  tournamentname = @tournamentname	
 		END
 		
 		IF(@addressline1 is not null)
@@ -114,7 +114,7 @@ BEGIN
 			UPDATE TOURNAMENT
 			SET addressline1 = @addressline1
 			WHERE chessclubname = @chessclubname and
-				  tournamentname = @tournamentname;	
+				  tournamentname = @tournamentname	
 		END
 
 		IF(@postalcode is not null)
@@ -122,7 +122,7 @@ BEGIN
 			UPDATE TOURNAMENT
 			SET postalcode = @postalcode
 			WHERE chessclubname = @chessclubname and
-				  tournamentname = @tournamentname;	
+				  tournamentname = @tournamentname
 		END
 
 		IF(@city is not null)
@@ -130,7 +130,7 @@ BEGIN
 			UPDATE TOURNAMENT
 			SET city = @city
 			WHERE chessclubname = @chessclubname and
-				  tournamentname = @tournamentname;	
+				  tournamentname = @tournamentname
 		END
 
 		IF(@registrationdeadline is not null)
@@ -138,7 +138,7 @@ BEGIN
 			UPDATE TOURNAMENT
 			SET registrationdeadline = @registrationdeadline
 			WHERE chessclubname = @chessclubname and
-				  tournamentname = @tournamentname;	
+				  tournamentname = @tournamentname	
 		END	
 				
         IF @orginTranCount = 0  
