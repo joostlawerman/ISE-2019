@@ -13,6 +13,16 @@ BEGIN
         BEGIN TRANSACTION  
 	BEGIN TRY		
 		
+		IF NOT EXISTS(SELECT 1 FROM PLAYER WHERE playerid = @playerid)
+			BEGIN
+				RAISERROR('This playerid does not exist', 16, 1)
+			END
+		
+		IF NOT EXISTS(SELECT 1 FROM CHESSCLUB WHERE chessclubname = @chessclubname)
+			BEGIN
+				RAISERROR('This chessclub does not exist', 16, 1)
+			END
+		
 		IF EXISTS(SELECT 1 FROM ROLE WHERE playerid = @playerid AND chessclubname = @chessclubname AND role = @role)
 			BEGIN
 				RAISERROR('This player already has this role in the chosen chessclub', 16, 1)
