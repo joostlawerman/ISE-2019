@@ -74,7 +74,7 @@ BEGIN
 			('cc1', 'tourny1', 2, 'roundrobin', '2019-05-28', NULL),
 	
 	--Act
-	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no round with this roundnumber in this tournament'
+	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no tournament with this name'
 
 	INSERT INTO actual EXEC SP_GET_ROUNDS 'cc1', 'blabla'
  
