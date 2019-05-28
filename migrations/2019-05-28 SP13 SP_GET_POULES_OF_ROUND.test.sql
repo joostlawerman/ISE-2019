@@ -19,7 +19,21 @@ BEGIN
 	INSERT INTO POULE 
 	VALUES	('cc1', 'tourny1', 1, 1),
 			('cc1', 'tourny1', 1, 2),
-			('cc1', 'tourny1', 1, 3)   
+			('cc1', 'tourny1', 1, 3),
+			('cc1', 'tourny1', 2, 1),
+			('cc1', 'tourny1', 2, 2)
+
+	CREATE TABLE exptected (
+		chessclubname  VARCHAR(100) NOT NULL,
+		tournamentname VARCHAR(100) NOT NULL,
+		roundnumber    INT          NOT NULL,
+		pouleno        INT          NOT NULL
+	)
+
+	INSERT INTO expected 
+	VALUES	('cc1', 'tourny1', 1, 1),
+			('cc1', 'tourny1', 1, 2),
+			('cc1', 'tourny1', 1, 3)
 
 	--Act
 	CREATE TABLE actual (
@@ -29,10 +43,10 @@ BEGIN
 		pouleno        INT          NOT NULL
 	)
 	
-	EXEC SP_GET_POULES_OF_ROUND 'cc1', 'tourny1', 1
+	INSERT INTO actual SP_GET_POULES_OF_ROUND 'cc1', 'tourny1', 1
  
 	--Assert
-	EXEC tSQLt.AssertEqualsTable 'POULE', 'actual'
+	EXEC tSQLt.AssertEqualsTable 'expected', 'actual'
 
 END;
 
