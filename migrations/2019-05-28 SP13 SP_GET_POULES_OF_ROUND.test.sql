@@ -29,7 +29,7 @@ BEGIN
 		pouleno        INT          NOT NULL
 	)
 	
-	INSERT INTO actual EXEC SP_GET_POULES_OF_ROUND 'cc1', 'tourny1', 1
+	EXEC SP_GET_POULES_OF_ROUND 'cc1', 'tourny1', 1
  
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'POULE', 'actual'
@@ -56,7 +56,7 @@ BEGIN
 	--Act
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no chessclub with this name'
 	
-	INSERT INTO actual EXEC SP_GET_POULES_OF_ROUND 'blabla', 'tourny1', 1
+	EXEC SP_GET_POULES_OF_ROUND 'blabla', 'tourny1', 1
  
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'POULE', 'actual'
@@ -83,7 +83,7 @@ BEGIN
 	--Act
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no tournament with this name'
 	
-	INSERT INTO actual EXEC SP_GET_POULES_OF_ROUND 'cc1', 'blabla', 1
+	EXEC SP_GET_POULES_OF_ROUND 'cc1', 'blabla', 1
  
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'POULE', 'actual'
@@ -110,7 +110,7 @@ BEGIN
 	--Act
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no round with this roundnumber in this tournament'
 	
-	INSERT INTO actual EXEC SP_GET_POULES_OF_ROUND 'cc1', 'tourny1', 3
+	EXEC SP_GET_POULES_OF_ROUND 'cc1', 'tourny1', 3
  
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'POULE', 'actual'
