@@ -26,6 +26,8 @@ AS
 
         UPDATE TOURNAMENT SET tournamentname = @newName WHERE chessclubname = @chessclub AND tournamentname = @currentName
 
+        IF @orginTranCount = 0
+            COMMIT TRANSACTION
         END TRY
         BEGIN CATCH
         IF @orginTranCount = 0
