@@ -12,7 +12,7 @@ BEGIN
 	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
 	INSERT INTO CHESSCLUB (chessclubname) VALUES ('cc1')
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
-	INSERT INTO TOURNAMENT (tournamentname) VALUES ('tourny1')
+	INSERT INTO TOURNAMENT (tournamentname, chessclubname) VALUES ('tourny1', 'cc1')
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'	
 	INSERT INTO TOURNAMENT_ROUND 
 	VALUES	('cc1', 'tourny1', 1, 'roundrobin', '2019-05-28', NULL),
@@ -43,7 +43,7 @@ BEGIN
 	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
 	INSERT INTO CHESSCLUB (chessclubname) VALUES ('cc1')
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
-	INSERT INTO TOURNAMENT (tournamentname) VALUES ('tourny1')
+	INSERT INTO TOURNAMENT (tournamentname, chessclubname) VALUES ('tourny1', 'cc1')
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'	
 	INSERT INTO TOURNAMENT_ROUND 
 	VALUES	('cc1', 'tourny1', 1, 'roundrobin', '2019-05-28', NULL),
@@ -67,7 +67,7 @@ BEGIN
 	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
 	INSERT INTO CHESSCLUB (chessclubname) VALUES ('cc1')
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
-	INSERT INTO TOURNAMENT (tournamentname) VALUES ('tourny1')
+	INSERT INTO TOURNAMENT (tournamentname, chessclubname) VALUES ('tourny1', 'cc1')
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'	
 	INSERT INTO TOURNAMENT_ROUND 
 	VALUES	('cc1', 'tourny1', 1, 'roundrobin', '2019-05-28', NULL),
