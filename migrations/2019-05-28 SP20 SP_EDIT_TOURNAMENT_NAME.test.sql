@@ -8,7 +8,6 @@ EXEC tSQLt.DropClass 'SP20';
 CREATE PROCEDURE SP20.SetUp
 AS
     BEGIN
---Arrange
         EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
 
         INSERT INTO TOURNAMENT(chessclubname, tournamentname)
