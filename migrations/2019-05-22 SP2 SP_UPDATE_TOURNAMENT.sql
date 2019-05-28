@@ -54,19 +54,12 @@ BEGIN
 				END	
 			ELSE
 				BEGIN
-					RAISERROR('Het ingevulde contactpersoon bestaat niet.', 16, 1)
+					RAISERROR('De ingevulde contactpersoon bestaat niet.', 16, 1)
 				END	
 	    END	
 		
 		IF(@winner is not null)
 		BEGIN
-
-			IF(not exists (SELECT 1
-						   FROM PLAYER
-						   WHERE playerid = @winner))
-			BEGIN
-				RAISERROR('De ingevulde winnaar is geen bestaande speler.', 16, 1)
-			END
 						
 			IF(exists (SELECT 1
 					   FROM TOURNAMENT_PLAYER
@@ -92,14 +85,7 @@ BEGIN
 			WHERE chessclubname = @chessclubname and
 				  tournamentname = @tournamentname	
 		END
-
-		IF(@ends is not null)
-		BEGIN
-			UPDATE TOURNAMENT
-			SET ends = @ends
-			WHERE chessclubname = @chessclubname and
-				  tournamentname = @tournamentname	
-		END
+	
 	
 		IF(@registrationfee is not null)
 		BEGIN
@@ -140,7 +126,14 @@ BEGIN
 			WHERE chessclubname = @chessclubname and
 				  tournamentname = @tournamentname	
 		END	
-				
+
+		BEGIN
+		UPDATE TOURNAMENT
+			SET ends = @ends
+			WHERE chessclubname = @chessclubname and
+				  tournamentname = @tournamentname	
+		END
+
         IF @orginTranCount = 0  
             COMMIT TRANSACTION 
 	END TRY

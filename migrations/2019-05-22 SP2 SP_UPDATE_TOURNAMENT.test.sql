@@ -112,16 +112,6 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [SP2].[Test_winnaar_geen_speler]
-AS
-BEGIN
-	--Assert
-	EXEC tSQLt.ExpectException @ExpectedMessage = 'De ingevulde winnaar is geen bestaande speler.'
-
-	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'TestToernooi', 4, 'Testo Tset', '2019-05-03 01:00:00', '2019-05-04 02:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
-END;
-
--- +migrate Up
 CREATE PROCEDURE [SP2].[Test_winner_neemt_geen_deel_aan_toernooi]
 AS
 BEGIN
