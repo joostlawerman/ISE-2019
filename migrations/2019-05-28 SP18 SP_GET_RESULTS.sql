@@ -17,7 +17,7 @@ BEGIN
 			BEGIN
 				RAISERROR('There is no chessclub with this name', 16, 1)
 			END
-		ELSE IF NOT EXISTS(SELECT 1 FROM TOURNAMENT WHERE tournamentname = @tournamentname)
+		ELSE IF NOT EXISTS(SELECT 1 FROM TOURNAMENT WHERE tournamentname = @tournamentname AND chessclubname = @chessclubname)
 			BEGIN
 				RAISERROR('There is no tournament with this name', 16, 1)
 			END
