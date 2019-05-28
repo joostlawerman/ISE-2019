@@ -9,7 +9,13 @@ CREATE PROCEDURE [SP13].[Test get all poules of a round]
 AS 
 BEGIN
 	--Arrange
-	EXEC tSQLt.FakeTable 'dbo', 'POULE'	
+	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
+	INSERT INTO CHESSCLUB (chessclubname) VALUES ('cc1')	
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
+	INSERT INTO TOURNAMENT (tournamentname, chessclubname) VALUES ('tourny1', 'cc1')
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'
+	INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber) VALUES ('cc1', 'tourny1', 1)
+	EXEC tSQLt.FakeTable 'dbo', 'POULE'		
 	INSERT INTO POULE 
 	VALUES	('cc1', 'tourny1', 1, 1),
 			('cc1', 'tourny1', 1, 2),
@@ -38,7 +44,7 @@ BEGIN
 	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
 	INSERT INTO CHESSCLUB (chessclubname) VALUES ('cc1')	
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
-	INSERT INTO TOURNAMENT (tournamentname) VALUES ('tourny1')
+	INSERT INTO TOURNAMENT (tournamentname, chessclubname) VALUES ('tourny1', 'cc1')
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'
 	INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber) VALUES ('cc1', 'tourny1', 1)
 	EXEC tSQLt.FakeTable 'dbo', 'POULE'	
@@ -65,7 +71,7 @@ BEGIN
 	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
 	INSERT INTO CHESSCLUB (chessclubname) VALUES ('cc1')	
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
-	INSERT INTO TOURNAMENT (tournamentname) VALUES ('tourny1')
+	INSERT INTO TOURNAMENT (tournamentname, chessclubname) VALUES ('tourny1', 'cc1')
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'
 	INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber) VALUES ('cc1', 'tourny1', 1)
 	EXEC tSQLt.FakeTable 'dbo', 'POULE'	
@@ -92,7 +98,7 @@ BEGIN
 	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
 	INSERT INTO CHESSCLUB (chessclubname) VALUES ('cc1')	
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
-	INSERT INTO TOURNAMENT (tournamentname) VALUES ('tourny1')
+	INSERT INTO TOURNAMENT (tournamentname, chessclubname) VALUES ('tourny1', 'cc1')
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'
 	INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber) VALUES ('cc1', 'tourny1', 1)
 	EXEC tSQLt.FakeTable 'dbo', 'POULE'	
