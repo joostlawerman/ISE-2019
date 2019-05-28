@@ -29,7 +29,7 @@ BEGIN
 			END	
 		ELSE
 			BEGIN
-				INSERT INTO ROLE (playerid, chessclubname, role)
+				INSERT INTO ROLE (playerid, chessclubname, role)
 				VALUES (@playerid, @chessclubname, @role) 
 			END		
 				
