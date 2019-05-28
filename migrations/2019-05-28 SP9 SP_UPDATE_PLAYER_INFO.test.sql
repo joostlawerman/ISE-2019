@@ -88,5 +88,3 @@ BEGIN
 END;
 
 
-EXEC tsqlt.run 'SP9'
-
