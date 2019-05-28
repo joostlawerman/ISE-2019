@@ -34,25 +34,23 @@ BEGIN
 			RAISERROR('De ingevulde speler bestaat niet.', 16, 1)
 		END	
 
-		IF(@chessclubname IS NULL)
+		IF(@chessclubname is not null)
 		BEGIN
-			RAISERROR('Vul een Chessclub in.', 16, 1)
-		END	
-
-		IF(not exists  (SELECT 1 
-						FROM CHESSCLUB 
-						WHERE chessclubname = @chessclubname))
-			BEGIN
-				RAISERROR('De ingevulde schaakclub bestaat niet.', 16, 1)
-			END
-		ELSE
-			UPDATE PLAYER
-			SET chessclubname = @chessclubname
-			WHERE playerid = @playerid
+			IF(not exists  (SELECT 1 
+							FROM CHESSCLUB 
+							WHERE chessclubname = @chessclubname))
+				BEGIN
+					RAISERROR('De ingevulde schaakclub bestaat niet.', 16, 1)
+				END
+			ELSE
+				UPDATE PLAYER
+				SET chessclubname = @chessclubname
+				WHERE playerid = @playerid
+		END
 
 		IF(@birthdate is not null)
 		BEGIN
-			IF(@birthdate > GETDATE())
+			IF(@birthdate < GETDATE())
 				UPDATE PLAYER
 				SET birthdate = @birthdate
 				WHERE playerid = @playerid
@@ -130,4 +128,4 @@ BEGIN
 END;
 
 -- +migrate Down
-DROP PROCEDURE SP_UPDATE_TOURNAMENT;
+DROP PROCEDURE SP_UPDATE_PLAYER_INFO;
