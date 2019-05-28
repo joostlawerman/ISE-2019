@@ -15,7 +15,8 @@ BEGIN
 	INSERT INTO TOURNAMENT (tournamentname, chessclubname) VALUES ('tourny1', 'cc1')
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'
 	INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber) VALUES ('cc1', 'tourny1', 1)
-	EXEC tSQLt.FakeTable 'dbo', 'POULE'		
+	EXEC tSQLt.FakeTable 'dbo', 'POULE'
+		
 	INSERT INTO POULE 
 	VALUES	('cc1', 'tourny1', 1, 1),
 			('cc1', 'tourny1', 1, 2),
@@ -23,17 +24,10 @@ BEGIN
 			('cc1', 'tourny1', 2, 1),
 			('cc1', 'tourny1', 2, 2)
 
-	CREATE TABLE exptected (
-		chessclubname  VARCHAR(100) NOT NULL,
-		tournamentname VARCHAR(100) NOT NULL,
-		roundnumber    INT          NOT NULL,
-		pouleno        INT          NOT NULL
-	)
-
-	INSERT INTO expected 
-	VALUES	('cc1', 'tourny1', 1, 1),
-			('cc1', 'tourny1', 1, 2),
-			('cc1', 'tourny1', 1, 3)
+	SELECT *
+		INTO expected
+        FROM POULE
+		WHERE roundnumber = 1
 
 	--Act
 	CREATE TABLE actual (
@@ -43,7 +37,7 @@ BEGIN
 		pouleno        INT          NOT NULL
 	)
 	
-	INSERT INTO actual SP_GET_POULES_OF_ROUND 'cc1', 'tourny1', 1
+	INSERT INTO actual EXEC SP_GET_POULES_OF_ROUND 'cc1', 'tourny1', 1
  
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'expected', 'actual'
