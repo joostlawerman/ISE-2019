@@ -16,7 +16,7 @@ BEGIN
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'	
 	INSERT INTO TOURNAMENT_ROUND 
 	VALUES	('cc1', 'tourny1', 1, 'roundrobin', '2019-05-28', NULL),
-			('cc1', 'tourny1', 2, 'roundrobin', '2019-05-28', NULL),  
+			('cc1', 'tourny1', 2, 'roundrobin', '2019-05-28', NULL)
 
 	--Act
 	CREATE TABLE actual (
@@ -28,7 +28,7 @@ BEGIN
 		ends           DATETIME     NULL
 	)
 	
-	INSERT INTO actual EXEC SP_GET_ROUNDS 'cc1', 'tourny1'
+	EXEC SP_GET_ROUNDS 'cc1', 'tourny1'
  
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'TOURNAMENT_ROUND', 'actual'
@@ -47,12 +47,12 @@ BEGIN
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'	
 	INSERT INTO TOURNAMENT_ROUND 
 	VALUES	('cc1', 'tourny1', 1, 'roundrobin', '2019-05-28', NULL),
-			('cc1', 'tourny1', 2, 'roundrobin', '2019-05-28', NULL),
+			('cc1', 'tourny1', 2, 'roundrobin', '2019-05-28', NULL)
 	
 	--Act
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no chessclub with this name'
 
-	INSERT INTO actual EXEC SP_GET_ROUNDS 'blabla', 'tourny1'
+	EXEC SP_GET_ROUNDS 'blabla', 'tourny1'
  
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'TOURNAMENT_ROUND', 'actual'
@@ -71,12 +71,12 @@ BEGIN
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'	
 	INSERT INTO TOURNAMENT_ROUND 
 	VALUES	('cc1', 'tourny1', 1, 'roundrobin', '2019-05-28', NULL),
-			('cc1', 'tourny1', 2, 'roundrobin', '2019-05-28', NULL),
+			('cc1', 'tourny1', 2, 'roundrobin', '2019-05-28', NULL)
 	
 	--Act
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no tournament with this name'
 
-	INSERT INTO actual EXEC SP_GET_ROUNDS 'cc1', 'blabla'
+	EXEC SP_GET_ROUNDS 'cc1', 'blabla'
  
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'TOURNAMENT_ROUND', 'actual'
