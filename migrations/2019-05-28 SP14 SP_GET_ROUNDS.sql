@@ -13,7 +13,16 @@ BEGIN
         SAVE TRANSACTION ProcedureSave  
     ELSE  
         BEGIN TRANSACTION
-	BEGIN TRY		
+	BEGIN TRY
+		IF NOT EXISTS(SELECT 1 FROM CHESSCLUB WHERE chessclubname = @chessclubname)
+			BEGIN
+				RAISERROR('There is no chessclub with this name', 16, 1)
+			END
+		ELSE IF NOT EXISTS(SELECT 1 FROM TOURNAMENT WHERE tournamentname = @tournamentname)
+			BEGIN
+				RAISERROR('There is no tournament with this name', 16, 1)
+			END
+					
 		SELECT * FROM TOURNAMENT_ROUND WHERE @chessclubname = chessclubname AND @tournamentname = tournamentname
 	END TRY
 	BEGIN CATCH
