@@ -10,10 +10,10 @@
 */
 
 -- +migrate Down
-DROP PROC SP_CREATE_POULES;
+DROP PROC SP_CREATE_POULE_BASED_ON_CHESSCLUB;
 
 -- +migrate Up
-CREATE PROC SP_CREATE_POULES (
+CREATE PROC SP_CREATE_POULE_BASED_ON_CHESSCLUB (
 	@chessclubname varchar(100),
 	@tournamentname varchar(100),
 	@roundnumber int)
