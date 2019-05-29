@@ -106,7 +106,7 @@ CREATE PROCEDURE [SP2].[Test_contactpersoon_bestaat_niet]
 AS
 BEGIN
 	--Assert
-	EXEC tSQLt.ExpectException @ExpectedMessage = 'Het ingevulde contactpersoon bestaat niet.'
+	EXEC tSQLt.ExpectException @ExpectedMessage = 'De ingevulde contactpersoon bestaat niet.'
 
 	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'TestToernooi', 1, 'Geen Persoon', '2019-05-03 01:00:00', '2019-05-04 02:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
 END;
