@@ -1,7 +1,7 @@
 -- +migrate Up 
 CREATE TABLE CHESSCLUB (
     chessclubname VARCHAR(100) NOT NULL,
-    city          CHAR(100)    NOT NULL,
+    city          VARCHAR(100) NOT NULL,
     addressline1  VARCHAR(100) NOT NULL,
     postalcode    VARCHAR(6)   NOT NULL,
     emailaddress  VARCHAR(256) NOT NULL,
@@ -15,8 +15,8 @@ CREATE TABLE PLAYER (
     lastname      VARCHAR(50)  NOT NULL,
     addressline1  VARCHAR(100) NOT NULL,
     postalcode    VARCHAR(6)   NOT NULL,
-    city          CHAR(100)    NOT NULL,
-    birthdate     DATETIME     NOT NULL,
+    city          VARCHAR(100)    NOT NULL,
+    birthdate     DATE         NOT NULL,
     emailaddress  VARCHAR(256) NOT NULL,
     gender        CHAR(1)      NOT NULL,
     CONSTRAINT PK_PLAYER PRIMARY KEY NONCLUSTERED (playerid),
@@ -26,7 +26,7 @@ CREATE TABLE PLAYER (
 CREATE TABLE CONTACTPERSON (
     contactname  VARCHAR(101) NOT NULL,
     emailaddress VARCHAR(256) NOT NULL,
-    phonenumber  NUMERIC(10)  NOT NULL,
+    phonenumber  VARCHAR(10)  NOT NULL,
     CONSTRAINT PK_CONTACTPERSON PRIMARY KEY NONCLUSTERED (contactname)
 );
 -- +migrate Up
@@ -40,7 +40,7 @@ CREATE TABLE TOURNAMENT (
     registrationfee      MONEY        NOT NULL,
     addressline1         VARCHAR(100) NOT NULL,
     postalcode           VARCHAR(6)   NOT NULL,
-    city                 CHAR(100)    NOT NULL,
+    city                 VARCHAR(100)    NOT NULL,
     registrationdeadline DATETIME     NOT NULL,
     CONSTRAINT PK_TOURNAMENT PRIMARY KEY NONCLUSTERED (chessclubname, tournamentname),
     CONSTRAINT FK_TOURNAME_CONTACTPE_CONTACTP FOREIGN KEY (contactname) REFERENCES CONTACTPERSON (contactname),
@@ -85,11 +85,12 @@ CREATE TABLE TOURNAMENT_PLAYER_OF_POULE (
     roundnumber    INT          NOT NULL,
     pouleno        INT          NOT NULL,
     CONSTRAINT PK_TOURNAMENT_PLAYER_OF_POULE PRIMARY KEY (chessclubname, playerid, tournamentname, roundnumber, pouleno),
-    CONSTRAINT FK_PLAYER_POULE_POULE FOREIGN KEY (chessclubname, tournamentname, roundnumber, pouleno) REFERENCES POULE (chessclubname, tournamentname, roundnumber, pouleno),
-    CONSTRAINT FK_TOURPLAY_PLAYER_POULE FOREIGN KEY (chessclubname, tournamentname, playerid) REFERENCES TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid),
+    CONSTRAINT FK_TOURNAME_POULE_POULE FOREIGN KEY (chessclubname, tournamentname, roundnumber, pouleno) REFERENCES POULE (chessclubname, tournamentname, roundnumber, pouleno),
+    CONSTRAINT FK_TOURNAME_PLAY_TOURPLAYPOUL FOREIGN KEY (chessclubname, tournamentname, playerid) REFERENCES TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid)
 );
+
 -- +migrate Up
-CREATE TABLE CHESSMATCH (
+CREATE TABLE CHESSMATCH_OF_POULE (
     matchno        INT          NOT NULL,
     chessclubname  VARCHAR(100) NOT NULL,
     tournamentname VARCHAR(100) NOT NULL,
@@ -97,11 +98,11 @@ CREATE TABLE CHESSMATCH (
     pouleno        INT          NOT NULL,
     playeridwhite  INT          NOT NULL,
     playeridblack  INT          NOT NULL,
-    result         CHAR(6)      NOT NULL,
-    CONSTRAINT PK_CHESSMATCH PRIMARY KEY NONCLUSTERED (matchno),
-    CONSTRAINT FK_CHESSMAT_BLACK_PLA_PLAYER FOREIGN KEY (playeridblack) REFERENCES PLAYER (playerid),
+    result         CHAR(6)      DEFAULT NULL,
+    CONSTRAINT PK_CHESSMATCH_OF_POULE PRIMARY KEY NONCLUSTERED (matchno),
+    CONSTRAINT FK_CHESSMAT_BLACK_PLA_TOURNAME FOREIGN KEY (chessclubname, playeridwhite, tournamentname, roundnumber, pouleno) REFERENCES TOURNAMENT_PLAYER_OF_POULE (chessclubname, playerid, tournamentname, roundnumber, pouleno),
     CONSTRAINT FK_CHESSMAT_CHESSMATC_POULE FOREIGN KEY (chessclubname, tournamentname, roundnumber, pouleno) REFERENCES POULE (chessclubname, tournamentname, roundnumber, pouleno),
-    CONSTRAINT FK_CHESSMAT_WHITE_PLA_PLAYER FOREIGN KEY (playeridwhite) REFERENCES PLAYER (playerid)
+    CONSTRAINT FK_CHESSMAT_WHITE_PLA_TOURNAME FOREIGN KEY (chessclubname, playeridblack, tournamentname, roundnumber, pouleno) REFERENCES TOURNAMENT_PLAYER_OF_POULE (chessclubname, playerid, tournamentname, roundnumber, pouleno),
 );
 -- +migrate Up
 CREATE TABLE ROUND_ROBIN_POULE (
@@ -120,7 +121,7 @@ CREATE TABLE CHESSMATCHMOVE (
     piece       CHAR(1)    NULL,
     destination VARCHAR(5) NOT NULL,
     CONSTRAINT PK_CHESSMATCHMOVE PRIMARY KEY NONCLUSTERED (matchno, moveno, colour),
-    CONSTRAINT FK_CHESSMAT_MOVE_CHESSMAT FOREIGN KEY (matchno) REFERENCES CHESSMATCH (matchno)
+    CONSTRAINT FK_CHESSMAT_MOVE_CHESSMAT FOREIGN KEY (matchno) REFERENCES CHESSMATCH_OF_POULE (matchno)
 );
 -- +migrate Up
 CREATE TABLE SPONSOR (
@@ -150,9 +151,9 @@ DROP TABLE CHESSMATCHMOVE;
 -- +migrate Down
 DROP TABLE ROUND_ROBIN_POULE;
 -- +migrate Down
-DROP TABLE TOURNAMENT_PLAYER_OF_POULE;
+DROP TABLE CHESSMATCH_OF_POULE;
 -- +migrate Down
-DROP TABLE CHESSMATCH;
+DROP TABLE TOURNAMENT_PLAYER_OF_POULE;
 -- +migrate Down
 DROP TABLE SPONSOR;
 -- +migrate Down
