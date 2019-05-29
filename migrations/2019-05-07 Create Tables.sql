@@ -118,8 +118,7 @@ CREATE TABLE CHESSMATCHMOVE (
     matchno     INT        NOT NULL,
     moveno      INT        NOT NULL,
     colour      CHAR(1)    NOT NULL,
-    piece       CHAR(1)    NULL,
-    destination VARCHAR(5) NOT NULL,
+    destination VARCHAR(6) NOT NULL,
     CONSTRAINT PK_CHESSMATCHMOVE PRIMARY KEY NONCLUSTERED (matchno, moveno, colour),
     CONSTRAINT FK_CHESSMAT_MOVE_CHESSMAT FOREIGN KEY (matchno) REFERENCES CHESSMATCH_OF_POULE (matchno)
 );
