@@ -47,7 +47,7 @@ INSERT INTO ROLE (playerid, chessclubname, role) VALUES
 	(6, 'Han scakers', 'voorzitter'),
 	(10, 'Deventer schakers', 'voorzitter'),
 	(11, 'Apeldoornse scakers', 'voorzitter'),
-	(12, 'Amsterdamse scakers', 'voorzitter'),
+	(12, 'Amsterdamse scakers', 'voorzitter');
 
 -- +migrate Up
 INSERT INTO CONTACTPERSON (contactname, emailaddress, phonenumber) VALUES
@@ -74,7 +74,7 @@ INSERT INTO TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid, paid) VA
 	('Tilburg', 'Tilburger Toernooi', 11, 0),
 	('Tilburg', 'Tilburger Toernooi', 12, 0),
 	('Tilburg', 'Tilburger Toernooi', 13, 0),
-	('Tilburg', 'Tilburger Toernooi', 14, 1),
+	('Tilburg', 'Tilburger Toernooi', 14, 1);
 
 -- +migrate Up
 INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber, system, starts, ends) VALUES
