@@ -57,3 +57,11 @@
     margin-top:5px;
     padding-top:5px;
 }
+
+.homepagelink{
+    color: white;
+}
+
+.homepagelink:hover{
+    color: white;
+}
