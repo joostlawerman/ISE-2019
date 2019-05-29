@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Nieuwe speler toevoegen</title>
+    <title>Toernooi info</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -31,10 +31,10 @@
                         </select>
                     </li>
                     <li class="list-group-item list-group-item-light">
-                        <a class="btn btn-dark btn-menu" href="toernooiInfo.html" role="button">Toernooi Info</a>
+                        <a class="btn btn-dark btn-menu active" href="toernooiInfo.html" role="button" aria-pressed="true">Toernooi Info</a>
                     </li>
                     <li class="list-group-item list-group-item-light">
-                        <a class="btn btn-dark btn-menu active" href="toernooiSpelerToevoegen.html" role="button" aria-pressed="true">Voeg toernooispelers
+                        <a class="btn btn-dark btn-menu" href="toernooiSpelerToevoegen.html" role="button">Voeg toernooispelers
                             toe</a>
                     </li>
                     <li class="list-group-item list-group-item-light">
@@ -50,56 +50,52 @@
 
                 <div class="card">
                     <div class="card-header bg-dark">
-                        Voeg een nieuwe speler toe
+                        Cre&euml;er toernooi
                     </div>
                     <div class="card-body card-body-scroll">
                         <form>
                             <div class="form-group">
-                                <label for="firstName">Voornaam speler *</label>
-                                <input type="text" class="form-control" id="firstName"
-                                    placeholder="Vul de voornaam van de speler in" required>
+                                <label for="tournamentName">Naam Toernooi *</label>
+                                <input type="text" class="form-control" id="tournamentName"
+                                    value="1ste schaaktoernooi" required>
                             </div>
                             <div class="form-group">
-                                <label for="lastName">Achternaam speler *</label>
-                                <input type="datetime-local" class="form-control" id="lastName"
-                                    placeholder="Vul de achternaam van de speler in" required>
+                                <label for="startTime">Starttijd *</label>
+                                <input type="datetime-local" class="form-control" id="startTime"
+                                    value="2019-05-28T10:30" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="endTime">Eindtijd</label>
+                                <input type="datetime-local" class="form-control" id="endTime"
+                                    value="2019-05-28T18:30">
+                            </div>
+                            <div class="form-group">
+                                <label for="registrationFee">Inschrijfgeld *</label>
+                                <input type="number" class="form-control" id="registrationFee"
+                                    value="2.10" step=".01" required>
                             </div>
                             <div class="form-group">
                                 <label for="address">Adres *</label>
                                 <input type="text" class="form-control" id="address"
-                                    placeholder="Vul het adress in van de locatie van het toernooi" required>
+                                    value="Hoofdstraat 5"  required>
                             </div>
                             <div class="form-group">
                                 <label for="postalcode">Postcode *</label>
                                 <input type="text" class="form-control" id="postalcode"
-                                    placeholder="Vul de postcode in van de locatie van het toernooi" required>
+                                    value="9200AV" required>
                             </div>
                             <div class="form-group">
                                 <label for="city">Stad *</label>
                                 <input type="text" class="form-control" id="city"
-                                    placeholder="Vul de stad in van de locatie van het toernooi" required>
+                                    value="Arnhem" required>
                             </div>
                             <div class="form-group">
-                                <label for="birthdate">Geboortedatum *</label>
-                                <input type="date" class="form-control" id="birthdate"
-                                    placeholder="Vul de geboortedatum van de speler in." required>
-                            </div>
-                            <div class="form-group">
-                                    <label for="emailAddress">Emailadres *</label>
-                                    <input type="email" class="form-control" id="emailAddress"
-                                        placeholder="Vul het emailadres van de speler in" required>
-                            </div>
-                            <div class="form-group">
-                                    <label for="city">Schaakclub *</label>
-                                    <select class="custom-select mr-sm-2" id="city" required>
-                                            <option value="" selected disabled>Kies een schaakclub</option>
-                                            <option value="1">Schaakclub Horst</option>
-                                            <option value="2">Schaakclub Tilburg</option>
-                                    </select>
+                                <label for="registrationDeadline">Registratie Tijdsgrens *</label>
+                                <input type="datetime-local" class="form-control" id="registrationDeadline"
+                                    value="2019-05-28T10:00" required>
                             </div>
 
-
-                            <button type="submit" class="btn btn-dark">Maak toernooi aan</button>
+                            <a class="btn btn-dark" href="editToernooiInfo.html" role="button">Accepteer en verstuur</a>
                         </form>
 
                     </div>
