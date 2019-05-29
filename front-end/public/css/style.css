@@ -47,3 +47,13 @@
     background-color: white !important;
     color: black !important;
 }
+
+.player-table{
+    height: 80vh !important;
+    overflow-y: scroll; 
+}
+
+.form-buttons{
+    margin-top:5px;
+    padding-top:5px;
+}
