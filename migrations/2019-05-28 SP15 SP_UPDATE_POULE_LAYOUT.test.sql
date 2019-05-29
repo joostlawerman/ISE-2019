@@ -86,7 +86,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [SP15].[test_players_are_in_diffrent_tournaments]
+CREATE PROCEDURE [SP15].[test_players_are_in_different_tournaments]
 AS 
 BEGIN
     EXEC tSQLt.ExpectException @ExpectedMessage = 'Could not find these players within this round.', @ExpectedSeverity = 16, @ExpectedErrorNumber = 50000
