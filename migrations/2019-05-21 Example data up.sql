@@ -80,12 +80,12 @@ INSERT INTO TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid, paid) VA
 INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber, system, starts, ends) VALUES
     ('Tilburg', 'Tilburger Toernooi', 1, 'round robin', dateadd(DAY, 10, getdate()),
      dateadd(MINUTE, 1, dateadd(DAY, 10, getdate()))),
-    ('Tilburg', 'Tilburger Toernooi', 2, 'round robin', dateadd(MINUTE, 1, dateadd(DAY, 10, getdate())), dateadd(
-        MINUTE, 2, dateadd(DAY, 10, getdate()))),
-    ('Tilburg', 'Tilburger Toernooi', 3, 'round robin', dateadd(MINUTE, 2, dateadd(DAY, 10, getdate())), dateadd(
-        MINUTE, 3, dateadd(DAY, 10, getdate()))),
-    ('Tilburg', 'Tilburger Toernooi', 4, 'round robin', dateadd(MINUTE, 3, dateadd(DAY, 10, getdate())), dateadd(
-        MINUTE, 4, dateadd(DAY, 10, getdate())));
+    ('Tilburg', 'Tilburger Toernooi', 2, 'round robin', dateadd(MINUTE, 1, dateadd(DAY, 10, getdate())), 
+	 dateadd(MINUTE, 2, dateadd(DAY, 10, getdate()))),
+    ('Tilburg', 'Tilburger Toernooi', 3, 'round robin', dateadd(MINUTE, 2, dateadd(DAY, 10, getdate())),
+	 dateadd(MINUTE, 3, dateadd(DAY, 10, getdate()))),
+    ('Tilburg', 'Tilburger Toernooi', 4, 'round robin', dateadd(MINUTE, 3, dateadd(DAY, 10, getdate())), 
+	 dateadd(MINUTE, 4, dateadd(DAY, 10, getdate())));
 
 -- +migrate Up
 INSERT INTO POULE (chessclubname, tournamentname, roundnumber, pouleno) VALUES
@@ -148,6 +148,15 @@ INSERT INTO TOURNAMENT_PLAYER_OF_POULE (chessclubname, tournamentname, roundnumb
     ('Tilburg', 'Tilburger Toernooi', 1, 1, 3),
     ('Tilburg', 'Tilburger Toernooi', 1, 1, 4),
     ('Tilburg', 'Tilburger Toernooi', 1, 2, 5),
+	('Tilburg', 'Tilburger Toernooi', 1, 2, 6),
+    ('Tilburg', 'Tilburger Toernooi', 1, 2, 7),
+    ('Tilburg', 'Tilburger Toernooi', 1, 2, 8),
+    ('Tilburg', 'Tilburger Toernooi', 1, 3, 9),
+    ('Tilburg', 'Tilburger Toernooi', 1, 3, 10),
+	('Tilburg', 'Tilburger Toernooi', 1, 3, 11),
+    ('Tilburg', 'Tilburger Toernooi', 1, 4, 12),
+    ('Tilburg', 'Tilburger Toernooi', 1, 4, 13),
+    ('Tilburg', 'Tilburger Toernooi', 1, 4, 14),
     ('Tilburg', 'Tilburger Toernooi', 2, 2, 1),
     ('Tilburg', 'Tilburger Toernooi', 2, 2, 2),
     ('Tilburg', 'Tilburger Toernooi', 2, 1, 3),
@@ -165,28 +174,26 @@ INSERT INTO TOURNAMENT_PLAYER_OF_POULE (chessclubname, tournamentname, roundnumb
     ('Tilburg', 'Tilburger Toernooi', 4, 3, 5);
 
 -- +migrate Up
-INSERT INTO CHESSMATCH_OF_POULE (matchno, chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack)
+INSERT INTO CHESSMATCH_OF_POULE (matchno, chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack, result)
 VALUES
-    (1, 'Tilburg', 'Tilburger Toernooi', 1, 1, 1, 2),
-    (2, 'Tilburg', 'Tilburger Toernooi', 1, 1, 3, 4),
-    (3, 'Tilburg', 'Tilburger Toernooi', 1, 1, 1, 3),
-    (4, 'Tilburg', 'Tilburger Toernooi', 1, 1, 2, 4),
-    (5, 'Tilburg', 'Tilburger Toernooi', 1, 1, 1, 2),
-    (6, 'Tilburg', 'Tilburger Toernooi', 2, 2, 1, 2),
-    (7, 'Tilburg', 'Tilburger Toernooi', 2, 2, 4, 5),
-    (8, 'Tilburg', 'Tilburger Toernooi', 2, 2, 2, 5),
-    (9, 'Tilburg', 'Tilburger Toernooi', 2, 2, 1, 4),
-    (10, 'Tilburg', 'Tilburger Toernooi', 2, 2, 1, 2),
-    (11, 'Tilburg', 'Tilburger Toernooi', 3, 5, 2, 3),
-    (12, 'Tilburg', 'Tilburger Toernooi', 3, 5, 4, 5),
-    (13, 'Tilburg', 'Tilburger Toernooi', 3, 5, 2, 4),
-    (14, 'Tilburg', 'Tilburger Toernooi', 3, 5, 3, 5),
-    (15, 'Tilburg', 'Tilburger Toernooi', 3, 5, 2, 5),
-    (16, 'Tilburg', 'Tilburger Toernooi', 4, 2, 1, 2),
-    (17, 'Tilburg', 'Tilburger Toernooi', 4, 2, 2, 1),
-    (18, 'Tilburg', 'Tilburger Toernooi', 4, 3, 3, 4),
-    (19, 'Tilburg', 'Tilburger Toernooi', 4, 3, 3, 5),
-    (20, 'Tilburg', 'Tilburger Toernooi', 4, 3, 5, 4);
+    (1, 'Tilburg', 'Tilburger Toernooi', 1, 1, 1, 4, 'black'),
+    (2, 'Tilburg', 'Tilburger Toernooi', 1, 1, 2, 3, 'white'),
+    (3, 'Tilburg', 'Tilburger Toernooi', 1, 1, 3, 1, 'remise'),
+    (4, 'Tilburg', 'Tilburger Toernooi', 1, 1, 4, 2, 'black'),
+	(5, 'Tilburg', 'Tilburger Toernooi', 1, 1, 1, 2, 'remise'),
+    (6, 'Tilburg', 'Tilburger Toernooi', 1, 1, 3, 4, 'black'),
+	(7, 'Tilburg', 'Tilburger Toernooi', 1, 2, 5, 8, 'black'),
+    (8, 'Tilburg', 'Tilburger Toernooi', 1, 2, 6, 7, 'white'),
+    (9, 'Tilburg', 'Tilburger Toernooi', 1, 2, 7, 5, 'remise'),
+    (10, 'Tilburg', 'Tilburger Toernooi', 1, 2, 8, 6, 'black'),
+	(11, 'Tilburg', 'Tilburger Toernooi', 1, 2, 5, 6, 'black'),
+    (12, 'Tilburg', 'Tilburger Toernooi', 1, 2, 7, 8, 'white'),
+    (13, 'Tilburg', 'Tilburger Toernooi', 1, 3, 9, 11, 'remise'),
+    (14, 'Tilburg', 'Tilburger Toernooi', 1, 3, 11, 10, 'black'),
+	(15, 'Tilburg', 'Tilburger Toernooi', 1, 3, 10, 9, 'black'),
+    (16, 'Tilburg', 'Tilburger Toernooi', 1, 4, 12, 14, 'white'),
+    (17, 'Tilburg', 'Tilburger Toernooi', 1, 4, 14, 13, 'remise'),
+    (18, 'Tilburg', 'Tilburger Toernooi', 1, 4, 13, 12, 'black');
 
 -- +migrate Up
 INSERT INTO CHESSMATCHMOVE (matchno, moveno, colour, piece, destination) VALUES
