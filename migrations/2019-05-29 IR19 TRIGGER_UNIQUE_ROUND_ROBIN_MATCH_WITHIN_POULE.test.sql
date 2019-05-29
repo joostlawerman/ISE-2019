@@ -25,7 +25,7 @@ AS
     END;
 
 -- +migrate Up
-CREATE PROCEDURE sp19.test_existing_match_inverted_in_round_robin_poule AS
+CREATE PROCEDURE IR19.test_existing_match_inverted_in_round_robin_poule AS
 BEGIN
 
     EXEC tSQLt.ExpectException 'There is a match that is duplicate in a round robin poule'
@@ -36,7 +36,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE sp19.test_duplicate_match_in_round_robin_poule AS
+CREATE PROCEDURE IR19.test_duplicate_match_in_round_robin_poule AS
 BEGIN
 
     EXEC tSQLt.ExpectException 'There is a match that is duplicate in a round robin poule'
@@ -47,13 +47,32 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE sp19.test_bracket_doesnt_trigger AS
+CREATE PROCEDURE IR19.test_bracket_doesnt_trigger_existing_match_inverted AS
 BEGIN
 
-    EXEC tSQLt.ExpectException 'There is a match that is duplicate in a round robin poule'
+    EXEC tSQLt.ExpectNoException
     -- Execute
 
     INSERT INTO CHESSMATCH_OF_POULE (chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
-            ('test', 'round', 1, 1, 1, 2)
+            ('test', 'brak', 1, 1, 4, 3)
 END;
 
+-- +migrate Up
+CREATE PROCEDURE IR19.test_bracket_doesnt_trigger_existing_match_duplicate AS
+BEGIN
+
+    EXEC tSQLt.ExpectNoException
+    -- Execute
+
+    INSERT INTO CHESSMATCH_OF_POULE (chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
+            ('test', 'brak', 1, 1, 3, 4)
+END;
+
+CREATE PROCEDURE IR19.test_successfully_insert_unique_round_robin_match AS
+BEGIN
+    exec tSQLt.ExpectNoException
+    -- Execute
+        INSERT INTO CHESSMATCH_OF_POULE (chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
+            ('test', 'brak', 1, 1, 1, 4),
+            ('test', 'brak', 1, 1, 2, 3)
+END;
