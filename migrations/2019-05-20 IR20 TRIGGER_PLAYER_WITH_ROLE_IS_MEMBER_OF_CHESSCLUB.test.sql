@@ -1,11 +1,11 @@
 -- +migrate Up
-EXEC tSQLt.NewTestClass 'IR21';
+EXEC tSQLt.NewTestClass 'IR20';
 
 -- +migrate Down
-EXEC tSQLt.DropClass 'IR21';
+EXEC tSQLt.DropClass 'IR20';
 
 -- +migrate Up 
-CREATE PROCEDURE IR21.SetUp
+CREATE PROCEDURE IR20.SetUp
 AS
 BEGIN
    	--Arrange
@@ -19,7 +19,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR21].[Test if a player has a role in a chessclub that he/she is a member of]
+CREATE PROCEDURE [IR20].[Test if a player has a role in a chessclub that he/she is a member of]
 AS
 BEGIN
    	--Assert
@@ -32,7 +32,7 @@ BEGIN
 END;
 
 -- +migrate Up 
-CREATE PROCEDURE [IR21].[Test if a player has a role in a chessclub that he/she is not a member of]
+CREATE PROCEDURE [IR20].[Test if a player has a role in a chessclub that he/she is not a member of]
 AS
 BEGIN
    	--Assert

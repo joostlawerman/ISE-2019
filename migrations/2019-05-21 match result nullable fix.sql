@@ -1,3 +1,0 @@
--- +migrate Up
-ALTER TABLE CHESSMATCH
-	ALTER COLUMN result CHAR(6) NULL;
