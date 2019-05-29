@@ -5,7 +5,7 @@ INSERT INTO CHESSCLUB (chessclubname, city, addressline1, postalcode, emailaddre
 	('Han scakers', 'Arnhem', 'Ruitenberglaan 26', '1234AB', 'hanschaak@gmail.nl'),
 	('Deventer schakers', 'Deventer', 'Colmsgateweg 33', '2143CB', 'deventerschaakmensjes@gmail.nl'),
 	('Apeldoornse scakers', 'Apeldoorn', 'hoofdtraat 55', '8472QB', 'apeldoornchaakmensjes@gmail.nl'),
-	('Amsterdamse scakers', 'Amsterdamse', 'kalverstraat 88', '6482SS', 'dureschakers@gmail.nl');
+	('Amsterdamse scakers', 'Amsterdamse', 'kalverstraat 88', '6482BC', 'dureschakers@gmail.nl');
 
 -- +migrate Up
 INSERT INTO PLAYER (playerid, chessclubname, firstname, lastname, addressline1, postalcode, city, birthdate, emailaddress, gender)
