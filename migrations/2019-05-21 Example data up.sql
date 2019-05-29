@@ -1,7 +1,11 @@
 -- +migrate Up
 INSERT INTO CHESSCLUB (chessclubname, city, addressline1, postalcode, emailaddress) VALUES
     ('Tilburg', 'Tilburg', 'Tilburgerstraat 10', '8445BU', 'tilburg@example.til'),
-    ('Sneeker schakers', 'Sneek', 'Leeuwarderdyk 150', '8767BU', 'snitserskakers@example.frl');
+    ('Sneeker schakers', 'Sneek', 'Leeuwarderdyk 150', '8767BU', 'snitserskakers@example.frl'),
+	('Han scakers', 'Arnhem', 'Ruitenberglaan 26', '1234AB', 'hanschaak@gmail.nl'),
+	('Deventer schakers', 'Deventer', 'Colmsgateweg 33', '2143CB', 'deventerschaakmensjes@gmail.nl'),
+	('Apeldoornse scakers', 'Apeldoorn', 'hoofdtraat 55', '8472QB', 'apeldoornchaakmensjes@gmail.nl'),
+	('Amsterdamse scakers', 'Amsterdamse', 'kalverstraat 88', '6482SS', 'dureschakers@gmail.nl');
 
 -- +migrate Up
 INSERT INTO PLAYER (playerid, chessclubname, firstname, lastname, addressline1, postalcode, city, birthdate, emailaddress, gender)
@@ -12,16 +16,38 @@ VALUES
      'jelmertester@tester.test', 'm'),
     (3, 'Tilburg', 'Ivor', 'Staats', 'testinglane 18594', '8654TE', 'Apeldoorn', '2001-09-09', 'ivortester@tester.test',
      'm'),
-    (4, 'Sneeker schakers', 'Jasmijn', 'Bartels', 'voorbeeldstraat 100', '7444TE', 'Colmschate', '1970-01-01',
+    (4, 'Sneeker schakers', 'Jasmyn', 'Bartelds', 'voorbeeldstraat 100', '7444TE', 'Colmschate', '1970-01-01',
      'jasmijntester@tester.test', 'v'),
     (5, 'Tilburg', 'Luca', 'Hogeweide', 'ergens op de wereld straat 1290', '9999TE', 'Doetinchem', '1990-02-02',
-     'luca@tester.test', 'm');
+     'luca@tester.test', 'm'),
+	(6, 'Han scakers', 'Jan', 'Smith', 'Aalscholverstraat 12', '4323DE', 'Rotterdam', '1999-08-22',
+     'jan@tester.test', 'm'),
+	(7, 'Deventer schakers', 'Henk', 'Jansen', 'Alexanderlaan 300', '9381QW', 'Amsterdam', '1995-10-12',
+     'henk@tester.test', 'm'),
+	(8, 'Apeldoornse scakers', 'Sanne', 'Bakker', 'Brediusweg 93', '7319HD', 'Utrecht', '1993-09-02',
+     'sanne@tester.test', 'v'),
+	(9, 'Han scakers', 'Luuk', 'Visser', 'Driftweg 99', '9372LO', 'Eindhover', '1999-02-27',
+     'luuk@tester.test', 'm'),
+	(10, 'Deventer schakers', 'Lieke', 'De Jong', 'Energiestraat 84', '4628FD', 'Groningen', '1990-12-05',
+     'lieke@tester.test', 'v'),
+	(11, 'Apeldoornse scakers', 'Mees', 'Van Dijk', 'Fazantweg 77', '8392PL', 'Arnhem', '1991-06-15',
+     'mees@tester.test', 'm'),
+	(12, 'Amsterdamse scakers', 'Sem', 'Vos', 'Huizerpoortstraat 48', '1527CV', 'Maastricht', '1994-03-09',
+     'sem@tester.test', 'm'),
+	(13, 'Amsterdamse scakers', 'Daan', 'De Graaf', 'Jansteenlaan 26', '8920HJ', 'Leiden', '1997-02-01',
+     'daan@tester.test', 'm'),
+	(14, 'Han scakers', 'Merel', 'De Wit', 'Keverdijk 66', '9271JP', 'Haarlem', '1996-04-19',
+     'merel@tester.test', 'v');
 
 -- +migrate Up
 INSERT INTO ROLE (playerid, chessclubname, role) VALUES
     (1, 'Tilburg', 'voorzitter'),
     (2, 'Sneeker schakers', 'voorzitter'),
-    (3, 'Tilburg', 'secretaris');
+    (3, 'Tilburg', 'secretaris'),
+	(6, 'Han scakers', 'voorzitter'),
+	(10, 'Deventer schakers', 'voorzitter'),
+	(11, 'Apeldoornse scakers', 'voorzitter'),
+	(12, 'Amsterdamse scakers', 'voorzitter'),
 
 -- +migrate Up
 INSERT INTO CONTACTPERSON (contactname, emailaddress, phonenumber) VALUES
@@ -39,7 +65,16 @@ INSERT INTO TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid, paid) VA
     ('Tilburg', 'Tilburger Toernooi', 2, 1),
     ('Tilburg', 'Tilburger Toernooi', 3, 0),
     ('Tilburg', 'Tilburger Toernooi', 4, 1),
-    ('Tilburg', 'Tilburger Toernooi', 5, 0);
+    ('Tilburg', 'Tilburger Toernooi', 5, 0),
+	('Tilburg', 'Tilburger Toernooi', 6, 0),
+	('Tilburg', 'Tilburger Toernooi', 7, 0),
+	('Tilburg', 'Tilburger Toernooi', 8, 0),
+	('Tilburg', 'Tilburger Toernooi', 9, 0),
+	('Tilburg', 'Tilburger Toernooi', 10, 0),
+	('Tilburg', 'Tilburger Toernooi', 11, 0),
+	('Tilburg', 'Tilburger Toernooi', 12, 0),
+	('Tilburg', 'Tilburger Toernooi', 13, 0),
+	('Tilburg', 'Tilburger Toernooi', 14, 1),
 
 -- +migrate Up
 INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber, system, starts, ends) VALUES
