@@ -14,15 +14,15 @@ BEGIN
         BEGIN TRANSACTION  
 	BEGIN TRY		
 		
-		IF(/*voorwaarde, als die er is*/)
-			BEGIN
-				RAISERROR('error message', 16, 1)
-			END	
-		ELSE
-			BEGIN
-				INSERT INTO tablename ()
-				VALUES () 
-			END		
+		--IF(/*voorwaarde, als die er is*/)
+		--	BEGIN
+		--		RAISERROR('error message', 16, 1)
+		--	END	
+		--ELSE
+		--	BEGIN
+		--		INSERT INTO tablename ()
+		--		VALUES () 
+		--	END		
 				
         IF @orginTranCount = 0  
             COMMIT TRANSACTION 
