@@ -5,7 +5,6 @@ CREATE PROC SP_UPDATE_TOURNAMENT (
 	@winner int,
 	@contactname varchar(100),
 	@starts datetime,
-	@ends datetime,
 	@registrationfee money,
 	@addressline1 varchar(100),
 	@postalcode varchar(6),
@@ -127,12 +126,6 @@ BEGIN
 				  tournamentname = @tournamentname	
 		END	
 
-		BEGIN
-		UPDATE TOURNAMENT
-			SET ends = @ends
-			WHERE chessclubname = @chessclubname and
-				  tournamentname = @tournamentname	
-		END
 
         IF @orginTranCount = 0  
             COMMIT TRANSACTION 
