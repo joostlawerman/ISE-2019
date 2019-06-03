@@ -38,11 +38,11 @@ BEGIN
 			END	
 		ELSE
 			BEGIN
-				SELECT CAST(COUNT(*) AS DECIMAL) + (SELECT CAST(COUNT(*) AS DECIMAL)/2
+				SELECT @playerid AS playerid, (CAST(COUNT(*) AS DECIMAL) + (SELECT CAST(COUNT(*) AS DECIMAL)/2 
 													FROM CHESSMATCH_OF_POULE 
 													WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber 
 													AND ((playeridwhite = @playerid AND result = 'remise') 
-													OR (playeridblack = @playerid AND result = 'remise')))
+													OR (playeridblack = @playerid AND result = 'remise')))) AS score
 				FROM CHESSMATCH_OF_POULE 
 				WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber 
 					AND ((playeridwhite = @playerid AND result = 'white') 
@@ -64,3 +64,5 @@ BEGIN
 		RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState)
 	END CATCH
 END;
+
+EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND 'Tilburg', 	'Tilburger Toernooi', 1, 2

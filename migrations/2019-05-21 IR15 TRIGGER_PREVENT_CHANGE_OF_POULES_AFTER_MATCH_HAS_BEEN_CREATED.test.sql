@@ -16,8 +16,8 @@ BEGIN
 
    	EXEC tSQLt.FakeTable 'dbo', 'POULE'  	
    	INSERT INTO POULE 
-   	VALUES(null, null, null, 1),
-          (null, null, null, 2)
+   	VALUES(null, null, 1, 1),
+          (null, null, 1, 2)
 END;
 
 -- +migrate Up
@@ -25,15 +25,15 @@ CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in that pou
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE 
-   	VALUES(null, null, null, null, 2, null, null, 'remise')
+   	VALUES(null, null, null, 1, 2, null, null, 'remise')
 
    	--Assert
    	EXEC tSQLt.ExpectException @ExpectedMessage= 'A poule can not be changed when a match in that poule has started'
   
    	--Act
    	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
-   	VALUES (null, null, null, null, 1),
-           (null, null, null, null, 2) 
+   	VALUES (null, null, null, 1, 1),
+           (null, null, null, 1, 2) 
 END;
 
 -- +migrate Up
@@ -41,15 +41,15 @@ CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in that pou
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE 
-   	VALUES(null, null, null, null, 2, null, null, null)
+   	VALUES(null, null, null, 1, 2, null, null, null)
 
    	--Assert
    	EXEC tSQLt.ExpectException @ExpectedMessage= 'A poule can not be changed when a match in that poule has started'
   
    	--Act
    	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
-   	VALUES (null, null, null, null, 1),
-           (null, null, null, null, 2) 
+   	VALUES (null, null, null, 1, 1),
+           (null, null, null, 1, 2) 
 END;
 
 -- +migrate Up
@@ -61,8 +61,8 @@ BEGIN
   
    	--Act
    	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
-   	VALUES (null, null, null, null, 1),
-           (null, null, null, null, 2) 
+   	VALUES (null, null, null, 1, 1),
+           (null, null, null, 1, 2) 
 END;
 
 -- +migrate Up
@@ -70,15 +70,15 @@ CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in another 
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE
-   	VALUES(null, null, null, null, 3, null, null, null)
+   	VALUES(null, null, null, 1, 3, null, null, null)
 
    	--Assert
    	EXEC tSQLt.ExpectNoException
   
    	--Act
    	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
-   	VALUES (null, null, null, null, 1),
-           (null, null, null, null, 2) 
+   	VALUES (null, null, null, 1, 1),
+           (null, null, null, 1, 2) 
 END;
 
 -- +migrate Up
@@ -86,13 +86,13 @@ CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in another 
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE 
-   	VALUES(null, null, null, null, 3, null, null, 'remise')
+   	VALUES(null, null, null, 1, 3, null, null, 'remise')
 
    	--Assert
    	EXEC tSQLt.ExpectNoException
   
    	--Act
    	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
-   	VALUES (null, null, null, null, 1),
-           (null, null, null, null, 2) 
+   	VALUES (null, null, null, 1, 1),
+           (null, null, null, 1, 2) 
 END;

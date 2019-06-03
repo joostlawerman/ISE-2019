@@ -27,11 +27,28 @@ BEGIN
         BEGIN TRANSACTION  
 	BEGIN TRY		
 		
-		SELECT tp.playerid, p.chessclubname
+		
+		SELECT tp.playerid
 		INTO #TEMP_PLAYERS_IN_ROUND
 		FROM TOURNAMENT_PLAYER tp INNER JOIN PLAYER p ON tp.playerid = p.playerid 
 		WHERE tp.chessclubname = @chessclubname AND tp.tournamentname = @tournamentname
 		
+		CREATE TABLE #TEMP_PLAYER_SCORE_IN_ROUND(
+			playerid int,
+			score decimal(5,2) 
+		)
+
+		DECLARE @currentPlayer int
+		DECLARE @roundnumberOfLastRound int
+		SET @roundnumberOfLastRound = @roundnumber - 1
+
+		WHILE ((SELECT COUNT(*) FROM #TEMP_PLAYERS_IN_ROUND) != 0)
+		BEGIN
+			SET @currentPlayer = (SELECT TOP 1 playerid FROM #TEMP_PLAYERS_IN_ROUND)
+			INSERT INTO #TEMP_PLAYER_SCORE_IN_ROUND EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND @chessclubname, @tournamentname, @roundnumberOfLastRound, @currentPlayer
+			DELETE FROM #TEMP_PLAYERS_IN_ROUND WHERE playerid = @currentPlayer
+		END
+
 		DECLARE @pouleno int
 		SET @pouleno = 1
 
@@ -39,34 +56,35 @@ BEGIN
 		SET @maxPlayersPoule = 4
 
 		DECLARE @poulePlayer int
-
-		WHILE ((SELECT COUNT(*) FROM #TEMP_PLAYERS_IN_ROUND) != 0)
+		
+		WHILE ((SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) != 0)
 		BEGIN
 
+			--Check if there are max players in a poule
 			IF((SELECT COUNT(*) FROM TOURNAMENT_PLAYER_OF_POULE WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber AND pouleno = @pouleno) >= @maxPlayersPoule)
 			BEGIN
 				SET @pouleno = @pouleno + 1
-				IF((SELECT COUNT(*) FROM #TEMP_PLAYERS_IN_ROUND) = 6 OR (SELECT COUNT(*) FROM #TEMP_PLAYERS_IN_ROUND) = 3 OR (SELECT COUNT(*) FROM #TEMP_PLAYERS_IN_ROUND) = 9)
+				--Check if max players in poule is still valid
+				IF((SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 6 OR (SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 3 OR (SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 9)
 				BEGIN
 					SET @maxPlayersPoule = 3
 				END
 			END
 
+			--Check if poule not exists
 			IF NOT EXISTS(SELECT 1 FROM POULE WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber AND pouleno = @pouleno)
 			BEGIN
 				INSERT INTO POULE VALUES (@chessclubname, @tournamentname, @roundnumber, @pouleno)
 			END
 		
 			SET @poulePlayer = (SELECT TOP 1 playerid 
-								FROM #TEMP_PLAYERS_IN_ROUND 
-								WHERE chessclubname = (SELECT temp.chessclubname FROM #TEMP_CHESSCLUB_IN_ROUND temp WHERE id = @currentChessclub)
-								ORDER BY NEWID())
-			PRINT @poulePlayer
+								FROM #TEMP_PLAYER_SCORE_IN_ROUND
+								ORDER BY score DESC)
 		
 			INSERT INTO TOURNAMENT_PLAYER_OF_POULE 
 				VALUES (@chessclubname, @poulePlayer, @tournamentname, @roundnumber, @pouleno)
 
-			DELETE FROM #TEMP_PLAYERS_IN_ROUND WHERE playerid = @poulePlayer
+			DELETE FROM #TEMP_PLAYER_SCORE_IN_ROUND WHERE playerid = @poulePlayer
 		END
 				
         IF @orginTranCount = 0  
@@ -85,4 +103,12 @@ BEGIN
 	END CATCH
 END;
 
-
+BEGIN TRAN
+	DELETE FROM CHESSMATCH_OF_POULE WHERE roundnumber > 1
+	DELETE FROM TOURNAMENT_PLAYER_OF_POULE WHERE roundnumber > 1
+	DELETE FROM ROUND_ROBIN_POULE WHERE roundnumber > 1
+	DELETE FROM POULE WHERE roundnumber > 1
+	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 2
+	EXEC SP_CREATE_POULE_BASED_ON_SCORE 'Tilburg', 	'Tilburger Toernooi', 2
+	SELECT * FROM TOURNAMENT_PLAYER_OF_POULE
+ROLLBACK TRAN
