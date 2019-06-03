@@ -10,10 +10,10 @@
 */
 
 -- +migrate Down
-DROP PROC SP_CREATE_POULE_BASED_ON_SCORE;
+DROP PROC SP_CREATE_FINALS_POULE_BASED_ON_SCORE;
 
 -- +migrate Up
-CREATE PROC SP_CREATE_POULE_BASED_ON_SCORE (
+CREATE PROC SP_CREATE_FINALS_POULE_BASED_ON_SCORE (
 	@chessclubname varchar(100),
 	@tournamentname varchar(100),
 	@roundnumber int)
@@ -38,11 +38,13 @@ BEGIN
 		)
 
 		DECLARE @currentPlayer int
+		DECLARE @roundnumberOfLastRound int
+		SET @roundnumberOfLastRound = @roundnumber
 
 		WHILE ((SELECT COUNT(*) FROM #TEMP_PLAYERS_IN_ROUND) != 0)
 		BEGIN
 			SET @currentPlayer = (SELECT TOP 1 playerid FROM #TEMP_PLAYERS_IN_ROUND)
-			INSERT INTO #TEMP_PLAYER_SCORE_IN_ROUND EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND @chessclubname, @tournamentname, @roundnumber, @currentPlayer
+			INSERT INTO #TEMP_PLAYER_SCORE_IN_ROUND EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND @chessclubname, @tournamentname, @roundnumberOfLastRound, @currentPlayer
 			DELETE FROM #TEMP_PLAYERS_IN_ROUND WHERE playerid = @currentPlayer
 		END
 
@@ -52,7 +54,7 @@ BEGIN
 		SET @pouleno = 1
 
 		DECLARE @maxPlayersPoule int
-		SET @maxPlayersPoule = 4
+		SET @maxPlayersPoule = 8
 
 		DECLARE @poulePlayer int
 		
@@ -63,9 +65,9 @@ BEGIN
 			BEGIN
 				SET @pouleno = @pouleno + 1
 				--Check if max players in poule is still valid
-				IF((SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 6 OR (SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 3 OR (SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 9)
+				IF((SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 7 OR (SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 14 OR (SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 9)
 				BEGIN
-					SET @maxPlayersPoule = 3
+					SET @maxPlayersPoule = 7
 				END
 			END
 

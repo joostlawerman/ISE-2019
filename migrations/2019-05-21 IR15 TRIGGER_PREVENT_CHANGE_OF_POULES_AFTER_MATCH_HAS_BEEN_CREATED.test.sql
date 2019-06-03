@@ -96,3 +96,5 @@ BEGIN
    	VALUES (null, null, null, 1, 1),
            (null, null, null, 1, 2) 
 END;
+
+exec tSQLt.Run IR15

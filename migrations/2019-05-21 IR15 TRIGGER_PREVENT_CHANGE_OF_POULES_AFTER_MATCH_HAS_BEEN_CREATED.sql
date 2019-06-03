@@ -9,11 +9,11 @@ IF @@ROWCOUNT = 0
 SET NOCOUNT ON
 BEGIN TRY
 			IF EXISTS (	SELECT 1
-						FROM Inserted i INNER JOIN TOURNAMENT_PLAYER_OF_POULE t ON i.pouleno = t.pouleno AND i.roundnumber = t.roundnumber
+						FROM Inserted i
 						WHERE EXISTS(
 									SELECT 1
-									FROM POULE p INNER JOIN CHESSMATCH_OF_POULE c ON p.pouleno = c.pouleno AND p.roundnumber = c.roundnumber
-									WHERE (p.pouleno = i.pouleno AND p.roundnumber = i.roundnumber) OR c.result IS NULL))
+									FROM POULE p INNER JOIN CHESSMATCH_OF_POULE c ON p.pouleno = c.pouleno AND p.roundnumber = c.roundnumber AND p.chessclubname = c.chessclubname AND p.tournamentname = c.tournamentname
+									WHERE (p.pouleno = i.pouleno AND p.roundnumber = i.roundnumber AND p.chessclubname = i.chessclubname AND p.tournamentname = i.tournamentname) OR c.result IS NULL))
 
       		BEGIN
               	   THROW 50000, 'A poule can not be changed when a match in that poule has started', 1
