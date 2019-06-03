@@ -120,4 +120,3 @@ BEGIN
 
 	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'TestToernooi', 2, 'Testo Tset', '2019-05-03 01:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
 END;
-
