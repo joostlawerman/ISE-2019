@@ -23,7 +23,7 @@ BEGIN
 	SET  @orginTranCount = @@TRANCOUNT
 	IF @orginTranCount > 0    
         SAVE TRANSACTION ProcedureSave  
-    ELSE  
+    ELSE
         BEGIN TRANSACTION  
 	BEGIN TRY		
 		
@@ -40,7 +40,7 @@ BEGIN
 							WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber)
 			BEGIN
 				RAISERROR('There is no round with this roundnumber in this tournament', 16, 1)
-			END	
+			END
 
 		SELECT tp.playerid, p.chessclubname
 		INTO #TEMP_PLAYERS_IN_ROUND

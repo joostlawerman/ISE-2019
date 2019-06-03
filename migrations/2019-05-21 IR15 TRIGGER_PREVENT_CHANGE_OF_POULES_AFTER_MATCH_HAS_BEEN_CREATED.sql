@@ -12,8 +12,8 @@ BEGIN TRY
 						FROM Inserted i INNER JOIN TOURNAMENT_PLAYER_OF_POULE t ON i.pouleno = t.pouleno AND i.roundnumber = t.roundnumber
 						WHERE EXISTS(
 									SELECT 1
-									FROM POULE p INNER JOIN CHESSMATCH_OF_POULE c ON p.pouleno = c.pouleno AND i.roundnumber = t.roundnumber
-									WHERE (p.pouleno = t.pouleno AND i.roundnumber = t.roundnumber) OR c.result IS NULL))
+									FROM POULE p INNER JOIN CHESSMATCH_OF_POULE c ON p.pouleno = c.pouleno AND p.roundnumber = c.roundnumber
+									WHERE (p.pouleno = i.pouleno AND p.roundnumber = i.roundnumber) OR c.result IS NULL))
 
       		BEGIN
               	   THROW 50000, 'A poule can not be changed when a match in that poule has started', 1

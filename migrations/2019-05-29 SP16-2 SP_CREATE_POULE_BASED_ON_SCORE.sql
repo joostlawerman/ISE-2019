@@ -25,8 +25,7 @@ BEGIN
         SAVE TRANSACTION ProcedureSave  
     ELSE  
         BEGIN TRANSACTION  
-	BEGIN TRY		
-		
+	BEGIN TRY
 		
 		SELECT tp.playerid
 		INTO #TEMP_PLAYERS_IN_ROUND
@@ -40,7 +39,7 @@ BEGIN
 
 		DECLARE @currentPlayer int
 		DECLARE @roundnumberOfLastRound int
-		SET @roundnumberOfLastRound = @roundnumber - 1
+		SET @roundnumberOfLastRound = @roundnumber
 
 		WHILE ((SELECT COUNT(*) FROM #TEMP_PLAYERS_IN_ROUND) != 0)
 		BEGIN
@@ -48,6 +47,8 @@ BEGIN
 			INSERT INTO #TEMP_PLAYER_SCORE_IN_ROUND EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND @chessclubname, @tournamentname, @roundnumberOfLastRound, @currentPlayer
 			DELETE FROM #TEMP_PLAYERS_IN_ROUND WHERE playerid = @currentPlayer
 		END
+
+		select * from #TEMP_PLAYER_SCORE_IN_ROUND order by score
 
 		DECLARE @pouleno int
 		SET @pouleno = 1
@@ -59,7 +60,6 @@ BEGIN
 		
 		WHILE ((SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) != 0)
 		BEGIN
-
 			--Check if there are max players in a poule
 			IF((SELECT COUNT(*) FROM TOURNAMENT_PLAYER_OF_POULE WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber AND pouleno = @pouleno) >= @maxPlayersPoule)
 			BEGIN
@@ -79,8 +79,8 @@ BEGIN
 		
 			SET @poulePlayer = (SELECT TOP 1 playerid 
 								FROM #TEMP_PLAYER_SCORE_IN_ROUND
-								ORDER BY score DESC)
-		
+								ORDER BY score DESC, NEWID())
+
 			INSERT INTO TOURNAMENT_PLAYER_OF_POULE 
 				VALUES (@chessclubname, @poulePlayer, @tournamentname, @roundnumber, @pouleno)
 
@@ -110,5 +110,5 @@ BEGIN TRAN
 	DELETE FROM POULE WHERE roundnumber > 1
 	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 2
 	EXEC SP_CREATE_POULE_BASED_ON_SCORE 'Tilburg', 	'Tilburger Toernooi', 2
-	SELECT * FROM TOURNAMENT_PLAYER_OF_POULE
+	SELECT * FROM TOURNAMENT_PLAYER_OF_POULE where roundnumber = 2 order by roundnumber, pouleno
 ROLLBACK TRAN

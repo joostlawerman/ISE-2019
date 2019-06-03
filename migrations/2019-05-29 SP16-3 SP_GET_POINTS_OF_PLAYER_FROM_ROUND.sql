@@ -15,8 +15,7 @@ BEGIN
         SAVE TRANSACTION ProcedureSave  
     ELSE  
         BEGIN TRANSACTION  
-	BEGIN TRY		
-
+	BEGIN TRY
 		IF NOT EXISTS(SELECT 1 FROM CHESSCLUB WHERE chessclubname = @chessclubname)
 			BEGIN
 				RAISERROR('There is no chessclub with this name', 16, 1)
@@ -25,14 +24,14 @@ BEGIN
 			BEGIN
 				RAISERROR('There is no tournament with this name', 16, 1)
 			END
-		ELSE IF NOT EXISTS(SELECT 1 FROM CHESSMATCH_OF_POULE WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber 
+		ELSE IF NOT EXISTS(SELECT 1 FROM CHESSMATCH_OF_POULE WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber < @roundnumber 
 					AND ((playeridwhite = @playerid) OR (playeridblack = @playerid)))
 			BEGIN
 				RAISERROR('There is no player with this playerid in this round', 16, 1)
 			END
 		ELSE IF NOT EXISTS(	SELECT 1 
 							FROM CHESSMATCH_OF_POULE 
-							WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber)
+							WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber < @roundnumber)
 			BEGIN
 				RAISERROR('There is no round with this roundnumber in this tournament', 16, 1)
 			END	
@@ -40,11 +39,11 @@ BEGIN
 			BEGIN
 				SELECT @playerid AS playerid, (CAST(COUNT(*) AS DECIMAL) + (SELECT CAST(COUNT(*) AS DECIMAL)/2 
 													FROM CHESSMATCH_OF_POULE 
-													WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber 
+													WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber < @roundnumber 
 													AND ((playeridwhite = @playerid AND result = 'remise') 
 													OR (playeridblack = @playerid AND result = 'remise')))) AS score
 				FROM CHESSMATCH_OF_POULE 
-				WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber 
+				WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber < @roundnumber 
 					AND ((playeridwhite = @playerid AND result = 'white') 
 					OR (playeridblack = @playerid AND result = 'black'))	
 			END		
@@ -64,5 +63,3 @@ BEGIN
 		RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState)
 	END CATCH
 END;
-
-EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND 'Tilburg', 	'Tilburger Toernooi', 1, 2
