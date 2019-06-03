@@ -47,5 +47,3 @@ BEGIN
     EXEC GET_TOURNAMENT_INFO 'Test', 'test'
 
 END;
-
-EXEC tSQLt.Run 'SP3'
