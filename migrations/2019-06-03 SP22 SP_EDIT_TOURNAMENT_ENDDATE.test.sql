@@ -9,10 +9,6 @@ CREATE PROCEDURE SP22.SetUp
 AS
 BEGIN
 	--Assemble
-	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
-	INSERT INTO CHESSCLUB (chessclubname,city,addressline1,postalcode,emailaddress)
-	VALUES ('TestClub','Teststad','TestStraat1','7000AB','testclub.test@test.nl')
-
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
 	INSERT INTO TOURNAMENT (chessclubname, tournamentname,winner,contactname,starts,ends,registrationfee,addressline1,postalcode,city,registrationdeadline)
 	VALUES ('TestClub', 'TestToernooi', 1, 'Testo Tset', '2019-05-01 01:00:00', '2019-02-14 02:00:00', 10.00, 'TestStraat1', '7000AB', 'Teststad', '2019-05-01')

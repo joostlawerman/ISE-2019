@@ -20,15 +20,15 @@ BEGIN
 			END	
 		
 		IF(not exists (SELECT 1 
-					   FROM CHESSCLUB 
+					   FROM TOURNAMENT 
 					   WHERE chessclubname = @chessclubname))
 			BEGIN
 				RAISERROR('De ingevulde schaakclub bestaat niet.', 16, 1)
 			END	
 
 		IF(not exists (SELECT 1 
-					   FROM CHESSCLUB C INNER JOIN TOURNAMENT T ON C.chessclubname = T.chessclubname 
-					   WHERE C.chessclubname = @chessclubname AND T.tournamentname = @tournamentname))
+					   FROM TOURNAMENT 
+					   WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname))
 			BEGIN
 				RAISERROR('Het ingevulde schaaktoernooi voor de ingevulde schaakclub bestaat niet.', 16, 1)
 			END	

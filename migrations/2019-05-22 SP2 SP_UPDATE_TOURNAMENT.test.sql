@@ -9,15 +9,6 @@ CREATE PROCEDURE SP2.SetUp
 AS
 BEGIN
 	--Assemble
-	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
-	INSERT INTO CHESSCLUB (chessclubname,city,addressline1,postalcode,emailaddress)
-	VALUES ('TestClub','Teststad','TestStraat1','7000AB','testclub.test@test.nl')
-
-	EXEC tSQLt.FakeTable 'dbo', 'PLAYER'
-	INSERT INTO PLAYER (playerid,chessclubname,firstname,lastname,addressline1,postalcode,city,birthdate,emailaddress,gender)
-	VALUES (1,'TestClub','Test','Tester','TestStraat1','7000AB','Teststad','2000-01-01','test.test@test.nl','M'),
-		   (2,'TestClub','Tester','Test','TestStraat2','7000AB','Teststad','2000-01-01','test2.test@test.nl','V')
-
 	EXEC tSQLt.FakeTable 'dbo', 'CONTACTPERSON'
 	INSERT INTO CONTACTPERSON (contactname,emailaddress,phonenumber)
 	VALUES ('Testo Tset','Tset.test@test.nl','2299384887')
