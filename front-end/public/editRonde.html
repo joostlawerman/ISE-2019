@@ -10,6 +10,23 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/style.css">
+
+    <script>
+        $(document).ready(function () {
+            $('#example').DataTable({
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0
+                }],
+                select: {
+                    style: 'os',
+                    selector: 'td:first-child'
+                },
+                order: [[1, 'asc']]
+            });
+        });
+    </script>
 </head>
 
 <body>
@@ -64,16 +81,16 @@
                                 <option value="3">Ronde 3</option>
                             </select>
 
-                            <a class="btn btn-dark poules" href="editRonde.html" role="button">Edit</a>
+                            <a class="btn btn-dark poules" href="manageRondes.html" role="button">Accepteer</a>
                             <a class="btn btn-dark poules" href="" role="button">Maak een nieuwe ronde</a>
                             <a class="btn btn-dark poules" href="" role="button">Vul resultaten ronde in</a>
                             <a class="btn btn-dark poules" href="" role="button">Print poules</a>
                             <a class="btn btn-dark poules" href="" role="button">Print resultaten</a>
                         </div>
-                        
+
                         <div class="row poules">
                             <div class="col-3">
-                                <table class="table table-striped">
+                                <table class="table table-striped" id="example">
                                     <thead>
                                         <tr>
                                             <th>
@@ -83,6 +100,7 @@
                                         </tr>
                                     </thead>
                                     <tr>
+                                        <td></td>
                                         <td>
                                             1
                                         </td>

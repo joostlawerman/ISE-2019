@@ -65,3 +65,16 @@
 .homepagelink:hover{
     color: white;
 }
+
+.poules{
+    margin: auto;
+}
+
+.poule-menu{
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.td{
+    text-align: center;
+}
