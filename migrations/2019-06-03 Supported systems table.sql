@@ -1,0 +1,9 @@
+-- +migrate Up 
+CREATE TABLE SYSTEMS (
+    system		  VARCHAR(25) NOT NULL,
+    CONSTRAINT PK_SYSTEMS PRIMARY KEY NONCLUSTERED (system)
+
+);
+
+-- +migrate down
+DROP TABLE SYSTEMS

@@ -56,7 +56,8 @@ CREATE TABLE TOURNAMENT_ROUND (
     starts         DATETIME     NOT NULL,
     ends           DATETIME     NULL,
     CONSTRAINT PK_TOURNAMENT_ROUND PRIMARY KEY NONCLUSTERED (chessclubname, tournamentname, roundnumber),
-    CONSTRAINT FK_TOURNAME_TOURNAMEN_TOURNAME FOREIGN KEY (chessclubname, tournamentname) REFERENCES TOURNAMENT (chessclubname, tournamentname)
+    CONSTRAINT FK_TOURNAME_TOURNAMEN_TOURNAME FOREIGN KEY (chessclubname, tournamentname) REFERENCES TOURNAMENT (chessclubname, tournamentname),
+	CONSTRAINT FK_ROUNDSYSTEM_SYSTEM FOREIGN KEY (system) REFERENCES SYSTEMS (system)
 );
 -- +migrate Up
 CREATE TABLE POULE (
