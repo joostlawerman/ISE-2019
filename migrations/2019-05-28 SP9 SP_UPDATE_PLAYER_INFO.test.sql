@@ -81,10 +81,11 @@ END;
 CREATE PROCEDURE [SP9].[Test_datum_is_na_vandaag]
 AS
 BEGIN
+	DECLARE @DATE DATE
+	SELECT @DATE = DATEADD(year, 1, getDate())
+
 	--Assert
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'De datum van geboorte moet voor vandaag zijn.'
 
-	EXEC SP_UPDATE_PLAYER_INFO 1,'TestClub','Tester','Test','TestStraat2','7000AB','Teststad','2020-01-01','test2.test@test.nl','V'
+	EXEC SP_UPDATE_PLAYER_INFO 1,'TestClub','Tester','Test','TestStraat2','7000AB','Teststad',@DATE,'test2.test@test.nl','V'
 END;
-
-
