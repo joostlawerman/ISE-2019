@@ -39,7 +39,7 @@ AS
         IF (LEN(@destination) = 2 AND NOT @destination LIKE '[a-h][1-8]')
            OR (LEN(@destination) = 3 AND NOT (@destination LIKE '[KQRBN][a-h][1-8]' OR @destination LIKE 'O-O' OR @destination LIKE '[a-h][1-8][#+]'))
            OR (LEN(@destination) = 4 AND
-               NOT (@destination LIKE '[KQRBNa-h][x][a-h][1-8]' OR @destination LIKE '[a-h][1-8]=[QRBN]' OR @destination LIKE 'O-O[#+]' OR @destination LIKE '[QRBNa-h][a-h1-8][a-h][1-8]'))
+               NOT (@destination LIKE '[KQRBNa-h]x[a-h][1-8]' OR @destination LIKE '[a-h][1-8]=[QRBN]' OR @destination LIKE 'O-O[#+]' OR @destination LIKE '[QRBNa-h][a-h1-8][a-h][1-8]'))
            OR (LEN(@destination) = 5 AND
                NOT (@destination LIKE '[KQRBNa-h]x[a-h][1-8][#+]' OR @destination LIKE '[QRBNa-h][a-h1-8][a-h][1-8][#+]' OR @destination LIKE 'O-O-O' OR
                     @destination LIKE '[QRBNa-h][a-h1-8]x[a-h][1-8]' OR @destination LIKE '[a-h][1-8]=[QRBN][#+]' ))
