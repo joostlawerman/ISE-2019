@@ -1,14 +1,3 @@
-/*
-- kijken naar hoeveel spelers er in de ronde zitten.
-- kijken wat voor systeem het is.
-- kijken of het de eerste ronde is (round robin)
-- bij eerste ronde indelen dat spelers zoveel mogelijk in andere schaakclubs zitten.
-- bij een vervolg ronde indelen op punten ronde ervoor.(round robin)
-- kijken of het een finale ronde is (round robin)
-- bij een finale ronde poules van 8 personen (7 bij oneven)
-- kijken of er oneven poules zijn
-*/
-
 -- +migrate Down
 DROP PROC SP_CREATE_POULE_BASED_ON_CHESSCLUB;
 
@@ -36,8 +25,10 @@ BEGIN
 			id int NOT NULL IDENTITY(1,1),
 			chessclubname varchar(100) NOT NULL
 		)
-		
-		INSERT INTO #TEMP_CHESSCLUB_IN_ROUND (chessclubname) SELECT DISTINCT chessclubname FROM #TEMP_PLAYERS_IN_ROUND
+
+		SELECT DISTINCT chessclubname INTO #TEMP_CHESSCLUB_NAMES FROM #TEMP_PLAYERS_IN_ROUND
+
+		INSERT INTO #TEMP_CHESSCLUB_IN_ROUND (chessclubname) SELECT chessclubname FROM #TEMP_CHESSCLUB_NAMES ORDER BY NEWID()
 		
 		DECLARE @currentChessclub int
 		SET @currentChessclub = 1
@@ -73,8 +64,7 @@ BEGIN
 									FROM #TEMP_PLAYERS_IN_ROUND 
 									WHERE chessclubname = (SELECT temp.chessclubname FROM #TEMP_CHESSCLUB_IN_ROUND temp WHERE id = @currentChessclub)
 									ORDER BY NEWID())
-				PRINT @poulePlayer
-		
+
 				INSERT INTO TOURNAMENT_PLAYER_OF_POULE 
 					VALUES (@chessclubname, @poulePlayer, @tournamentname, @roundnumber, @pouleno)
 
@@ -106,5 +96,3 @@ BEGIN
 		RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState)
 	END CATCH
 END;
-
-
