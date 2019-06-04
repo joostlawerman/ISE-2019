@@ -46,8 +46,6 @@ BEGIN
 			DELETE FROM #TEMP_PLAYERS_IN_ROUND WHERE playerid = @currentPlayer
 		END
 
-		select * from #TEMP_PLAYER_SCORE_IN_ROUND order by score
-
 		DECLARE @pouleno int
 		SET @pouleno = 1
 
