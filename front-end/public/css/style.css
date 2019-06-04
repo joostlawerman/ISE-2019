@@ -1,0 +1,80 @@
+.menu{
+    height:100vh !important;
+    margin:0px;
+    padding:0px !important;
+    background-color: #ededed;
+}
+
+.btn-menu{
+    width:100%;
+}
+
+.main-page{
+    height:100vh !important;
+    margin:0px;
+    padding:0px !important;
+}
+
+.card-header{
+    color: white;
+}
+
+.list-group-item-dark{
+    background-color:#343a40 !important;
+    color: white;
+}
+
+.card{
+    border: 0px !important;
+    border-radius:0px !important;
+}
+
+.list-group-item-light{
+    background-color: #ededed;
+}
+
+.card-body-scroll{
+    height:92vh !important;
+    overflow-y: scroll;
+}
+
+.btn-dark:hover{
+    background-color: white;
+    color: black;
+}
+
+.btn-dark.active{
+    background-color: white !important;
+    color: black !important;
+}
+
+.player-table{
+    height: 80vh !important;
+    overflow-y: scroll; 
+}
+
+.form-buttons{
+    margin-top:5px;
+    padding-top:5px;
+}
+
+.homepagelink{
+    color: white;
+}
+
+.homepagelink:hover{
+    color: white;
+}
+
+.poules{
+    margin: auto;
+}
+
+.poule-menu{
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+.td{
+    text-align: center;
+}

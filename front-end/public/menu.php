@@ -1,32 +1,30 @@
 <?php
-echo '
-<aside>
-    <ul>
-        <li>
-            <a href="/index.html">
-                <button>Cre&euml;er toernooi</button>
-            </a>
-        </li>
-        <li>
-            <select name="asideToernooi" id="asideToernooi">
-                <option value="1">1ste schaaktoernooi</option>
-                <option value="2">2de schaaktoernooi</option>
-            </select>
-        </li>
-        <li>
-            <a href="/toernooiInfo.html">
-                <button>Toernooi Info</button>
-            </a>
-        </li>
-        <li>
-            <a href="/toernooiSpelerToevoegen.html">
-                <button>Voeg spelers toe</button>
-            </a>
-        </li>
-        <li>
-            <a href="/manageRondes.html">
-                <button>Manage rondes</button>
-            </a>
-        </li>
-    </ul>
-</aside>';
+echo '<div class="col-3 menu">
+        <ul class="list-group list-dark">
+            <li class="list-group-item list-group-item-dark">
+                <a class="homepagelink" href="index.html">Schaaktoernooi applicatie</a>
+            </li>
+            <li class="list-group-item list-group-item-light">
+                <a class="btn btn-dark btn-menu" href="creeerToernooi.html" role="button">Cre&euml;er toernooi</a>
+            </li>
+            <li class="list-group-item list-group-item-light">
+                <select name="asideToernooi" class="custom-select" id="asideToernooi">
+                    <option selected>Kies een schaaktoernooi</option>
+                    <option value="1">1ste schaaktoernooi</option>
+                    <option value="2">2de schaaktoernooi</option>
+                </select>
+            </li>
+            <li class="list-group-item list-group-item-light">
+                <a class="btn btn-dark btn-menu" href="toernooiInfo.html" role="button">Toernooi Info</a>
+            </li>
+            <li class="list-group-item list-group-item-light">
+                <a class="btn btn-dark btn-menu active" href="toernooiSpelerToevoegen.html" role="button" aria-pressed="true">Voeg toernooispelers toe</a>
+            </li>
+            <li class="list-group-item list-group-item-light">
+                <a class="btn btn-dark btn-menu" href="manageRondes.html" role="button">Manage rondes</a>
+            </li>
+            <li class="list-group-item list-group-item-light">
+                <a class="btn btn-dark btn-menu" href="schaakclubToevoegen.html" role="button">Voeg schaakclub toe</a>
+            </li>
+        </ul>
+    </div>';
