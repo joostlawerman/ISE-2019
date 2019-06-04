@@ -131,7 +131,7 @@ BEGIN
 		UPDATE TOURNAMENT
 			SET ends = @ends
 			WHERE chessclubname = @chessclubname and
-				  tournamentname = @tournamentname	
+				  tournamentname = @tournamentname
 		END
 
         IF @orginTranCount = 0  
