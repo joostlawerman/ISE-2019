@@ -15,7 +15,7 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3 menu">
+            <?php include "misc/menu.php"; ?>
                 <ul class="list-group list-dark">
                     <li class="list-group-item list-group-item-dark">
                         <a class= "homepagelink" href="index.html">Schaaktoernooi applicatie</a>

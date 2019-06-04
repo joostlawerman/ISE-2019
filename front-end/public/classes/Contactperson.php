@@ -1,12 +1,13 @@
 <?php
 
-class Chessclub {
 
+class Contactperson
+{
     /** @var $pdo PDO */
     public static $pdo;
 
-    static function getChessclubs() : array {
-        $statement = self::$pdo->prepare("EXEC SP_GET_CHESSCLUBS");
+    static function getContactpersons() : array {
+        $statement = self::$pdo->prepare("EXEC SP_GET_CONTACTPERSONS");
         $statement->execute();
         $return = [];
         foreach ($statement->fetchAll(PDO::FETCH_NUM) as $value) {
@@ -14,6 +15,8 @@ class Chessclub {
         }
         return $return;
     }
+
 }
+
 
 Chessclub::$pdo =& $pdo;

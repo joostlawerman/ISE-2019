@@ -13,9 +13,7 @@
 
 <div class="container-fluid">
     <div class="row">
-        <?php
-        include "menu.php"
-        ?>
+        <?php include "misc/menu.php"; ?>
         <div class="col-9 main-page">
             <div class="card">
                 <div class="card-header bg-dark">
