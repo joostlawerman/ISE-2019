@@ -42,6 +42,12 @@ INSERT INTO TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid, paid) VA
     ('Tilburg', 'Tilburger Toernooi', 5, 0);
 
 -- +migrate Up
+INSERT INTO SYSTEMS (system) VALUES
+	('round robin'),
+	('bracket');
+
+
+-- +migrate Up
 INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber, system, starts, ends) VALUES
     ('Tilburg', 'Tilburger Toernooi', 1, 'round robin', dateadd(DAY, 10, getdate()),
      dateadd(MINUTE, 1, dateadd(DAY, 10, getdate()))),
