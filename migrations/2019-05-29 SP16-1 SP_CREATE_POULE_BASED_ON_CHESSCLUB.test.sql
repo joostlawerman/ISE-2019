@@ -86,7 +86,7 @@ BEGIN
 END;
 
 -- +migrate Up
-ALTER PROCEDURE [SP16_1].[Test a poule is made based on chessclub]
+CREATE PROCEDURE [SP16_1].[Test a poule is made based on chessclub]
 AS 
 BEGIN
 	--Act
@@ -113,7 +113,7 @@ BEGIN
 END;
 
 -- +migrate Up
-ALTER PROCEDURE [SP16_1].[Test too many players from the same chessclub]
+CREATE PROCEDURE [SP16_1].[Test too many players from the same chessclub]
 AS 
 BEGIN
 	--Act
@@ -130,5 +130,3 @@ BEGIN
 
 	EXEC tSQLt.AssertEquals null, @Actual1
 END;
-
---EXEC tSQLt.run SP16_1

@@ -9,6 +9,57 @@
 - kijken of er oneven poules zijn
 */
 
+/*
+--Eerste ronde
+BEGIN TRAN
+	DELETE FROM CHESSMATCHMOVE
+	DELETE FROM CHESSMATCH_OF_POULE
+	DELETE FROM TOURNAMENT_PLAYER_OF_POULE
+	DELETE FROM ROUND_ROBIN_POULE
+	DELETE FROM POULE
+	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 1
+
+	EXEC SP_CREATE_POULES 'Tilburg', 'Tilburger Toernooi', 1, 0
+
+	SELECT t.tournamentname, p.chessclubname, p.playerid, t.roundnumber, t.pouleno 
+	FROM TOURNAMENT_PLAYER_OF_POULE t INNER JOIN PLAYER p ON t.playerid = p.playerid 
+	WHERE t.chessclubname = 'Tilburg' AND tournamentname = 'Tilburger Toernooi' AND RoundNumber = 1 
+	ORDER BY t.pouleno
+
+	SELECT count(a.b) FROM(
+	SELECT COUNT(*) as b FROM TOURNAMENT_PLAYER_OF_POULE GROUP BY pouleno HAVING COUNT(*) = 3) AS a
+ROLLBACK TRAN
+
+--Normale ronde
+BEGIN TRAN
+	DELETE FROM CHESSMATCH_OF_POULE WHERE roundnumber > 1
+	DELETE FROM TOURNAMENT_PLAYER_OF_POULE WHERE roundnumber > 1
+	DELETE FROM ROUND_ROBIN_POULE WHERE roundnumber > 1
+	DELETE FROM POULE WHERE roundnumber > 1
+	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 2
+
+	EXEC SP_CREATE_POULES 'Tilburg', 'Tilburger Toernooi', 2, 0
+
+	SELECT t.tournamentname, p.chessclubname, p.playerid, t.roundnumber, t.pouleno 
+	FROM TOURNAMENT_PLAYER_OF_POULE t INNER JOIN PLAYER p ON t.playerid = p.playerid 
+	WHERE t.chessclubname = 'Tilburg' AND tournamentname = 'Tilburger Toernooi' AND RoundNumber = 1 
+	ORDER BY t.pouleno
+ROLLBACK TRAN
+
+--Laatste ronde
+BEGIN TRAN
+	DELETE FROM CHESSMATCH_OF_POULE WHERE roundnumber > 1
+	DELETE FROM TOURNAMENT_PLAYER_OF_POULE WHERE roundnumber > 1
+	DELETE FROM ROUND_ROBIN_POULE WHERE roundnumber > 1
+	DELETE FROM POULE WHERE roundnumber > 1
+	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 2
+
+	EXEC SP_CREATE_POULES 'Tilburg', 'Tilburger Toernooi', 2, 1
+
+	SELECT * FROM TOURNAMENT_PLAYER_OF_POULE where roundnumber = 2 order by roundnumber, pouleno
+ROLLBACK TRAN
+*/
+
 -- +migrate Down
 DROP PROC SP_CREATE_POULES;
 
@@ -81,51 +132,3 @@ BEGIN
 	END CATCH
 END;
 
---Eerste ronde
-BEGIN TRAN
-	DELETE FROM CHESSMATCHMOVE
-	DELETE FROM CHESSMATCH_OF_POULE
-	DELETE FROM TOURNAMENT_PLAYER_OF_POULE
-	DELETE FROM ROUND_ROBIN_POULE
-	DELETE FROM POULE
-	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 1
-
-	EXEC SP_CREATE_POULES 'Tilburg', 'Tilburger Toernooi', 1, 0
-
-	SELECT t.tournamentname, p.chessclubname, p.playerid, t.roundnumber, t.pouleno 
-	FROM TOURNAMENT_PLAYER_OF_POULE t INNER JOIN PLAYER p ON t.playerid = p.playerid 
-	WHERE t.chessclubname = 'Tilburg' AND tournamentname = 'Tilburger Toernooi' AND RoundNumber = 1 
-	ORDER BY t.pouleno
-
-	SELECT count(a.b) FROM(
-	SELECT COUNT(*) as b FROM TOURNAMENT_PLAYER_OF_POULE GROUP BY pouleno HAVING COUNT(*) = 3) AS a
-ROLLBACK TRAN
-
---Normale ronde
-BEGIN TRAN
-	DELETE FROM CHESSMATCH_OF_POULE WHERE roundnumber > 1
-	DELETE FROM TOURNAMENT_PLAYER_OF_POULE WHERE roundnumber > 1
-	DELETE FROM ROUND_ROBIN_POULE WHERE roundnumber > 1
-	DELETE FROM POULE WHERE roundnumber > 1
-	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 2
-
-	EXEC SP_CREATE_POULES 'Tilburg', 'Tilburger Toernooi', 2, 0
-
-	SELECT t.tournamentname, p.chessclubname, p.playerid, t.roundnumber, t.pouleno 
-	FROM TOURNAMENT_PLAYER_OF_POULE t INNER JOIN PLAYER p ON t.playerid = p.playerid 
-	WHERE t.chessclubname = 'Tilburg' AND tournamentname = 'Tilburger Toernooi' AND RoundNumber = 1 
-	ORDER BY t.pouleno
-ROLLBACK TRAN
-
---Laatste ronde
-BEGIN TRAN
-	DELETE FROM CHESSMATCH_OF_POULE WHERE roundnumber > 1
-	DELETE FROM TOURNAMENT_PLAYER_OF_POULE WHERE roundnumber > 1
-	DELETE FROM ROUND_ROBIN_POULE WHERE roundnumber > 1
-	DELETE FROM POULE WHERE roundnumber > 1
-	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 2
-
-	EXEC SP_CREATE_POULES 'Tilburg', 'Tilburger Toernooi', 2, 1
-
-	SELECT * FROM TOURNAMENT_PLAYER_OF_POULE where roundnumber = 2 order by roundnumber, pouleno
-ROLLBACK TRAN

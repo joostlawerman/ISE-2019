@@ -9,6 +9,19 @@
 - kijken of er oneven poules zijn
 */
 
+
+/*
+BEGIN TRAN
+	DELETE FROM CHESSMATCH_OF_POULE WHERE roundnumber > 1
+	DELETE FROM TOURNAMENT_PLAYER_OF_POULE WHERE roundnumber > 1
+	DELETE FROM ROUND_ROBIN_POULE WHERE roundnumber > 1
+	DELETE FROM POULE WHERE roundnumber > 1
+	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 2
+	EXEC SP_CREATE_FINALS_POULE_BASED_ON_SCORE 'Tilburg', 'Tilburger Toernooi', 2
+	SELECT * FROM TOURNAMENT_PLAYER_OF_POULE where roundnumber = 2 order by roundnumber, pouleno
+ROLLBACK TRAN
+*/
+
 -- +migrate Down
 DROP PROC SP_CREATE_FINALS_POULE_BASED_ON_SCORE;
 
@@ -121,13 +134,3 @@ BEGIN
 		RAISERROR(@ErrorMessage, @ErrorSeverity, @ErrorState)
 	END CATCH
 END;
-
-BEGIN TRAN
-	DELETE FROM CHESSMATCH_OF_POULE WHERE roundnumber > 1
-	DELETE FROM TOURNAMENT_PLAYER_OF_POULE WHERE roundnumber > 1
-	DELETE FROM ROUND_ROBIN_POULE WHERE roundnumber > 1
-	DELETE FROM POULE WHERE roundnumber > 1
-	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 2
-	EXEC SP_CREATE_FINALS_POULE_BASED_ON_SCORE 'Tilburg', 'Tilburger Toernooi', 2
-	SELECT * FROM TOURNAMENT_PLAYER_OF_POULE where roundnumber = 2 order by roundnumber, pouleno
-ROLLBACK TRAN
