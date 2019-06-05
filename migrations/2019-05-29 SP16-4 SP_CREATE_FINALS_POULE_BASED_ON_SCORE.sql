@@ -1,27 +1,3 @@
-/*
-- kijken naar hoeveel spelers er in de ronde zitten.
-- kijken wat voor systeem het is.
-- kijken of het de eerste ronde is (round robin)
-- bij eerste ronde indelen dat spelers zoveel mogelijk in andere schaakclubs zitten.
-- bij een vervolg ronde indelen op punten ronde ervoor.(round robin)
-- kijken of het een finale ronde is (round robin)
-- bij een finale ronde poules van 8 personen (7 bij oneven)
-- kijken of er oneven poules zijn
-*/
-
-
-/*
-BEGIN TRAN
-	DELETE FROM CHESSMATCH_OF_POULE WHERE roundnumber > 1
-	DELETE FROM TOURNAMENT_PLAYER_OF_POULE WHERE roundnumber > 1
-	DELETE FROM ROUND_ROBIN_POULE WHERE roundnumber > 1
-	DELETE FROM POULE WHERE roundnumber > 1
-	DELETE FROM TOURNAMENT_ROUND WHERE roundnumber > 2
-	EXEC SP_CREATE_FINALS_POULE_BASED_ON_SCORE 'Tilburg', 'Tilburger Toernooi', 2
-	SELECT * FROM TOURNAMENT_PLAYER_OF_POULE where roundnumber = 2 order by roundnumber, pouleno
-ROLLBACK TRAN
-*/
-
 -- +migrate Down
 DROP PROC SP_CREATE_FINALS_POULE_BASED_ON_SCORE;
 
@@ -87,9 +63,6 @@ BEGIN
 			BEGIN
 				SET @pouleno = @pouleno + 1
 
-				DECLARE @NUMMER INT
-				SET @NUMMER = (SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND)
-				PRINT @NUMMER
 				--Check if max players in poule is still valid
 				IF((SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 7 
 					OR (SELECT COUNT(*) FROM #TEMP_PLAYER_SCORE_IN_ROUND) = 14 
