@@ -11,8 +11,8 @@ AS
         IF EXISTS(SELECT 1
                   FROM
                       (
-                          (
-                              (
+                           /*(
+                             (
                                   SELECT
                                       i.chessclubname,
                                       i.tournamentname,
@@ -40,7 +40,7 @@ AS
                                   WHERE playeridwhite < playeridblack AND tr.system = 'round robin'
                               )
                           )
-                          UNION ALL
+                          UNION ALL */
                           (
                               (
                                   SELECT

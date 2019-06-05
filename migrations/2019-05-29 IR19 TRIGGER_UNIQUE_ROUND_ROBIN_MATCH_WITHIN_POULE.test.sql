@@ -75,6 +75,5 @@ BEGIN
     exec tSQLt.ExpectNoException
     -- Execute
         INSERT INTO CHESSMATCH_OF_POULE (chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
-            ('test', 'brak', 1, 1, 1, 4),
-            ('test', 'brak', 1, 1, 2, 3)
+            ('test', 'round', 1, 1, 1, 4)
 END;
