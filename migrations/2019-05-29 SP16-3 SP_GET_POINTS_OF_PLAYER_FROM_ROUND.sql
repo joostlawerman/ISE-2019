@@ -24,17 +24,17 @@ BEGIN
 			BEGIN
 				RAISERROR('There is no tournament with this name', 16, 1)
 			END
+		ELSE IF NOT EXISTS(	SELECT 1 
+							FROM TOURNAMENT_ROUND
+							WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber)
+			BEGIN
+				RAISERROR('There is no round with this roundnumber in this tournament', 16, 1)
+			END	
 		ELSE IF NOT EXISTS(SELECT 1 FROM CHESSMATCH_OF_POULE WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber < @roundnumber 
 					AND ((playeridwhite = @playerid) OR (playeridblack = @playerid)))
 			BEGIN
 				RAISERROR('There is no player with this playerid in this round', 16, 1)
 			END
-		ELSE IF NOT EXISTS(	SELECT 1 
-							FROM CHESSMATCH_OF_POULE 
-							WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber < @roundnumber)
-			BEGIN
-				RAISERROR('There is no round with this roundnumber in this tournament', 16, 1)
-			END	
 		ELSE
 			BEGIN
 				SELECT @playerid AS playerid, (CAST(COUNT(*) AS DECIMAL) + (SELECT CAST(COUNT(*) AS DECIMAL)/2 

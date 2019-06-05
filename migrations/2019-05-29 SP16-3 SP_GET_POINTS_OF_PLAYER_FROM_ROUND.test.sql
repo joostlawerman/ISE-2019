@@ -57,6 +57,11 @@ BEGIN
 
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_PLAYER_OF_POULE'
 
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'
+	INSERT INTO TOURNAMENT_ROUND
+	VALUES	('Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, null, null, null),
+			('Schaakvereniging Horst', 'Eerste schaaktoernooi', 2, null, null, null)
+
 	EXEC tSQLt.FakeTable 'dbo', 'POULE'
 
 	EXEC tSQLt.FakeTable 'dbo', 'CHESSMATCH_OF_POULE' 
@@ -82,19 +87,60 @@ BEGIN
 END;
 
 -- +migrate Up
-alter PROCEDURE [SP16_3].[Test if player score is correct]
+CREATE PROCEDURE [SP16_3].[Test if player score is correct]
 AS 
 BEGIN
-
-	select * from CHESSMATCH_OF_POULE
 	--Act
-	DECLARE @actual int
-	EXEC @actual = SP_GET_POINTS_OF_PLAYER_FROM_ROUND 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 2, 1
+	CREATE TABLE #TEMP(
+		playerid int,
+		score decimal(5,2) 
+	)
 
-	print @actual
+	INSERT #TEMP EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 2, 1
+
+	DECLARE @actual DECIMAL
+	SET @actual = (SELECT TOP 1 score FROM #TEMP)
 
 	--Assert
 	EXEC tSQLt.AssertEquals 1, @actual
 END;
 
---exec tSQLt.Run SP16_3
+-- +migrate Up
+CREATE PROCEDURE [SP16_3].[Test chessclub doesnt exist]
+AS 
+BEGIN
+	--Assert
+	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no chessclub with this name'
+
+	EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND 'niet bestaande Schaakvereniging', 'Eerste schaaktoernooi', 2, 1
+END;
+
+-- +migrate Up
+CREATE PROCEDURE [SP16_3].[Test tourny doesnt exist]
+AS 
+BEGIN
+	--Assert
+	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no tournament with this name'
+
+	EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND 'Schaakvereniging Horst', 'niet bestaande schaaktoernooi', 2, 1
+END;
+
+-- +migrate Up
+CREATE PROCEDURE [SP16_3].[Test player doesnt exist]
+AS 
+BEGIN
+	--Assert
+	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no player with this playerid in this round'
+
+	EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 2, 38
+END;
+
+-- +migrate Up
+CREATE PROCEDURE [SP16_3].[Test round doesnt exist]
+AS 
+BEGIN
+	--Assert
+	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no round with this roundnumber in this tournament'
+
+	EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 99, 1
+END;
