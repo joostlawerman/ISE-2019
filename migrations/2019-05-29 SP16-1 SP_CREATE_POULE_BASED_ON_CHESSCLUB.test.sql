@@ -91,25 +91,14 @@ AS
 BEGIN
 	--Act
 	EXEC SP_CREATE_POULE_BASED_ON_CHESSCLUB 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1
-	--SELECT t.*, p.chessclubname FROM TOURNAMENT_PLAYER_OF_POULE t INNER JOIN PLAYER p ON t.playerid = p.playerid
+	DECLARE @Actual1 int = (SELECT 1 FROM (
+											SELECT t.pouleno, p.chessclubname, COUNT(*) AS cnt
+											FROM TOURNAMENT_PLAYER_OF_POULE t INNER JOIN PLAYER p ON t.playerid = p.playerid
+											GROUP BY t.pouleno, p.chessclubname) AS a
+							WHERE a.cnt > 2)
+
 	--Assert
-	DECLARE @Actual1 int = (
-		SELECT count(a.b) FROM(
-			SELECT p.chessclubname as b,  pouleno as c 
-			FROM TOURNAMENT_PLAYER_OF_POULE t INNER JOIN PLAYER p ON t.playerid = p.playerid 
-			GROUP BY p.chessclubname, pouleno 
-			HAVING COUNT(p.chessclubname) < 3) AS a)
-
-	SELECT @Actual1
-
-	SELECT pouleno as c 
-			FROM TOURNAMENT_PLAYER_OF_POULE t INNER JOIN PLAYER p ON t.playerid = p.playerid 
-			GROUP BY pouleno
-			HAVING COUNT(p.chessclubname) < 3
-
-	--we moeten tellen hoevaak een chessclubname bij hetzelfde pouleno staat.
-
-	EXEC tSQLt.AssertEquals 4, @Actual1
+	EXEC tSQLt.AssertEquals null, @Actual1
 END;
 
 -- +migrate Up
@@ -130,3 +119,5 @@ BEGIN
 
 	EXEC tSQLt.AssertEquals null, @Actual1
 END;
+
+exec tSQLt.Run SP16_1
