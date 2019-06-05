@@ -4,7 +4,8 @@ DROP PROCEDURE SP_GET_ROUNDS;
 -- +migrate Up
 CREATE PROCEDURE SP_GET_ROUNDS
 @chessclubname varchar(100),
-@tournamentname varchar(100)
+@tournamentname varchar(100),
+@roundnummer int = NULL
 AS
 BEGIN
 	DECLARE @orginTranCount INT
@@ -22,8 +23,14 @@ BEGIN
 			BEGIN
 				RAISERROR('There is no tournament with this name', 16, 1)
 			END
-					
-		SELECT * FROM TOURNAMENT_ROUND WHERE @chessclubname = chessclubname AND @tournamentname = tournamentname
+		IF (@roundnummer IS NOT NULL)
+		BEGIN
+			SELECT * FROM TOURNAMENT_ROUND WHERE @chessclubname = chessclubname AND @tournamentname = tournamentname AND roundnumber = @roundnummer
+		END
+		ELSE
+		BEGIN	
+			SELECT * FROM TOURNAMENT_ROUND WHERE @chessclubname = chessclubname AND @tournamentname = tournamentname
+		END
 	END TRY
 	BEGIN CATCH
 		IF @orginTranCount = 0  
