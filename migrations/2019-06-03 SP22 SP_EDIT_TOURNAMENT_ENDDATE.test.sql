@@ -32,7 +32,7 @@ BEGIN
     addressline1         VARCHAR(100) NOT NULL,
     postalcode           VARCHAR(6)   NOT NULL,
     city                 VARCHAR(100)    NOT NULL,
-    registrationdeadline DATETIME     NOT NULL,
+    registrationdeadline DATETIME     NOT NULL
 	)
 
 	INSERT INTO expected (chessclubname, tournamentname,winner,contactname,starts,ends,registrationfee,addressline1,postalcode,city,registrationdeadline)
