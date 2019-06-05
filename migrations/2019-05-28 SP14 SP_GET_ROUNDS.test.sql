@@ -109,5 +109,3 @@ BEGIN
 	EXEC tSQLt.AssertEqualsTable 'expected', 'actual'
 
 END;
-
-exec tSQLt.Run SP14
