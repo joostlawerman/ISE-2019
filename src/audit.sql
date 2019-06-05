@@ -1,4 +1,9 @@
 select '
+-- +migrate Down
+DROP TRIGGER TRIGGER_AUDIT_CHANGE_IN_' + TABLE_NAME  + ' 
+;
+
+-- +migrate Up
 create TRIGGER TRIGGER_AUDIT_CHANGE_IN_' + TABLE_NAME  + ' 
 on ' + TABLE_NAME  + '
     AFTER INSERT, UPDATE, DELETE 
@@ -42,8 +47,10 @@ AS
             THROW
         END CATCH
     END
+;
 '
 from INFORMATION_SCHEMA.TABLES
 where TABLE_CATALOG = 'ISE_2019'
     and TABLE_SCHEMA = 'dbo'
+    and TABLE_NAME not in ('gorp_migrations', 'AUDITLOG')
 
