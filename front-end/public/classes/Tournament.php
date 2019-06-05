@@ -49,7 +49,7 @@ class Tournament extends ADatabaseLayer
         $statement = self::$pdo->prepare("EXEC SP_GET_ROUNDS :chessclub, :tournamentname");
         $statement->execute([':chessclub' => $this->info['chessclubname'], ':tournamentname' => $this->info['tournamentname']]);
         $return = [];
-        foreach ($statement->fetchAll(PDO::FETCH_NUM) as $value) {
+        foreach ($statement->fetchAll(PDO::FETCH_ASSOC) as $value) {
             $return[] = new Round($value['chessclubname'], $value['tournamentname'], $value['roundnumber']);
         }
         return $return;

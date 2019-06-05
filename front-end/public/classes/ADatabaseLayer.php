@@ -9,7 +9,7 @@ abstract class ADatabaseLayer
 
     public function getInfo() : array
     {
-        $this->info == false ? [] : $this->info;
+        return $this->info == false ? [] : $this->info;
     }
 }
 

@@ -36,28 +36,25 @@ else {
                     <div class="row poule-menu">
                         <select class="select mr-sm-2" name="ronde" id="ronde" required>
                             <?php
-
                             foreach ($tournament->getRounds() as $round) {
-                                echo '<option value="'.$round->.'" >Ronde 1</option>';
+                                echo '<option value="'.$round->getInfo()['roundnumber'].'" >Ronde '.$round->getInfo()['roundnumber'].'</option>';
                             }
-
                             ?>
-                            <option value="1" selected>Ronde 1</option>
-                            <option value="2">Ronde 2</option>
-                            <option value="3">Ronde 3</option>
                         </select>
+                        <button type="submit" class="btn btn-dark poules" formaction="manageRondes.php" disabled>Show</button>
 
-                        <button type="submit" class="btn btn-dark poules" formaction="editRonde.php" role="button" disabled>Edit</button>
-                        <a class="btn btn-dark poules" href="nieuweRonde.php" role="button" disabled>Maak een nieuwe ronde</button>
-                        <button type="submit" class="btn btn-dark poules" formaction="insertResults.php" role="button">Vul resultaten ronde in</button>
-                        <button type="submit" class="btn btn-dark poules" formaction="" role="button">Print poules</button>
-                        <button type="submit" class="btn btn-dark poules" formaction="" role="button">Print resultaten</button>
+                        <button type="submit" class="btn btn-dark poules" formaction="editRonde.php" disabled>Edit</button>
+                        <a class="btn btn-dark poules" href="nieuweRonde.php" role="button" disabled>Maak een nieuwe ronde</a>
+                        <button type="submit" class="btn btn-dark poules" formaction="insertResults.php">Vul resultaten ronde in</button>
+                        <button type="submit" class="btn btn-dark poules" formaction="">Print poules</button>
+                        <button type="submit" class="btn btn-dark poules" formaction="">Print resultaten</button>
                     </div>
                     </form>
 
                     <div class="row poules">
                         <div class="col-3">
                             <table class="table table-striped">
+
                                 <thead>
                                 <tr>
                                     <th>
