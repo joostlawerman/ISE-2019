@@ -4,6 +4,7 @@ EXEC tSQLt.NewTestClass 'SP16_2';
 -- +migrate Down
 EXEC tSQLt.DropClass 'SP16_2';
 
+-- +migrate Up
 CREATE PROCEDURE SP16_2.SetUp
 AS
 BEGIN
@@ -78,7 +79,7 @@ BEGIN
 			(16, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 4, 12, 14, 'white'),
 			(17, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 4, 14, 13, 'remise'),
 			(18, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 4, 13, 12, 'black');
-END
+END;
 
 -- +migrate Up
 CREATE PROCEDURE [SP16_2].[Test amout of players in a poule]
@@ -101,17 +102,39 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_1].[Test a poule is made based on score]
+CREATE PROCEDURE [SP16_2].[Test a poule is made based on score]
 AS 
 BEGIN
 	--Act
 	EXEC SP_CREATE_POULE_BASED_ON_SCORE 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 2
-	SELECT * FROM TOURNAMENT_PLAYER_OF_POULE where roundnumber = 2 order by roundnumber, pouleno
 
-	
+	SELECT tp.playerid
+	INTO #TEMP_PLAYERS_IN_ROUND
+	FROM TOURNAMENT_PLAYER tp INNER JOIN PLAYER p ON tp.playerid = p.playerid 
+	WHERE tp.chessclubname = 'Schaakvereniging Horst' AND tp.tournamentname = 'Eerste schaaktoernooi'
+		
+	CREATE TABLE #TEMP_PLAYER_SCORE_IN_ROUND(
+		playerid int,
+		score decimal(5,2) 
+	)
+
+	DECLARE @currentPlayer int
+
+	WHILE ((SELECT COUNT(*) FROM #TEMP_PLAYERS_IN_ROUND) != 0)
+	BEGIN
+		SET @currentPlayer = (SELECT TOP 1 playerid FROM #TEMP_PLAYERS_IN_ROUND)
+		INSERT INTO #TEMP_PLAYER_SCORE_IN_ROUND EXEC SP_GET_POINTS_OF_PLAYER_FROM_ROUND 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 2, @currentPlayer
+		DELETE FROM #TEMP_PLAYERS_IN_ROUND WHERE playerid = @currentPlayer
+	END
+
+	DECLARE @actual1 int = (SELECT pouleno FROM TOURNAMENT_PLAYER_OF_POULE WHERE playerid = (SELECT TOP 1 playerid FROM #TEMP_PLAYER_SCORE_IN_ROUND ORDER BY score DESC) AND roundnumber = 2)
+	DECLARE @actual2 int = (SELECT pouleno FROM TOURNAMENT_PLAYER_OF_POULE WHERE playerid = (SELECT TOP 1 playerid FROM #TEMP_PLAYER_SCORE_IN_ROUND ORDER BY score ASC) AND roundnumber = 2)
+
+	DECLARE @expected int = (SELECT TOP 1 pouleno FROM TOURNAMENT_PLAYER_OF_POULE ORDER BY pouleno DESC)
 
 	--Assert
-	EXEC tSQLt.AssertEquals null, @Actual1
+	EXEC tSQLt.AssertEquals 1, @Actual1
+	EXEC tSQLt.AssertEquals @expected, @Actual2
 END;
 
-EXEC tSQLt.run SP16_2
+exec tSQLt.Run SP16_2
