@@ -20,6 +20,8 @@ AS
             SELECT chessclubname, tournamentname
             FROM TOURNAMENT
             WHERE chessclubname = @chessclubname
+            IF @orginTranCount = 0
+            COMMIT TRANSACTION
         END TRY
         BEGIN CATCH
         IF @orginTranCount = 0

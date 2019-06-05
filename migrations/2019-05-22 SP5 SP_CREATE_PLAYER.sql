@@ -29,6 +29,8 @@ BEGIN
 			SELECT @playerid = 1
 
 		INSERT INTO PLAYER VALUES (@playerid, @chessclubname, @firstname, @lastname, @addressline1, @postalcode, @city, @birthdate, @email, @gender)
+		IF @orginTranCount = 0
+            COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH
 		IF @orginTranCount = 0  

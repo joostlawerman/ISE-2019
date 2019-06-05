@@ -18,5 +18,4 @@ class Contactperson
 
 }
 
-
-Chessclub::$pdo =& $pdo;
+Contactperson::$pdo =& $pdo;

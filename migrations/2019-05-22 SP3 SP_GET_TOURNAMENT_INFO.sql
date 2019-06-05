@@ -20,6 +20,8 @@ BEGIN
 				RAISERROR('There is no tournament with this name', 16, 1)
 			END
 		SELECT * FROM TOURNAMENT WHERE tournamentname = @tournamentname AND chessclubname = @chessclubname
+		IF @orginTranCount = 0
+            COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH
 		IF @orginTranCount = 0  

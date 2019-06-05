@@ -4,5 +4,8 @@
         "dbname": "ISE",
         "user": "",
         "password": ""
+    },
+    "chessclub": {
+        "name": ""
     }
 }
