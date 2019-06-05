@@ -13,7 +13,7 @@
             <form action="toernooiInfo.php" method="post">
             <li class="list-group-item list-group-item-light">
                 <select name="asideToernooi" class="custom-select" id="asideToernooi">
-                    <option selected>Kies een schaaktoernooi</option>
+                    <option selected><?php echo $_POST['asideToernooi'] ?? "Kies een schaaktoernooi";?></option>
                 <?php
                     foreach (Tournament::getTournaments($config['chessclub']['name']) as $value) {
                         echo "<option>".$value."</option>";
@@ -24,13 +24,14 @@
             <li class="list-group-item list-group-item-light">
                 <button type="submit" class="btn btn-dark btn-menu" role="button">Toernooi Info</button>
             </li>
+
+            <li class="list-group-item list-group-item-light">
+                <button type="submit" class="btn btn-dark btn-menu" formaction="toernooiSpelerToevoegen.php">Voeg toernooispelers toe</button>
+            </li>
+            <li class="list-group-item list-group-item-light">
+                <button type="submit" class="btn btn-dark btn-menu" formaction="manageRondes.php" >Manage rondes</button>
+            </li>
             </form>
-            <li class="list-group-item list-group-item-light">
-                <a class="btn btn-dark btn-menu active" href="toernooiSpelerToevoegen.php" role="button" aria-pressed="true">Voeg toernooispelers toe</a>
-            </li>
-            <li class="list-group-item list-group-item-light">
-                <a class="btn btn-dark btn-menu" href="manageRondes.php" role="button">Manage rondes</a>
-            </li>
             <li class="list-group-item list-group-item-light">
                 <a class="btn btn-dark btn-menu" href="schaakclubToevoegen.php" role="button">Voeg schaakclub toe</a>
             </li>

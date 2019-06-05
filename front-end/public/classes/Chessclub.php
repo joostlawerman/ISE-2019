@@ -1,9 +1,8 @@
 <?php
 
-class Chessclub {
+class Chessclub extends ADatabaseLayer {
 
-    /** @var $pdo PDO */
-    public static $pdo;
+
 
     static function getChessclubs() : array {
         $statement = self::$pdo->prepare("EXEC SP_GET_CHESSCLUBS");
@@ -15,5 +14,3 @@ class Chessclub {
         return $return;
     }
 }
-
-Chessclub::$pdo =& $pdo;

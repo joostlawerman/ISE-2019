@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Nieuwe speler toevoegen</title>
+    <title>Resultaten Invoeren</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -16,35 +16,6 @@
     <div class="container-fluid">
         <div class="row">
             <?php include "misc/menu.php"; ?>
-                <ul class="list-group list-dark">
-                    <li class="list-group-item list-group-item-dark">
-                        <a class= "homepagelink" href="index.html">Schaaktoernooi applicatie</a>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                        <a class="btn btn-dark btn-menu" href="creeerToernooi.html" role="button">Cre&euml;er toernooi</a>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                        <select name="asideToernooi" class="custom-select" id="asideToernooi">
-                            <option selected>Kies een schaaktoernooi</option>
-                            <option value="1">1ste schaaktoernooi</option>
-                            <option value="2">2de schaaktoernooi</option>
-                        </select>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                        <a class="btn btn-dark btn-menu" href="toernooiInfo.html" role="button">Toernooi Info</a>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                        <a class="btn btn-dark btn-menu" href="toernooiSpelerToevoegen.html" role="button" >Voeg toernooispelers
-                            toe</a>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                        <a class="btn btn-dark btn-menu" href="manageRondes.html" role="button">Manage rondes</a>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                            <a class="btn btn-dark btn-menu" href="schaakclubToevoegen.html" role="button">Voeg schaakclub toe</a>
-                    </li>
-                </ul>
-            </div>
 
             <div class="col-9 main-page">
 

@@ -1,11 +1,8 @@
 <?php
 
 
-class Contactperson
+class Contactperson extends ADatabaseLayer
 {
-    /** @var $pdo PDO */
-    public static $pdo;
-
     static function getContactpersons() : array {
         $statement = self::$pdo->prepare("EXEC SP_GET_CONTACTPERSONS");
         $statement->execute();
@@ -17,5 +14,3 @@ class Contactperson
     }
 
 }
-
-Contactperson::$pdo =& $pdo;

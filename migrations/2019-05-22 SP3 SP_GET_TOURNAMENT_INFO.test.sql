@@ -18,7 +18,7 @@ BEGIN
 	--Act
 	SELECT * INTO actual FROM TOURNAMENT WHERE 1=0
 
-	INSERT INTO actual EXEC GET_TOURNAMENT_INFO 'tourny1', 'CC1'
+	INSERT INTO actual EXEC SP_GET_TOURNAMENT_INFO 'CC1', 'tourny1'
 
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'TOURNAMENT', 'actual'
@@ -33,7 +33,7 @@ BEGIN
 
     exec tSQLt.ExpectException 'There is no tournament with this name'
     -- Execute
-    EXEC GET_TOURNAMENT_INFO 'Test', 'test'
+    EXEC SP_GET_TOURNAMENT_INFO 'test', 'Test' 
 END;
 
 -- +migrate Up
@@ -44,6 +44,6 @@ BEGIN
 
     exec tSQLt.ExpectException 'There is no chessclub with this name'
     -- Execute
-    EXEC GET_TOURNAMENT_INFO 'Test', 'test'
+    EXEC SP_GET_TOURNAMENT_INFO 'test', 'Test'
 
 END;
