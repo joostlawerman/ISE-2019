@@ -83,7 +83,7 @@ BEGIN
 			(15, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 3, 10, 9, 'black'),
 			(16, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 4, 12, 14, 'white'),
 			(17, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 4, 14, 13, 'remise'),
-			(18, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 4, 13, 12, 'black');
+			(18, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 4, 13, 12, 'black')
 END;
 
 -- +migrate Up
