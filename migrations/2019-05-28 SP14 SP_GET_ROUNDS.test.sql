@@ -28,7 +28,7 @@ BEGIN
 		ends           DATETIME     NULL
 	)
 	
-	EXEC SP_GET_ROUNDS 'cc1', 'tourny1'
+	INSERT INTO actual EXEC SP_GET_ROUNDS 'cc1', 'tourny1'
  
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'TOURNAMENT_ROUND', 'actual'
@@ -53,9 +53,6 @@ BEGIN
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no chessclub with this name'
 
 	EXEC SP_GET_ROUNDS 'blabla', 'tourny1'
- 
-	--Assert
-	EXEC tSQLt.AssertEqualsTable 'TOURNAMENT_ROUND', 'actual'
 
 END;
 
@@ -77,8 +74,5 @@ BEGIN
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'There is no tournament with this name'
 
 	EXEC SP_GET_ROUNDS 'cc1', 'blabla'
- 
-	--Assert
-	EXEC tSQLt.AssertEqualsTable 'TOURNAMENT_ROUND', 'actual'
 
 END;
