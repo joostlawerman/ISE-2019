@@ -42,6 +42,12 @@ INSERT INTO TOURNAMENT_PLAYER (chessclubname, tournamentname, playerid, paid) VA
     ('Tilburg', 'Tilburger Toernooi', 5, 0);
 
 -- +migrate Up
+INSERT INTO SYSTEMS (system) VALUES
+	('round robin'),
+	('bracket');
+
+
+-- +migrate Up
 INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber, system, starts, ends) VALUES
     ('Tilburg', 'Tilburger Toernooi', 1, 'round robin', dateadd(DAY, 10, getdate()),
      dateadd(MINUTE, 1, dateadd(DAY, 10, getdate()))),
@@ -154,10 +160,10 @@ VALUES
     (20, 'Tilburg', 'Tilburger Toernooi', 4, 3, 5, 4);
 
 -- +migrate Up
-INSERT INTO CHESSMATCHMOVE (matchno, moveno, colour, piece, destination) VALUES
-    (1, 1, 'w', 'p', 'f4'),
-    (1, 1, 'b', 'p', 'e4'),
-    (1, 2, 'w', 'p', 'h4'),
-    (1, 2, 'b', 'q', 'qxh4+'),
-    (1, 3, 'w', 'p', 'g3'),
-    (1, 3, 'b', 'p', 'qxg3#');
+INSERT INTO CHESSMATCHMOVE (matchno, moveno, colour, destination) VALUES
+    (1, 1, 'w', 'f4'),
+    (1, 1, 'b', 'e4'),
+    (1, 2, 'w', 'h4'),
+    (1, 2, 'b', 'qxh4+'),
+    (1, 3, 'w', 'g3'),
+    (1, 3, 'b', 'qxg3#');

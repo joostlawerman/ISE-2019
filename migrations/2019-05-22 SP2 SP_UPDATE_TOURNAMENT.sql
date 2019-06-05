@@ -126,7 +126,6 @@ BEGIN
 				  tournamentname = @tournamentname	
 		END	
 
-
         IF @orginTranCount = 0  
             COMMIT TRANSACTION 
 	END TRY

@@ -1,10 +1,5 @@
 -- +migrate Up
-CREATE PROC SP_CREATE_CHESSCLUB (
-	@chessclubname varchar(100),
-	@city varchar(100),
-	@addressline1 varchar(100),
-	@postalcode varchar(6),
-	@emailaddress varchar(256))
+CREATE PROC SP_GET_SYSTEMS
 AS
 BEGIN
 	DECLARE @orginTranCount INT
@@ -13,16 +8,10 @@ BEGIN
         SAVE TRANSACTION ProcedureSave  
     ELSE  
         BEGIN TRANSACTION  
-	BEGIN TRY	
-		IF EXISTS (SELECT 1 FROM CHESSCLUB WHERE chessclubname = @chessclubname)
-			BEGIN
-				RAISERROR('There already is a chessclub with the same name', 16, 1)
-			END	
-		ELSE	
-			BEGIN
-				INSERT INTO CHESSCLUB (chessclubname, city, addressline1, postalcode, emailaddress)
-				VALUES (@chessclubname,	@city, @addressline1, @postalcode, @emailaddress)
-			END		
+	BEGIN TRY		
+		
+		SELECT system
+		FROM SYSTEMS
 				
         IF @orginTranCount = 0  
             COMMIT TRANSACTION 
@@ -41,4 +30,4 @@ BEGIN
 END;
 
 -- +migrate Down
-DROP PROC SP_CREATE_CHESSCLUB;
+Drop proc SP_GET_SYSTEMS;

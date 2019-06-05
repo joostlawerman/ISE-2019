@@ -34,7 +34,7 @@ BEGIN
 				WHERE chessclubname = @chessclubname AND tournamentname = @tournamentname AND roundnumber = @roundnumber 
 			END		
 
-        IF @orginTranCount = 0  
+	IF @orginTranCount = 0
             COMMIT TRANSACTION 
 	END TRY
 	BEGIN CATCH
