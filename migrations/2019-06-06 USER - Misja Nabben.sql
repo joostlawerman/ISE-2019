@@ -6,7 +6,7 @@ CREATE LOGIN MisjaNabben
 CREATE USER MisjaNabben FOR LOGIN MisjaNabben;  
 
 -- +migrate Up
-GRANT EXECUTE TO MisjaNabben;
+GRANT EXECUTE, SELECT, INSERT, UPDATE, DELETE TO MisjaNabben;
 
 -- +migrate Down
 DROP USER MisjaNabben;
