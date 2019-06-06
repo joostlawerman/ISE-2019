@@ -9,7 +9,7 @@ CREATE PROCEDURE SP16_3.SetUp
 AS
 BEGIN
    	--Arrange
-		EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
+	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
 	INSERT INTO CHESSCLUB 
 	VALUES	('Schaakvereniging Horst', null, null, null, null),	
 			('Schaakvereniging Deventer', null, null, null, null),
@@ -17,23 +17,6 @@ BEGIN
 			('Schaakvereniging Arnhem', null, null, null, null),
 			('Schaakvereniging Groningen', null, null, null, null),
 			('Schaakvereniging Almere', null, null, null, null)
-
-	EXEC tSQLt.FakeTable 'dbo', 'PLAYER'
-	INSERT INTO PLAYER 
-	VALUES	(1, 'Schaakvereniging Horst', null, null, null, null, null, null, null, null),
-			(2, 'Schaakvereniging Horst', null, null, null, null, null, null, null, null),
-			(3, 'Schaakvereniging Horst', null, null, null, null, null, null, null, null),
-			(4, 'Schaakvereniging Deventer', null, null, null, null, null, null, null, null),
-			(5, 'Schaakvereniging Deventer', null, null, null, null, null, null, null, null),
-			(6, 'Schaakvereniging Apeldoorn', null, null, null, null, null, null, null, null),
-			(7, 'Schaakvereniging Apeldoorn', null, null, null, null, null, null, null, null),
-			(8, 'Schaakvereniging Arnhem', null, null, null, null, null, null, null, null),
-			(9, 'Schaakvereniging Arnhem', null, null, null, null, null, null, null, null),
-			(10, 'Schaakvereniging Arnhem', null, null, null, null, null, null, null, null),
-			(11, 'Schaakvereniging Groningen', null, null, null, null, null, null, null, null),
-			(12, 'Schaakvereniging Groningen', null, null, null, null, null, null, null, null),
-			(13, 'Schaakvereniging Almere', null, null, null, null, null, null, null, null),
-			(14, 'Schaakvereniging Almere', null, null, null, null, null, null, null, null)
 
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
 	INSERT INTO TOURNAMENT VALUES ('Schaakvereniging Horst', 'Eerste schaaktoernooi', null, null, null, null, null, null, null, null, null)	
