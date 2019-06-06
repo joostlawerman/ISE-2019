@@ -66,7 +66,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_1].[Test amout of players in a poule]
+CREATE PROCEDURE [SP16_1].[Test amount of players in a poule]
 AS 
 BEGIN
 	--Act

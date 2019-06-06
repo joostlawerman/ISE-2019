@@ -61,6 +61,11 @@ BEGIN
 
 	EXEC tSQLt.FakeTable 'dbo', 'POULE'
 
+	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT_ROUND'
+	INSERT INTO TOURNAMENT_ROUND
+	VALUES	('Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, null, null, null),
+			('Schaakvereniging Horst', 'Eerste schaaktoernooi', 2, null, null, null)
+
 	EXEC tSQLt.FakeTable 'dbo', 'CHESSMATCH_OF_POULE' 
 	INSERT INTO CHESSMATCH_OF_POULE
 	VALUES	(1, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 1, 1, 4, 'black'),
@@ -87,7 +92,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_4].[Test amout of players in a poule]
+CREATE PROCEDURE [SP16_4].[Test amount of players in a poule]
 AS 
 BEGIN
 	--Act
