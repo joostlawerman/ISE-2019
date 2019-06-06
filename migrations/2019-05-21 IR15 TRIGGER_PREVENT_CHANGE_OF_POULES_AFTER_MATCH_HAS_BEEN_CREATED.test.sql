@@ -21,7 +21,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in another poule has started with insert]
+CREATE PROCEDURE [IR15].[Test if a poule can not be changed when a match in that poule has finished]
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE 
@@ -37,7 +37,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR15].[Test if a poule cannot be changed when a match in that poule has started with update]
+CREATE PROCEDURE [IR15].[Test if a poule can not be changed when a match in that poule has started]
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE 
@@ -53,7 +53,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in that poule not yet started with update]
+CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in that poule has not started]
 AS
 BEGIN
    	--Assert
@@ -66,7 +66,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in another poule has started with update]
+CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in another poule has started]
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE
@@ -82,7 +82,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR15].[Test if a tournamentname can be changed when a match in the poule has started with update]
+CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in another poule has finished]
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE 
