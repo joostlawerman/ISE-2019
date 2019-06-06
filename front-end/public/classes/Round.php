@@ -42,7 +42,6 @@ class Round extends ADatabaseLayer
     public function getPoules() : array
     {
         $statement = self::$pdo->prepare("EXEC SP_GET_POULES_OF_ROUND :chessclub, :tournament, :round");
-        var_dump($this->info['roundnumber']);
         $statement->execute([
             ':chessclub'  => $this->info['chessclubname'],
             ':tournament' => $this->info['tournamentname'],

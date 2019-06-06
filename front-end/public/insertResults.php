@@ -5,8 +5,8 @@ include_once 'misc/includes.php';
 var_dump($_POST);
 
 if ((!empty($_POST['toernooi']) && $_POST['toernooi'] !== '') && (!empty($_POST['ronde']) && $_POST['ronde'] !== '')) {
-    $tournament = new Tournament($config['chessclub']['name'], $_POST['toernooi']);
-    $tournamentRound      = new Round($config['chessclub']['name'], $_POST['toernooi'], $_POST['ronde']);
+    $tournament      = new Tournament($config['chessclub']['name'], $_POST['toernooi']);
+    $tournamentRound = new Round($config['chessclub']['name'], $_POST['toernooi'], $_POST['ronde']);
 } else {
     // header("Location: index.php");
 }
@@ -45,228 +45,50 @@ if ((!empty($_POST['toernooi']) && $_POST['toernooi'] !== '') && (!empty($_POST[
                         </select>
                     </div>
 
-                    <div class="row poules">
+                    <?php
+                    foreach ($tournamentRound->getPoules() as $poule) {
+                        if ($poule->getInfo()['pouleno'] % 2 == 1) {
+                        ?>
+                        <div class="row poules">
+                        <?php
+                        }
+                    ?>
                         <div class="col-6">
                             <table class="table table-striped">
-                                <?php
-                                foreach ($tournamentRound->getPoules() as $poule) {
-                                    if ($poule->getInfo()['pouleno'] % 2 == 0) {
-                                        continue;
-                                    }
-                                    echo '<thead><tr><th>Poule '.$poule->getInfo()['pouleno'].'</th>';
-                                    $pouleSize = 0;
-                                    foreach ($poule->getPlayers() as $player) {
-                                        $pouleSize++;
-                                        echo '<th>'.$player->getName().'</th>';
-                                    }
-                                    echo '<th>Total</th></tr></thead>';
-                                    
+                                <thead>
+                                <tr>
+                                    <th>Poule <?php
+                                        echo $poule->getInfo()['pouleno'].'</th>';
+                                        $poulePlayers = $poule->getPlayers();
+                                        $pouleSize    = count($poulePlayers);
+                        foreach ($poulePlayers as $player) {
+                            echo '<th>'.$player->getName().'</th>';
+                        }
+                        echo '<th>Total</th></tr></thead>';
+                        foreach ($poulePlayers as $key => $player) {
+                            echo '<tr><td>'.$player->getName().'</td>';
+                            for ($i = 0; $i < $pouleSize; $i++) {
+                                if ($i == $key) {
+                                    echo '<td> X </td>';
+                                    continue;
                                 }
-                                ?>
-
-
-                                <tr>
-                                    <td>
-                                        Speler 1
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-                                        <select name="match1">
-                                            <option value="0">
-                                                0
-                                            </option>
-                                            <option value="0.5">
-                                                &frac12;
-                                            </option>
-                                            <option value="1">
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
+                                echo '<td><select name="'.$player->getInfo()['playerid'].'['.$poulePlayers[$i]->getInfo()['playerid'].']">
+                                    <option value="0">
                                         0
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 2
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        0
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 3
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        0
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 4
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>
-                                                0
-                                            </option>
-                                            <option>
-                                                &frac12;
-                                            </option>
-                                            <option>
-                                                1
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-                                        0
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
+                                    </option>
+                                    <option value="0.5">
+                                        &frac12;
+                                    </option>
+                                    <option value="1">
+                                        1
+                                    </option>
+                                </select></td>';
+                            }
+                            echo '</tr>';
+                        }
+                    }
+                    ?>
+                    </div>
                         <div class="col-6">
                             <table class="table table-striped">
                                 <thead>
