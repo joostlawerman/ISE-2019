@@ -4,6 +4,7 @@ EXEC tSQLt.NewTestClass 'SP16_4';
 -- +migrate Down
 EXEC tSQLt.DropClass 'SP16_4';
 
+-- +migrate Up
 CREATE PROCEDURE SP16_4.SetUp
 AS
 BEGIN
@@ -83,8 +84,9 @@ BEGIN
 			(16, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 4, 13, 15, 'white'),
 			(17, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 4, 15, 14, 'remise'),
 			(18, 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 1, 4, 14, 13, 'black')
-END
+END;
 
+-- +migrate Up
 CREATE PROCEDURE [SP16_4].[Test amout of players in a poule]
 AS 
 BEGIN
@@ -104,6 +106,7 @@ BEGIN
 	EXEC tSQLt.AssertEquals 1, @Actual2
 END;
 
+-- +migrate Up
 CREATE PROCEDURE [SP16_4].[Test a poule is made based on score]
 AS 
 BEGIN
