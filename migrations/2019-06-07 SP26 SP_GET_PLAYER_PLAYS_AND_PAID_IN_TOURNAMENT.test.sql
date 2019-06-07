@@ -141,5 +141,3 @@ BEGIN
 	--Assert
 	EXEC SP_GET_PLAYER_PLAYS_AND_PAID_IN_TOURNAMENT 'testclub','testtoernooi',10
 END;
-
-exec tsqlt.run 'SP26'
