@@ -13,7 +13,7 @@ BEGIN
 	INSERT INTO TOURNAMENT (chessclubname, tournamentname, contactname, starts, ends, registrationfee, addressline1, postalcode, city, registrationdeadline)
 	VALUES
     ('testclub', 'testtoernooi', 'testcontact', dateadd(DAY, 10, getdate()), dateadd(DAY, 11, getdate()), 10,
-     'teststraat 11', '2222BB', 'teststad', dateadd(DAY, 9, getdate()));
+     'teststraat 11', '2222BB', 'teststad', dateadd(DAY, 9, getdate()))
 
 	EXEC tSQLt.FakeTable 'dbo', 'PLAYER'
 	INSERT INTO PLAYER (playerid,chessclubname,firstname,lastname,addressline1,postalcode,city,birthdate,emailaddress,gender)
@@ -26,7 +26,7 @@ BEGIN
 	INSERT INTO TOURNAMENT_PLAYER (chessclubname,tournamentname,playerid,paid) VALUES
 	('testclub','testtoernooi',1,1),
 	('testclub','testtoernooi',2,0)
-END
+END;
 
 -- +migrate Up
 CREATE PROCEDURE [SP26].[test_player_participates_paid]
