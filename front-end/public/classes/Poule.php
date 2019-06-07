@@ -54,11 +54,11 @@ class Poule extends ADatabaseLayer
         $statement->execute($parameters);
         $return = [];
         foreach ($statement->fetchAll(PDO::FETCH_ASSOC) as $value) {
-            var_dump($value);
             $return[] = [
                 'matchNo' => $value['matchno'],
                 'blackPlayer' => new Player($value['playeridblack']),
                 'whitePlayer' => new Player($value['playeridwhite']),
+                'result' => $value['result']
                 ];
         }
         return $return;
@@ -71,6 +71,7 @@ class Poule extends ADatabaseLayer
                 $return[] = $match['matchNo'];
             }
         }
+        // var_dump($return);
         return $return;
     }
 }

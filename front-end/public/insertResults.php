@@ -2,8 +2,6 @@
 
 include_once 'misc/includes.php';
 
-var_dump($_POST);
-
 if ((!empty($_POST['toernooi']) && $_POST['toernooi'] !== '') && (!empty($_POST['ronde']) && $_POST['ronde'] !== '')) {
     $tournament      = new Tournament($config['chessclub']['name'], $_POST['toernooi']);
     $tournamentRound = new Round($config['chessclub']['name'], $_POST['toernooi'], $_POST['ronde']);
@@ -11,7 +9,15 @@ if ((!empty($_POST['toernooi']) && $_POST['toernooi'] !== '') && (!empty($_POST[
     // header("Location: index.php");
 }
 
-
+if (!empty($_POST['matches'])) {
+    foreach ($_POST['matches'] as $key => $match) {
+        if ($match == "--") {
+            continue;
+        }
+        $Match = new Match($key);
+        $Match->setResult($match);
+    }
+}
 
 ?>
 
@@ -82,13 +88,27 @@ if ((!empty($_POST['toernooi']) && $_POST['toernooi'] !== '') && (!empty($_POST[
                                                 <td> X </td>';
                                                     continue;
                                                 }
+                                                $match = new Match(($poule->getMatchesBetweenPlayers($player->getInfo()['playerid'], $poulePlayers[$i]->getInfo()['playerid'])[0] ?? 0));
+
+                                                $possibleValues = [
+                                                        "--" => "--",
+                                                        "0" =>"0",
+                                                        "0.5"=> "&frac12;",
+                                                        "1" => "1",
+                                                    ];
                                                 echo '
                                                 <td>
-                                                    <select name="'.$poule->getMatchesBetweenPlayers($player->getInfo()['playerid'], $poulePlayers[$i]->getInfo()['playerid']).'">
-                                                        <option>--</option>
-                                                        <option value="0">0</option>
-                                                        <option value="0.5">&frac12;</option>
-                                                        <option value="1">1</option>
+                                                    <select name="matches['.$match->getInfo()['matchno'].']">';
+                                                    $playerResult = $match->getResultFromPlayer($player->getInfo()['playerid']);
+                                                    foreach ($possibleValues as $key => $value) {
+                                                        if ($value == $playerResult) {
+                                                            echo '<option value="'.$player->getInfo()['playerid'].$key.'" selected>'.$value.'</option>';
+                                                        }
+                                                        else {
+                                                            echo '<option value="'.$player->getInfo()['playerid'].$key.'">'.$value.'</option>';
+                                                        }
+                                                    }
+                                                        echo '
                                                     </select>
                                                 </td>';
                                             }

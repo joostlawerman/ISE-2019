@@ -1,3 +1,4 @@
+-- +migrate Down
 DROP PROCEDURE SP_GET_MATCHES_OF_POULE;
 
 -- +migrate Up
