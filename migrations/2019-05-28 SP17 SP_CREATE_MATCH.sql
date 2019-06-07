@@ -1,13 +1,12 @@
 -- +migrate Down
-DROP PROCEDURE SP_INSERT_RESULT;
+DROP PROCEDURE SP_CREATE_MATCH;
 
 -- +migrate Up
-CREATE PROCEDURE SP_INSERT_RESULT
+CREATE PROCEDURE SP_CREATE_MATCH
     @chessclubname  VARCHAR(100),
     @tournamentname VARCHAR(100),
     @roundnumber    INT,
     @poulno         INT,
-    @result         VARCHAR(6),
     @whitePlayer    INT,
     @blackPlayer    INT
 AS
@@ -44,19 +43,14 @@ AS
                 RAISERROR('The white or the black player does not compete in this poule', 16, 1)
             END
 
-        IF @result IS NOT NULL AND NOT @result IN ('black', 'white', 'remise')
-            BEGIN
-                RAISERROR('The result of a match must be one of "black", "white" or "remise"', 16, 1)
-            END
-
-        DECLARE @matchno int = (SELECT (SELECT TOP 1 matchno FROM CHESSMATCH_OF_POULE ORDER BY matchno DESC)+1)
-        IF @matchno IS NULL
-            BEGIN
-                SET @matchno = 1
-            END
+            DECLARE @matchno INT = (SELECT (SELECT TOP 1 matchno FROM CHESSMATCH_OF_POULE ORDER BY matchno DESC)+1)
+            IF @matchno IS NULL
+                BEGIN
+                    SET @matchno = 1
+                END
 
         INSERT INTO CHESSMATCH_OF_POULE (matchno, chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack, result) VALUES
-            (@matchno, @chessclubname, @tournamentname, @roundnumber, @poulno, @whitePlayer, @blackPlayer, @result)
+            (@matchno, @chessclubname, @tournamentname, @roundnumber, @poulno, @whitePlayer, @blackPlayer, NULL)
 
         IF @orginTranCount = 0
             COMMIT TRANSACTION

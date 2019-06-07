@@ -27,4 +27,8 @@ class Player extends ADatabaseLayer
     public function getName() {
         return ucfirst($this->info['firstname']).' '.ucfirst($this->info['lastname']);
     }
+
+    public function getId() {
+        return $this->info['playerid'];
+    }
 }

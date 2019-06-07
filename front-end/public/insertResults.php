@@ -10,6 +10,9 @@ if ((!empty($_POST['toernooi']) && $_POST['toernooi'] !== '') && (!empty($_POST[
 } else {
     // header("Location: index.php");
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -35,343 +38,77 @@ if ((!empty($_POST['toernooi']) && $_POST['toernooi'] !== '') && (!empty($_POST[
                     Voeg resultaten toe
                 </div>
                 <div class="card-body card-body-scroll">
-                    <div class="row poule-menu">
-                        <select class="select mr-sm-2" name="ronde" id="ronde" required>
-                            <?php
-                            foreach ($tournament->getRounds() as $round) {
-                                echo '<option value="'.$round->getInfo()['roundnumber'].'" >Ronde '.$round->getInfo()['roundnumber'].'</option>';
+                    <form method="post" action="insertResults.php">
+                        <input type="hidden" name="toernooi" value="<?php echo $_POST['toernooi']; ?>">
+                        <div class="row poule-menu">
+                            <select class="select mr-sm-2" name="ronde" id="ronde" required>
+                                <?php
+                                foreach ($tournament->getRounds() as $round) {
+                                    echo '<option value="'.$round->getInfo()['roundnumber'].'" >Ronde '.$round->getInfo()['roundnumber'].'</option>';
+                                }
+                                ?>
+                            </select>
+                            <button type="submit" class="btn btn-dark poules">Opslaan</button>
+                        </div>
+
+                        <?php
+                        foreach ($tournamentRound->getPoules() as $poule) {
+                            if ($poule->getInfo()['pouleno'] % 2 == 1) {
+                                ?>
+                                <div class="row poules">
+                                <?php
                             }
                             ?>
-                        </select>
-                    </div>
-
-                    <?php
-                    foreach ($tournamentRound->getPoules() as $poule) {
-                        if ($poule->getInfo()['pouleno'] % 2 == 1) {
-                        ?>
-                        <div class="row poules">
-                        <?php
-                        }
-                    ?>
-                        <div class="col-6">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>Poule <?php
-                                        echo $poule->getInfo()['pouleno'].'</th>';
-                                        $poulePlayers = $poule->getPlayers();
-                                        $pouleSize    = count($poulePlayers);
-                        foreach ($poulePlayers as $player) {
-                            echo '<th>'.$player->getName().'</th>';
-                        }
-                        echo '<th>Total</th></tr></thead>';
-                        foreach ($poulePlayers as $key => $player) {
-                            echo '<tr><td>'.$player->getName().'</td>';
-                            for ($i = 0; $i < $pouleSize; $i++) {
-                                if ($i == $key) {
-                                    echo '<td> X </td>';
-                                    continue;
-                                }
-                                echo '<td><select name="'.$player->getInfo()['playerid'].'['.$poulePlayers[$i]->getInfo()['playerid'].']">
-                                    <option value="0">
-                                        0
-                                    </option>
-                                    <option value="0.5">
-                                        &frac12;
-                                    </option>
-                                    <option value="1">
-                                        1
-                                    </option>
-                                </select></td>';
+                                    <div class="col-6">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>Poule <?php echo $poule->getInfo()['pouleno'].'</th>';
+                                                $poulePlayers = $poule->getPlayers();
+                                                $pouleSize    = count($poulePlayers);
+                                                foreach ($poulePlayers as $player) {
+                                                    echo '<th>'.$player->getName().'</th>';
+                                                }
+                                                    echo '<th>Total</th>
+                                                </tr>
+                                            </thead>';
+                                        foreach ($poulePlayers as $key => $player) {
+                                            echo '
+                                            <tr>
+                                                <td>'.$player->getName().'</td>';
+                                            for ($i = 0; $i < $pouleSize; $i++) {
+                                                if ($i == $key) {
+                                                    echo '
+                                                <td> X </td>';
+                                                    continue;
+                                                }
+                                                echo '
+                                                <td>
+                                                    <select name="'.$poule->getMatchesBetweenPlayers($player->getInfo()['playerid'], $poulePlayers[$i]->getInfo()['playerid']).'">
+                                                        <option>--</option>
+                                                        <option value="0">0</option>
+                                                        <option value="0.5">&frac12;</option>
+                                                        <option value="1">1</option>
+                                                    </select>
+                                                </td>';
+                                            }
+                                        }
+                                        echo '
+                                            </tr>
+                                        </table>
+                                    </div>';
+                            if ($poule->getInfo()['pouleno'] % 2 == 0) {
+                                ?>
+                                </div>
+                                <?php
                             }
-                            echo '</tr>';
                         }
-                    }
-                    ?>
-                    </div>
-                        <div class="col-6">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Poule 2
-                                    </th>
-                                    <th>
-                                        5
-                                    </th>
-                                    <th>
-                                        6
-                                    </th>
-                                    <th>
-                                        7
-                                    </th>
-                                    <th>
-                                        8
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tr>
-                                    <td>
-                                        Speler 5
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 6
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 7
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 8
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="row poules">
-                        <div class="col-6">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Poule 3
-                                    </th>
-                                    <th>
-                                        9
-                                    </th>
-                                    <th>
-                                        10
-                                    </th>
-                                    <th>
-                                        11
-                                    </th>
-                                    <th>
-                                        12
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tr>
-                                    <td>
-                                        Speler 9
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 10
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 11
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 12
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <div class="col-6">
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th>
-                                        Poule 4
-                                    </th>
-                                    <th>
-                                        13
-                                    </th>
-                                    <th>
-                                        14
-                                    </th>
-                                    <th>
-                                        15
-                                    </th>
-                                    <th>
-                                        16
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tr>
-                                    <td>
-                                        Speler 13
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 14
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 15
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        Speler 16
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                        x
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-
+                            ?>
+                    </form>
                 </div>
-            </div>
-
+            </div> <!--end card-->
         </div>
     </div>
-
 </div>
 </body>
 
