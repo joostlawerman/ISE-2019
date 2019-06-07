@@ -1,130 +1,109 @@
--- +migrate Up
-EXEC tSQLt.NewTestClass 'IR19';
-
 -- +migrate Down
 EXEC tSQLt.DropClass 'IR19';
 
 -- +migrate Up
-CREATE PROCEDURE IR19.test_insert_succeed AS
-BEGIN
-	EXEC tSQLt.FakeTable 'dbo.CHESSMATCH_OF_POULE'
-    EXEC tSQLt.FakeTable 'dbo.TOURNAMENT_ROUND'
+EXEC tSQLt.NewTestClass 'IR19';
 
-    INSERT INTO TOURNAMENT_ROUND(chessclubname, tournamentname, roundnumber, system) VALUES
-        ('test', 'round', 1, 'round robin'),
-        ('test', 'brak', 1, 'bracket')
+GO
+CREATE PROCEDURE IR19.SetUp AS
+    BEGIN
+        EXEC tSQLt.FakeTable 'dbo.CHESSMATCH_OF_POULE'
+        EXEC tSQLt.FakeTable 'dbo.TOURNAMENT_ROUND'
 
-    INSERT INTO CHESSMATCH_OF_POULE(matchno,chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
-        (1,'test', 'round', 1, 1, 1, 2),
-        (2,'test', 'round', 1, 1, 3, 4),
-        (3,'test', 'brak', 1, 1, 3, 4)
+        INSERT INTO TOURNAMENT_ROUND (chessclubname, tournamentname, roundnumber, system) VALUES
+            ('test', 'round', 1, 'round robin'),
+            ('test', 'brak', 1, 'bracket')
 
-    EXEC [tSQLt].[ApplyTrigger] @tablename = 'dbo.CHESSMATCH_OF_POULE',
-                                @triggername = 'TRIGGER_UNIQUE_ROUND_ROBIN_MATCH_WITHIN_POULE'
+        INSERT INTO CHESSMATCH_OF_POULE (matchno, chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack)
+        VALUES
+            (1, 'test', 'round', 1, 1, 1, 2),
+            (2, 'test', 'round', 1, 1, 3, 4),
+            (3, 'test', 'brak', 1, 1, 3, 4)
 
-	select * from CHESSMATCH_OF_POULE
-    EXEC tSQLt.ExpectNoException
-    -- Execute
-    INSERT INTO CHESSMATCH_OF_POULE (matchno,chessclubname,tournamentname,roundnumber,pouleno,playeridwhite,playeridblack,result) 
-	VALUES (4,'test','round',1,1,1,3,null)
-            
-END;
+        EXEC [tSQLt].[ApplyTrigger] @tablename = 'dbo.CHESSMATCH_OF_POULE',
+                                    @triggername = 'TRIGGER_UNIQUE_ROUND_ROBIN_MATCH_WITHIN_POULE'
+    END;
+GO
 
-exec tsqlt.run 'IR19'
+-- +migrate Up
+CREATE PROCEDURE IR19.test_insert_duplicate_row AS
+    BEGIN
+        DELETE FROM CHESSMATCH_OF_POULE;
+
+        EXEC tSQLt.ExpectException
+            @ExpectedMessage = 'One of the matches that are inserted already exists in this round robin poule'
+        -- Execute
+        INSERT INTO CHESSMATCH_OF_POULE (matchno, chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack)
+        VALUES
+            (4, 'test', 'round', 1, 1, 1, 2)
+
+    END;
+
+GO
+
+-- +migrate Up
+CREATE PROCEDURE IR19.test_insert_duplicate_in_insert_statement AS
+    BEGIN
+        DELETE FROM CHESSMATCH_OF_POULE;
+
+        EXEC tSQLt.ExpectException 'One of the matches that are inserted already exists in this round robin poule'
+        -- Execute
+        INSERT INTO CHESSMATCH_OF_POULE (matchno, chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack)
+        VALUES
+            (4, 'test', 'round', 1, 1, 1, 3),
+            (5, 'test', 'round', 1, 1, 1, 3)
+    END;
+GO
 
 
 -- +migrate Up
-CREATE PROCEDURE IR19.test_duplicate_inserted_values AS
-BEGIN
-	EXEC tSQLt.FakeTable 'dbo.CHESSMATCH_OF_POULE'
-    EXEC tSQLt.FakeTable 'dbo.TOURNAMENT_ROUND'
+CREATE PROCEDURE IR19.test_single_insert_succeeds AS
+    BEGIN
+        EXEC tSQLt.ExpectNoException
+        -- Execute
+        INSERT INTO CHESSMATCH_OF_POULE (matchno, chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack)
+        VALUES (4, 'test', 'round', 1, 1, 1, 3)
 
-    INSERT INTO TOURNAMENT_ROUND(chessclubname, tournamentname, roundnumber, system) VALUES
-        ('test', 'round', 1, 'round robin'),
-        ('test', 'brak', 1, 'bracket')
+    END;
 
-    EXEC [tSQLt].[ApplyTrigger] @tablename = 'dbo.CHESSMATCH_OF_POULE',
-                                @triggername = 'TRIGGER_UNIQUE_ROUND_ROBIN_MATCH_WITHIN_POULE'
-
-
-    EXEC tSQLt.ExpectException 'There is a match that is duplicate in a round robin poule'
-    -- Execute
-    INSERT INTO CHESSMATCH_OF_POULE (chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
-            ('test', 'round', 1, 1, 2, 1), ('test', 'round', 1, 1, 2, 1)
-END;
-
-
-
-
-
-
-
-
-
+GO
 
 -- +migrate Up
-CREATE PROCEDURE IR19.test_existing_match_inverted_in_round_robin_poule_error AS
-BEGIN
-	EXEC tSQLt.FakeTable 'dbo.CHESSMATCH_OF_POULE'
-    EXEC tSQLt.FakeTable 'dbo.TOURNAMENT_ROUND'
+CREATE PROCEDURE IR19.test_multi_insert_succeeds AS
+    BEGIN
+        EXEC tSQLt.ExpectNoException
+        -- Execute
+        INSERT INTO CHESSMATCH_OF_POULE (matchno, chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack)
+        VALUES
+            (4, 'test', 'round', 1, 1, 1, 3),
+            (5, 'test', 'round', 1, 1, 2, 4)
 
-    INSERT INTO TOURNAMENT_ROUND(chessclubname, tournamentname, roundnumber, system) VALUES
-        ('test', 'round', 1, 'round robin'),
-        ('test', 'brak', 1, 'bracket')
+    END;
 
-    INSERT INTO CHESSMATCH_OF_POULE(chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
-        ('test', 'round', 1, 1, 1, 2),
-        ('test', 'round', 1, 1, 3, 4),
-        ('test', 'brak', 1, 1, 3, 4)
+GO
+-- +migrate Up
+CREATE PROCEDURE IR19.test_insert_duplicate_bracket AS
+    BEGIN
+        EXEC tSQLt.ExpectNoException
+        -- Execute
+        INSERT INTO CHESSMATCH_OF_POULE (matchno, chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack)
+        VALUES
+            (4, 'test', 'brak', 1, 1, 3, 4)
+    END;
 
-    EXEC [tSQLt].[ApplyTrigger] @tablename = 'dbo.CHESSMATCH_OF_POULE',
-                                @triggername = 'TRIGGER_UNIQUE_ROUND_ROBIN_MATCH_WITHIN_POULE'
-
-
-    EXEC tSQLt.ExpectException 'There is a match that is duplicate in a round robin poule'
-    -- Execute
-    INSERT INTO CHESSMATCH_OF_POULE (chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
-            ('test', 'round', 1, 1, 2, 1)
-END;
+GO
 
 -- +migrate Up
-CREATE PROCEDURE IR19.test_duplicate_match_in_round_robin_poule AS
-BEGIN
+CREATE PROCEDURE IR19.test_insert_duplicate_bracket_in_insert AS
+    BEGIN
+        EXEC tSQLt.ExpectNoException
+        -- Execute
+        INSERT INTO CHESSMATCH_OF_POULE (matchno, chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack)
+        VALUES
+            (4, 'test', 'brak', 1, 1, 3, 4),
+            (5, 'test', 'brak', 1, 1, 3, 4)
+    END;
 
-    EXEC tSQLt.ExpectException 'There is a match that is duplicate in a round robin poule'
-    -- Execute
+go
 
-    INSERT INTO CHESSMATCH_OF_POULE (chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
-            ('test', 'round', 1, 1, 1, 2)
-END;
-
--- +migrate Up
-CREATE PROCEDURE IR19.test_bracket_doesnt_trigger_existing_match_inverted AS
-BEGIN
-
-    EXEC tSQLt.ExpectNoException
-    -- Execute
-
-    INSERT INTO CHESSMATCH_OF_POULE (chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
-            ('test', 'brak', 1, 1, 4, 3)
-END;
-
--- +migrate Up
-CREATE PROCEDURE IR19.test_bracket_doesnt_trigger_existing_match_duplicate AS
-BEGIN
-
-    EXEC tSQLt.ExpectNoException
-    -- Execute
-
-    INSERT INTO CHESSMATCH_OF_POULE (chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
-            ('test', 'brak', 1, 1, 3, 4)
-END;
-
--- +migrate Up
-CREATE PROCEDURE IR19.test_successfully_insert_unique_round_robin_match AS
-BEGIN
-    exec tSQLt.ExpectNoException
-    -- Execute
-        INSERT INTO CHESSMATCH_OF_POULE (chessclubname, tournamentname, roundnumber, pouleno, playeridwhite, playeridblack) VALUES
-            ('test', 'round', 1, 1, 1, 4)
-END;
+EXEC tSQLt.Run 'IR19'
