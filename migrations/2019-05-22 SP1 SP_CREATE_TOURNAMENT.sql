@@ -4,7 +4,7 @@ CREATE PROCEDURE SP_CREATE_TOURNAMENT
 @tournamentname varchar(100),
 @contactname varchar(101),
 @starts datetime,
-@ends datetime,
+@ends datetime = null,
 @registrationfee money,
 @addressline1 varchar(100),
 @postalcode varchar(6),
