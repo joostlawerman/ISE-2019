@@ -1,2 +1,4 @@
 dbconfig.yml
+.discharge.json
 .azuredatastudio/
+front-end/config.json

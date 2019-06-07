@@ -16,44 +16,44 @@ BEGIN
 
    	EXEC tSQLt.FakeTable 'dbo', 'POULE'  	
    	INSERT INTO POULE 
-   	VALUES(null, null, null, 1),
-          (null, null, null, 2)
+   	VALUES('Schaakvereniging Horst', 'Eerste toernooi', 1, 1),
+          ('Schaakvereniging Horst', 'Eerste toernooi', 1, 2)
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in that poule has finished]
+CREATE PROCEDURE [IR15].[Test if a poule can not be changed when a match in that poule has finished]
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE 
-   	VALUES(null, null, null, null, 2, null, null, 'remise')
+   	VALUES(null, 'Schaakvereniging Horst', 'Eerste toernooi', 1, 2, null, null, 'remise')
 
    	--Assert
    	EXEC tSQLt.ExpectException @ExpectedMessage= 'A poule can not be changed when a match in that poule has started'
   
    	--Act
    	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
-   	VALUES (null, null, null, null, 1),
-           (null, null, null, null, 2) 
-END;
-
--- +migrate Up
-CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in that poule has started]
-AS
-BEGIN
-   	INSERT INTO CHESSMATCH_OF_POULE 
-   	VALUES(null, null, null, null, 2, null, null, null)
-
-   	--Assert
-   	EXEC tSQLt.ExpectException @ExpectedMessage= 'A poule can not be changed when a match in that poule has started'
-  
-   	--Act
-   	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
-   	VALUES (null, null, null, null, 1),
-           (null, null, null, null, 2) 
+   	VALUES ('Schaakvereniging Horst', null, 'Eerste toernooi', 1, 1),
+           ('Schaakvereniging Horst', null, 'Eerste toernooi', 1, 2) 
 END;
 
 -- +migrate Up
 CREATE PROCEDURE [IR15].[Test if a poule can not be changed when a match in that poule has started]
+AS
+BEGIN
+   	INSERT INTO CHESSMATCH_OF_POULE 
+   	VALUES(null, 'Schaakvereniging Horst', 'Eerste toernooi', 1, 2, null, null, null)
+
+   	--Assert
+   	EXEC tSQLt.ExpectException @ExpectedMessage= 'A poule can not be changed when a match in that poule has started'
+  
+   	--Act
+   	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
+   	VALUES ('Schaakvereniging Horst', null, 'Eerste toernooi', 1, 1),
+           ('Schaakvereniging Horst', null, 'Eerste toernooi', 1, 2) 
+END;
+
+-- +migrate Up
+CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in that poule has not started]
 AS
 BEGIN
    	--Assert
@@ -61,8 +61,8 @@ BEGIN
   
    	--Act
    	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
-   	VALUES (null, null, null, null, 1),
-           (null, null, null, null, 2) 
+   	VALUES ('Schaakvereniging Horst', null, 'Eerste toernooi', 1, 1),
+           ('Schaakvereniging Horst', null, 'Eerste toernooi', 1, 2) 
 END;
 
 -- +migrate Up
@@ -70,15 +70,15 @@ CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in another 
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE
-   	VALUES(null, null, null, null, 3, null, null, null)
+   	VALUES(null, 'Schaakvereniging Horst', 'Eerste toernooi', 1, 3, null, null, null)
 
    	--Assert
    	EXEC tSQLt.ExpectNoException
   
    	--Act
    	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
-   	VALUES (null, null, null, null, 1),
-           (null, null, null, null, 2) 
+   	VALUES ('Schaakvereniging Horst', null, 'Eerste toernooi', 1, 1),
+           ('Schaakvereniging Horst', null, 'Eerste toernooi', 1, 2) 
 END;
 
 -- +migrate Up
@@ -86,13 +86,13 @@ CREATE PROCEDURE [IR15].[Test if a poule can be changed when a match in another 
 AS
 BEGIN
    	INSERT INTO CHESSMATCH_OF_POULE 
-   	VALUES(null, null, null, null, 3, null, null, 'remise')
+   	VALUES(null, 'Schaakvereniging Horst', 'Eerste toernooi', 1, 3, null, null, 'remise')
 
    	--Assert
    	EXEC tSQLt.ExpectNoException
   
    	--Act
    	INSERT INTO TOURNAMENT_PLAYER_OF_POULE
-   	VALUES (null, null, null, null, 1),
-           (null, null, null, null, 2) 
+   	VALUES ('Schaakvereniging Horst', null, 'Eerste toernooi', 1, 1),
+           ('Schaakvereniging Horst', null, 'Eerste toernooi', 1, 2) 
 END;

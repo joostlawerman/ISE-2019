@@ -16,7 +16,7 @@ BEGIN
 	BEGIN TRY	
 		IF EXISTS (SELECT 1 FROM CHESSCLUB WHERE chessclubname = @chessclubname)
 			BEGIN
-				RAISERROR('There already is a chessclub with the same name', 16, 1)				
+				RAISERROR('There already is a chessclub with the same name', 16, 1)
 			END	
 		ELSE	
 			BEGIN
