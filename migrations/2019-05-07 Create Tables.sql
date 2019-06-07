@@ -50,9 +50,8 @@ CREATE TABLE TOURNAMENT (
 
 -- +migrate Up 
 CREATE TABLE SYSTEMS (
-    system		  VARCHAR(25) NOT NULL,
+    system VARCHAR(25) NOT NULL,
     CONSTRAINT PK_SYSTEMS PRIMARY KEY NONCLUSTERED (system)
-
 );
 
 -- +migrate Up
