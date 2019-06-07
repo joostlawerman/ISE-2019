@@ -9,15 +9,6 @@ CREATE PROCEDURE SP2.SetUp
 AS
 BEGIN
 	--Assemble
-	EXEC tSQLt.FakeTable 'dbo', 'CHESSCLUB'
-	INSERT INTO CHESSCLUB (chessclubname,city,addressline1,postalcode,emailaddress)
-	VALUES ('TestClub','Teststad','TestStraat1','7000AB','testclub.test@test.nl')
-
-	EXEC tSQLt.FakeTable 'dbo', 'PLAYER'
-	INSERT INTO PLAYER (playerid,chessclubname,firstname,lastname,addressline1,postalcode,city,birthdate,emailaddress,gender)
-	VALUES (1,'TestClub','Test','Tester','TestStraat1','7000AB','Teststad','2000-01-01','test.test@test.nl','M'),
-		   (2,'TestClub','Tester','Test','TestStraat2','7000AB','Teststad','2000-01-01','test2.test@test.nl','V')
-
 	EXEC tSQLt.FakeTable 'dbo', 'CONTACTPERSON'
 	INSERT INTO CONTACTPERSON (contactname,emailaddress,phonenumber)
 	VALUES ('Testo Tset','Tset.test@test.nl','2299384887')
@@ -28,7 +19,7 @@ BEGIN
 
 	EXEC tSQLt.FakeTable 'dbo', 'TOURNAMENT'
 	INSERT INTO TOURNAMENT (chessclubname, tournamentname,winner,contactname,starts,ends,registrationfee,addressline1,postalcode,city,registrationdeadline)
-	VALUES ('TestClub', 'TestToernooi', 1, 'Testo Tset', '2019-05-01', '2019-05-02', 10.00, 'TestStraat1', '7000AB', 'Teststad', '2019-05-01')
+	VALUES ('TestClub', 'TestToernooi', 1, 'Testo Tset', '2019-05-01 01:00:00', '2019-05-04 02:00:00', 10.00, 'TestStraat1', '7000AB', 'Teststad', '2019-05-01')
 
 END;
 
@@ -49,13 +40,13 @@ BEGIN
     addressline1         VARCHAR(100) NOT NULL,
     postalcode           VARCHAR(6)   NOT NULL,
     city                 VARCHAR(100)    NOT NULL,
-    registrationdeadline DATETIME     NOT NULL,
+    registrationdeadline DATETIME     NOT NULL
 	)
 
 	INSERT INTO expected (chessclubname, tournamentname,winner,contactname,starts,ends,registrationfee,addressline1,postalcode,city,registrationdeadline)
 	VALUES ('TestClub', 'TestToernooi', 1, 'Testo Tset', '2019-05-03 01:00:00', '2019-05-04 02:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03')
 
-	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'TestToernooi', 1, 'Testo Tset', '2019-05-03 01:00:00', '2019-05-04 02:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
+	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'TestToernooi', 1, 'Testo Tset', '2019-05-03 01:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
 
 	--Assert
 	EXEC tSQLt.AssertEqualsTable 'TOURNAMENT', 'expected'
@@ -68,7 +59,7 @@ BEGIN
 	--Assert
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'Vul een schaakclub en toernooinaam in.'
 
-	EXEC SP_UPDATE_TOURNAMENT null, 'TestToernooi', 1, 'Testo Tset', '2019-05-03 01:00:00', '2019-05-04 02:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
+	EXEC SP_UPDATE_TOURNAMENT null, 'TestToernooi', 1, 'Testo Tset', '2019-05-03 01:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
 END;
 
 -- +migrate Up
@@ -78,7 +69,7 @@ BEGIN
 	--Assert
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'Vul een schaakclub en toernooinaam in.'
 
-	EXEC SP_UPDATE_TOURNAMENT 'TestClub', null, 1, 'Testo Tset', '2019-05-03 01:00:00', '2019-05-04 02:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
+	EXEC SP_UPDATE_TOURNAMENT 'TestClub', null, 1, 'Testo Tset', '2019-05-03 01:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
 END;
 
 -- +migrate Up
@@ -88,7 +79,7 @@ BEGIN
 	--Assert
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'De ingevulde schaakclub bestaat niet.'
 
-	EXEC SP_UPDATE_TOURNAMENT 'GeenClub', 'TestToernooi', 1, 'Testo Tset', '2019-05-03 01:00:00', '2019-05-04 02:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
+	EXEC SP_UPDATE_TOURNAMENT 'GeenClub', 'TestToernooi', 1, 'Testo Tset', '2019-05-03 01:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
 END;
 
 -- +migrate Up
@@ -98,7 +89,7 @@ BEGIN
 	--Assert
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'Het ingevulde schaaktoernooi voor de ingevulde schaakclub bestaat niet.'
 
-	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'GeenToernooi', 1, 'Testo Tset', '2019-05-03 01:00:00', '2019-05-04 02:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
+	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'GeenToernooi', 1, 'Testo Tset', '2019-05-03 01:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
 END;
 
 -- +migrate Up
@@ -108,7 +99,7 @@ BEGIN
 	--Assert
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'De ingevulde contactpersoon bestaat niet.'
 
-	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'TestToernooi', 1, 'Geen Persoon', '2019-05-03 01:00:00', '2019-05-04 02:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
+	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'TestToernooi', 1, 'Geen Persoon', '2019-05-03 01:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
 END;
 
 -- +migrate Up
@@ -118,6 +109,5 @@ BEGIN
 	--Assert
 	EXEC tSQLt.ExpectException @ExpectedMessage = 'De ingevulde winnaar doet niet mee aan het geselecteerde toernooi.'
 
-	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'TestToernooi', 2, 'Testo Tset', '2019-05-03 01:00:00', '2019-05-04 02:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
+	EXEC SP_UPDATE_TOURNAMENT 'TestClub', 'TestToernooi', 2, 'Testo Tset', '2019-05-03 01:00:00', 10.00, 'StraatTest22', '7033AG', 'StadTest', '2019-05-03'
 END;
-
