@@ -32,6 +32,8 @@ BEGIN
 			INSERT INTO TOURNAMENT (chessclubname, tournamentname, contactname, starts, ends, registrationfee, addressline1, postalcode, city, registrationdeadline) 
 			VALUES (@chessclubname, @tournamentname, @contactname, @starts, @ends, @registrationfee, @addressline1, @postalcode, @city, @registrationdeadline)
 			END
+		IF @orginTranCount = 0
+            COMMIT TRANSACTION
 	END TRY
 	BEGIN CATCH
 		IF @orginTranCount = 0  

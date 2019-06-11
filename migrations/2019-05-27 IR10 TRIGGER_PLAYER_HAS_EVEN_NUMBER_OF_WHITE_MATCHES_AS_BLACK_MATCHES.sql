@@ -5,16 +5,17 @@ AFTER INSERT, UPDATE
 AS
     IF @@ROWCOUNT = 0
         RETURN
-        
+
     SET NOCOUNT ON
     BEGIN TRY
+
         IF EXISTS (
             select 1
             from Inserted i
             where exists (
                 select 1
                 from (
-                    select 
+                    select
                         chessclubname,
                         tournamentname,
                         roundnumber,
@@ -26,7 +27,7 @@ AS
                         tournamentname,
                         roundnumber,
                         playeridwhite
-                ) cmp 
+                ) cmp
                 where cmp.chessclubname = i.chessclubname
                     and cmp.tournamentname = i.tournamentname
                     and cmp.roundnumber = i.roundnumber
@@ -61,7 +62,7 @@ AS
                 or exists (
                     select 1
                     from (
-                        select 
+                        select
                             chessclubname,
                             tournamentname,
                             roundnumber,
@@ -73,7 +74,7 @@ AS
                             tournamentname,
                             roundnumber,
                             playeridblack
-                    ) cmp 
+                    ) cmp
                     where cmp.chessclubname = i.chessclubname
                         and cmp.tournamentname = i.tournamentname
                         and cmp.roundnumber = i.roundnumber

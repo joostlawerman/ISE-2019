@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Creeer toernooi</title>
+    <title>Toernooi info</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -15,88 +15,58 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3 menu">
-                <ul class="list-group list-dark">
-                    <li class="list-group-item list-group-item-dark">
-                        <a class= "homepagelink" href="index.html">Schaaktoernooi applicatie</a>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                        <a class="btn btn-dark btn-menu active" href="creeerToernooi.html" role="button" aria-pressed="true">Cre&euml;er toernooi</a>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                        <select name="asideToernooi" class="custom-select" id="asideToernooi">
-                            <option selected>Kies een schaaktoernooi</option>
-                            <option value="1">1ste schaaktoernooi</option>
-                            <option value="2">2de schaaktoernooi</option>
-                        </select>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                        <a class="btn btn-dark btn-menu" href="toernooiInfo.html" role="button">Toernooi Info</a>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                        <a class="btn btn-dark btn-menu" href="toernooiSpelerToevoegen.html" role="button">Voeg toernooispelers
-                            toe</a>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                        <a class="btn btn-dark btn-menu" href="manageRondes.html" role="button">Manage rondes</a>
-                    </li>
-                    <li class="list-group-item list-group-item-light">
-                            <a class="btn btn-dark btn-menu" href="schaakclubToevoegen.html" role="button">Voeg schaakclub toe</a>
-                    </li>
-                </ul>
-            </div>
+            <?php include "misc/menu.php"; ?>
 
             <div class="col-9 main-page">
 
                 <div class="card">
                     <div class="card-header bg-dark">
-                        Cre&euml;er toernooi
+                        Edit toernooi info
                     </div>
                     <div class="card-body card-body-scroll">
                         <form>
                             <div class="form-group">
                                 <label for="tournamentName">Naam Toernooi *</label>
                                 <input type="text" class="form-control" id="tournamentName"
-                                    placeholder="Vul de toernooinaam in" required>
+                                    value="1ste schaaktoernooi" required>
                             </div>
                             <div class="form-group">
                                 <label for="startTime">Starttijd *</label>
                                 <input type="datetime-local" class="form-control" id="startTime"
-                                    placeholder="Vul de starttijd in" required>
+                                    value="2019-05-28T10:30" required>
                             </div>
                             <div class="form-group">
                                 <label for="endTime">Eindtijd</label>
                                 <input type="datetime-local" class="form-control" id="endTime"
-                                    placeholder="Vul de eindtijd in">
+                                    value="2019-05-28T18:30">
                             </div>
                             <div class="form-group">
                                 <label for="registrationFee">Inschrijfgeld *</label>
                                 <input type="number" class="form-control" id="registrationFee"
-                                    placeholder="Vul het bedrag in" step=".01" required>
+                                    value="2.10" step=".01" required>
                             </div>
                             <div class="form-group">
                                 <label for="address">Adres *</label>
                                 <input type="text" class="form-control" id="address"
-                                    placeholder="Vul het adress in van de locatie van het toernooi" required>
+                                    value="Hoofdstraat 5"  required>
                             </div>
                             <div class="form-group">
                                 <label for="postalcode">Postcode *</label>
                                 <input type="text" class="form-control" id="postalcode"
-                                    placeholder="Vul de postcode in van de locatie van het toernooi" required>
+                                    value="9200AV" required>
                             </div>
                             <div class="form-group">
                                 <label for="city">Stad *</label>
                                 <input type="text" class="form-control" id="city"
-                                    placeholder="Vul de stad in van de locatie van het toernooi" required>
+                                    value="Arnhem" required>
                             </div>
                             <div class="form-group">
                                 <label for="registrationDeadline">Registratie Tijdsgrens *</label>
                                 <input type="datetime-local" class="form-control" id="registrationDeadline"
-                                    placeholder="Vul de uiterlijke tijd van inschrijving in." required>
+                                    value="2019-05-28T10:00" required>
                             </div>
 
-
-                            <button type="submit" class="btn btn-dark">Maak toernooi aan</button>
+                            <a class="btn btn-dark" href="editToernooiInfo.html" role="button">Accepteer en verstuur</a>
                         </form>
 
                     </div>

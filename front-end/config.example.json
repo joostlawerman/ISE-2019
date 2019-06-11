@@ -1,0 +1,11 @@
+{
+    "database": {
+        "host": "localhost",
+        "dbname": "ISE",
+        "user": "",
+        "password": ""
+    },
+    "chessclub": {
+        "name": ""
+    }
+}
