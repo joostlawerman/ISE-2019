@@ -1,11 +1,11 @@
 -- +migrate Down
-EXEC tSQLt.DropClass 'SP28';
+EXEC tSQLt.DropClass 'SP30';
 
 -- +migrate Up
-EXEC tSQLt.NewTestClass 'SP28';
+EXEC tSQLt.NewTestClass 'SP30';
 
 -- +migrate Up
-CREATE PROCEDURE SP28.SetUp AS
+CREATE PROCEDURE SP30.SetUp AS
     BEGIN
         EXEC tSQLt.FakeTable 'dbo.CHESSMATCH_OF_POULE'
 
@@ -15,7 +15,7 @@ CREATE PROCEDURE SP28.SetUp AS
     END;
 
 -- +migrate Up
-CREATE PROCEDURE SP28.test_select_match AS
+CREATE PROCEDURE SP30.test_select_match AS
     BEGIN
         SELECT *
         INTO expected

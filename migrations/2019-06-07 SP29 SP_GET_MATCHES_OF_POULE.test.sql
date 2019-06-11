@@ -1,11 +1,11 @@
 -- +migrate Down
-EXEC tSQLt.DropClass 'SP27';
+EXEC tSQLt.DropClass 'SP29';
 
 -- +migrate Up
-EXEC tSQLt.NewTestClass 'SP27';
+EXEC tSQLt.NewTestClass 'SP29';
 
 -- +migrate Up
-CREATE PROCEDURE SP27.SetUp AS
+CREATE PROCEDURE SP29.SetUp AS
     BEGIN
         EXEC tSQLt.FakeTable 'dbo.CHESSMATCH_OF_POULE'
 
@@ -18,7 +18,7 @@ CREATE PROCEDURE SP27.SetUp AS
     END;
 
 -- +migrate Up
-CREATE PROCEDURE SP27.test_select_matches_of_poule AS
+CREATE PROCEDURE SP29.test_select_matches_of_poule AS
     BEGIN
         SELECT *
         INTO expected
@@ -39,7 +39,7 @@ CREATE PROCEDURE SP27.test_select_matches_of_poule AS
     END;
 
 -- +migrate Up
-CREATE PROCEDURE SP27.test_cannot_match_form_poule_without_chessclub AS
+CREATE PROCEDURE SP29.test_cannot_match_form_poule_without_chessclub AS
     BEGIN
 
         EXEC tSQLt.ExpectException 'There are no matches for this poule'
@@ -48,7 +48,7 @@ CREATE PROCEDURE SP27.test_cannot_match_form_poule_without_chessclub AS
     END;
 
 -- +migrate Up
-CREATE PROCEDURE SP27.test_cannot_match_form_poule_without_tournament AS
+CREATE PROCEDURE SP29.test_cannot_match_form_poule_without_tournament AS
     BEGIN
 
         EXEC tSQLt.ExpectException 'There are no matches for this poule'
@@ -57,7 +57,7 @@ CREATE PROCEDURE SP27.test_cannot_match_form_poule_without_tournament AS
     END;
 
 -- +migrate Up
-CREATE PROCEDURE SP27.test_cannot_match_form_poule_without_roundnumber AS
+CREATE PROCEDURE SP29.test_cannot_match_form_poule_without_roundnumber AS
     BEGIN
 
         EXEC tSQLt.ExpectException 'There are no matches for this poule'
@@ -66,7 +66,7 @@ CREATE PROCEDURE SP27.test_cannot_match_form_poule_without_roundnumber AS
     END;
 
 -- +migrate Up
-CREATE PROCEDURE SP27.test_cannot_match_form_poule_with_incorrect_pouleno AS
+CREATE PROCEDURE SP29.test_cannot_match_form_poule_with_incorrect_pouleno AS
     BEGIN
 
         EXEC tSQLt.ExpectException 'There are no matches for this poule'

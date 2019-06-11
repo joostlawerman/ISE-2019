@@ -1,11 +1,11 @@
 -- +migrate Down
-EXEC tSQLt.DropClass 'SP26';
+EXEC tSQLt.DropClass 'SP28';
 
 -- +migrate Up
-EXEC tSQLt.NewTestClass 'SP26';
+EXEC tSQLt.NewTestClass 'SP28';
 
 -- +migrate Up
-CREATE PROCEDURE SP26.SetUp AS
+CREATE PROCEDURE SP28.SetUp AS
     BEGIN 
         EXEC tSQLt.FakeTable 'dbo.CHESSMATCH_OF_POULE'
 
@@ -13,7 +13,7 @@ CREATE PROCEDURE SP26.SetUp AS
     END;
 
 -- +migrate Up
-CREATE PROCEDURE SP26.test_can_insert_chessmatch_result_with_null_result AS
+CREATE PROCEDURE SP28.test_can_insert_chessmatch_result_with_null_result AS
     BEGIN
         DELETE FROM CHESSMATCH_OF_POULE WHERE matchno > 1
         SELECT *
@@ -32,7 +32,7 @@ CREATE PROCEDURE SP26.test_can_insert_chessmatch_result_with_null_result AS
     END;
 
 -- +migrate Up
-CREATE PROCEDURE SP26.test_cannot_insert_chessmatch_result_with_incorrect_result AS
+CREATE PROCEDURE SP28.test_cannot_insert_chessmatch_result_with_incorrect_result AS
     BEGIN
 
         EXEC tSQLt.ExpectException 'The result of a match must be one of "black", "white" or "remise"'
@@ -41,7 +41,7 @@ CREATE PROCEDURE SP26.test_cannot_insert_chessmatch_result_with_incorrect_result
     END;
 
 -- +migrate Up
-CREATE PROCEDURE SP26.test_can_insert_chessmatch_result AS
+CREATE PROCEDURE SP28.test_can_insert_chessmatch_result AS
     BEGIN
         SELECT *
         INTO expected
