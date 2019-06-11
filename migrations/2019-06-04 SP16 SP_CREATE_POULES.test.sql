@@ -1,12 +1,12 @@
 -- +migrate Up
-EXEC tSQLt.NewTestClass 'SP16_5';
+EXEC tSQLt.NewTestClass 'SP16';
 
 -- +migrate Down
-EXEC tSQLt.DropClass 'SP16_5';
+EXEC tSQLt.DropClass 'SP16';
 
 
 -- +migrate Up
-CREATE PROCEDURE SP16_5.SetUp
+CREATE PROCEDURE SP16.SetUp
 AS
 BEGIN
    	--Arrange
@@ -93,7 +93,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_5].[Test amout of players in a first poule]
+CREATE PROCEDURE [sp16].[Test amout of players in a first poule]
 AS 
 BEGIN
 	--Act
@@ -114,7 +114,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_5].[Test amout of players in a normal poule]
+CREATE PROCEDURE [sp16].[Test amout of players in a normal poule]
 AS 
 BEGIN
 	--Arrange
@@ -139,7 +139,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_5].[Test amout of players in a finale poule]
+CREATE PROCEDURE [sp16].[Test amout of players in a finale poule]
 AS 
 BEGIN
 	--Arrange
@@ -164,7 +164,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_5].[Test a first poule is made based on chessclub]
+CREATE PROCEDURE [sp16].[Test a first poule is made based on chessclub]
 AS 
 BEGIN
 	--Act
@@ -181,7 +181,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_5].[Test a normal poule is made based on score]
+CREATE PROCEDURE [sp16].[Test a normal poule is made based on score]
 AS 
 BEGIN
 	--Arrange
@@ -222,7 +222,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_5].[Test a finale poule is made based on score]
+CREATE PROCEDURE [sp16].[Test a finale poule is made based on score]
 AS 
 BEGIN
 	--Arrange
@@ -263,7 +263,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_5].[Test there is no round with this roundnumber in this tournament]
+CREATE PROCEDURE [sp16].[Test there is no round with this roundnumber in this tournament]
 AS 
 BEGIN
 	--Act
@@ -275,7 +275,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_5].[Test if a chessclub does not exist]
+CREATE PROCEDURE [sp16].[Test if a chessclub does not exist]
 AS 
 BEGIN
 	--Act
@@ -287,7 +287,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_5].[Test if a tournament name does not exist]
+CREATE PROCEDURE [sp16].[Test if a tournament name does not exist]
 AS 
 BEGIN
 	--Act
@@ -299,7 +299,7 @@ END;
 
 
 -- +migrate Up
-CREATE PROCEDURE [SP16_5].[Test if a round has a round robin system]
+CREATE PROCEDURE [sp16].[Test if a round has a round robin system]
 AS 
 BEGIN
 	--Arange
