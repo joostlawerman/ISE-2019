@@ -25,7 +25,6 @@ CREATE PROCEDURE SP29.test_select_matches_of_poule AS
         FROM CHESSMATCH_OF_POULE
         WHERE roundnumber = 4
 
-
         EXEC tSQLt.ExpectNoException
 
         SELECT *
@@ -44,7 +43,7 @@ CREATE PROCEDURE SP29.test_cannot_match_form_poule_without_chessclub AS
 
         EXEC tSQLt.ExpectException 'There are no matches for this poule'
 
-        INSERT INTO actual EXEC SP_GET_MATCHES_OF_POULE null, 'test', 4, 1
+         EXEC SP_GET_MATCHES_OF_POULE null, 'test', 4, 1
     END;
 
 -- +migrate Up
@@ -53,7 +52,7 @@ CREATE PROCEDURE SP29.test_cannot_match_form_poule_without_tournament AS
 
         EXEC tSQLt.ExpectException 'There are no matches for this poule'
 
-        INSERT INTO actual EXEC SP_GET_MATCHES_OF_POULE 'Test', 4, 1
+        EXEC SP_GET_MATCHES_OF_POULE 'Test', NULL , 4, 1
     END;
 
 -- +migrate Up
@@ -62,7 +61,7 @@ CREATE PROCEDURE SP29.test_cannot_match_form_poule_without_roundnumber AS
 
         EXEC tSQLt.ExpectException 'There are no matches for this poule'
 
-        INSERT INTO actual EXEC SP_GET_MATCHES_OF_POULE 'Test', 'test', 5, 1
+        EXEC SP_GET_MATCHES_OF_POULE 'Test', 'test', 5, 1
     END;
 
 -- +migrate Up
@@ -71,5 +70,5 @@ CREATE PROCEDURE SP29.test_cannot_match_form_poule_with_incorrect_pouleno AS
 
         EXEC tSQLt.ExpectException 'There are no matches for this poule'
 
-        INSERT INTO actual EXEC SP_GET_MATCHES_OF_POULE 'Test', 'test', 4, 5
+        EXEC SP_GET_MATCHES_OF_POULE 'Test', 'test', 4, 5
     END;
