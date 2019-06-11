@@ -2,7 +2,7 @@
 CREATE PROC SP_UPDATE_TOURNAMENT (
 	@chessclubname varchar(100),
 	@tournamentname varchar(100),
-	@winner int,
+	@winner int = null,
 	@contactname varchar(100),
 	@starts datetime,
 	@registrationfee money,

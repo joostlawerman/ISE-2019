@@ -1,13 +1,13 @@
 -- +migrate Up
 CREATE PROCEDURE SP_CREATE_PLAYER
-@chessclubname varchar(100),
+@chessclubname varchar(100) = null,
 @firstname varchar(50),
 @lastname varchar(50),
 @addressline1 varchar(100),
 @postalcode varchar(6),
 @city varchar(100),
 @birthdate date,
-@email varchar(256),
+@email varchar(256) = null,
 @gender char(1)
 AS
 BEGIN

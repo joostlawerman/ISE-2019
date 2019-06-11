@@ -4,7 +4,7 @@ CREATE PROC SP_CREATE_CHESSCLUB (
 	@city varchar(100),
 	@addressline1 varchar(100),
 	@postalcode varchar(6),
-	@emailaddress varchar(256))
+	@emailaddress varchar(256) = null)
 AS
 BEGIN
 	DECLARE @orginTranCount INT
