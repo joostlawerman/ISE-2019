@@ -6,7 +6,7 @@ CREATE PROC SP_UPDATE_PLAYER_PARTICIPATES (
 	@chessclubname varchar(100),
 	@tournamentname varchar(100),
 	@playerid int,
-	@participates int)
+	@participates bit)
 AS
 BEGIN
 	DECLARE @orginTranCount INT

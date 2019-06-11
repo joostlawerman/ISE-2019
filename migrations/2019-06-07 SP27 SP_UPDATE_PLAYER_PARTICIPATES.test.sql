@@ -29,7 +29,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [SP27].[Test if a player is participation]
+CREATE PROCEDURE [SP27].[Test if a player is participating]
 AS 
 BEGIN
 	--Act
@@ -43,7 +43,7 @@ BEGIN
 END;
 
 -- +migrate Up
-CREATE PROCEDURE [SP27].[Test if a player is not participation]
+CREATE PROCEDURE [SP27].[Test if a player is not participating]
 AS 
 BEGIN
 	--Act
