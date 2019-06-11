@@ -88,3 +88,25 @@ BEGIN
 	--Assert
 	EXEC SP_UPDATE_PLAYER_PARTICIPATES 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 4, 0
 END;
+
+-- +migrate Up
+CREATE PROCEDURE [SP27].[Test if a player is already not participating]
+AS 
+BEGIN
+	--Act
+	EXEC tSQLt.ExpectException @ExpectedMessage = 'This player is already not participating'
+
+	--Assert
+	EXEC SP_UPDATE_PLAYER_PARTICIPATES 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 3, 0
+END;
+
+-- +migrate Up
+CREATE PROCEDURE [SP27].[Test if a player is already participating]
+AS 
+BEGIN
+	--Act
+	EXEC tSQLt.ExpectException @ExpectedMessage = 'This player is already participating'
+
+	--Assert
+	EXEC SP_UPDATE_PLAYER_PARTICIPATES 'Schaakvereniging Horst', 'Eerste schaaktoernooi', 2, 1
+END;
