@@ -166,7 +166,7 @@ DROP TABLE SPONSOR;
 DROP TABLE POULE;
 -- +migrate Down
 DROP TABLE TOURNAMENT_ROUND;
--- +migrate down
+-- +migrate Down
 DROP TABLE SYSTEMS;
 -- +migrate Down
 DROP TABLE TOURNAMENT_PLAYER;
